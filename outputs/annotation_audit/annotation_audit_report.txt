@@ -1,0 +1,120 @@
+Indian Currency YOLO Annotation Audit
+======================================================================
+
+Dataset: C:\Users\Tanisha\OneDrive\Desktop\IndianCurrency_YOLO11_MobileNetV2\dataset\yolo11
+
+SUMMARY
+----------------------------------------------------------------------
+Total images: 5600
+Total boxes: 5600
+Total problems: 86
+Groups appearing in multiple splits: 0
+
+SPLIT STATISTICS
+----------------------------------------------------------------------
+train: images=3923, boxes=3923, problems=52
+val: images=836, boxes=836, problems=14
+test: images=841, boxes=841, problems=20
+
+CLASS DISTRIBUTION
+----------------------------------------------------------------------
+class 0 (₹10): 800 boxes
+class 1 (₹20): 800 boxes
+class 2 (₹50): 800 boxes
+class 3 (₹100): 800 boxes
+class 4 (₹200): 800 boxes
+class 5 (₹500): 800 boxes
+class 6 (₹2000): 800 boxes
+
+GROUP LEAKAGE
+----------------------------------------------------------------------
+NONE
+
+PROBLEMS
+----------------------------------------------------------------------
+train | 100_70.jpg | VERY_LARGE_BOX line=1 area=0.960863
+train | 100_70_315.jpg | VERY_LARGE_BOX line=1 area=0.958799
+train | 100_70_45.jpg | VERY_LARGE_BOX line=1 area=0.958799
+train | 100_70_b.jpg | VERY_LARGE_BOX line=1 area=0.960863
+train | 100_71_315.jpg | VERY_LARGE_BOX line=1 area=0.951747
+train | 100_71_45.jpg | VERY_LARGE_BOX line=1 area=0.951747
+train | 100_77.jpg | VERY_LARGE_BOX line=1 area=0.968139
+train | 100_77.jpg | BORDER_TOUCH line=1
+train | 100_77_315.jpg | VERY_LARGE_BOX line=1 area=0.972646
+train | 100_77_315.jpg | BORDER_TOUCH line=1
+train | 100_77_45.jpg | VERY_LARGE_BOX line=1 area=0.972646
+train | 100_77_45.jpg | BORDER_TOUCH line=1
+train | 100_77_b.jpg | VERY_LARGE_BOX line=1 area=0.968139
+train | 100_77_b.jpg | BORDER_TOUCH line=1
+train | 100_78.jpg | BORDER_TOUCH line=1
+train | 100_78_b.jpg | BORDER_TOUCH line=1
+train | 100_89_315.jpg | VERY_LARGE_BOX line=1 area=0.951747
+train | 100_89_45.jpg | VERY_LARGE_BOX line=1 area=0.951747
+train | 100_9.jpg | BORDER_TOUCH line=1
+train | 100_92_315.jpg | VERY_LARGE_BOX line=1 area=0.955952
+train | 100_92_45.jpg | VERY_LARGE_BOX line=1 area=0.955952
+train | 100_94.jpg | VERY_LARGE_BOX line=1 area=0.956312
+train | 100_94_315.jpg | VERY_LARGE_BOX line=1 area=0.964507
+train | 100_94_45.jpg | VERY_LARGE_BOX line=1 area=0.964507
+train | 100_94_b.jpg | VERY_LARGE_BOX line=1 area=0.956312
+train | 100_9_b.jpg | BORDER_TOUCH line=1
+train | 10_18.jpg | BORDER_TOUCH line=1
+train | 10_18_b.jpg | BORDER_TOUCH line=1
+train | 200_2.jpg | BORDER_TOUCH line=1
+train | 200_2_b.jpg | BORDER_TOUCH line=1
+train | 200_72.jpg | BORDER_TOUCH line=1
+train | 200_72_b.jpg | BORDER_TOUCH line=1
+train | 200_96.jpg | BORDER_TOUCH line=1
+train | 200_96_315.jpg | BOX_OUTSIDE_IMAGE line=1 x1=0.205373 y1=0.274654 x2=0.931050 y2=1.000331
+train | 200_96_315.jpg | BORDER_TOUCH line=1
+train | 200_96_45.jpg | BOX_OUTSIDE_IMAGE line=1 x1=0.274654 y1=0.068950 x2=1.000331 y2=0.794628
+train | 200_96_45.jpg | BORDER_TOUCH line=1
+train | 200_96_b.jpg | BORDER_TOUCH line=1
+train | 500_51.jpg | BORDER_TOUCH line=1
+train | 500_51_b.jpg | BORDER_TOUCH line=1
+train | 500_57.jpg | BORDER_TOUCH line=1
+train | 500_57_b.jpg | BORDER_TOUCH line=1
+train | 500_58.jpg | BORDER_TOUCH line=1
+train | 500_58_b.jpg | BORDER_TOUCH line=1
+train | 500_68.jpg | BORDER_TOUCH line=1
+train | 500_68_b.jpg | BORDER_TOUCH line=1
+train | 500_72.jpg | BORDER_TOUCH line=1
+train | 500_72_b.jpg | BORDER_TOUCH line=1
+train | 500_82.jpg | BORDER_TOUCH line=1
+train | 500_82_b.jpg | BORDER_TOUCH line=1
+train | 500_90.jpg | BORDER_TOUCH line=1
+train | 500_90_b.jpg | BORDER_TOUCH line=1
+val | 100_56.jpg | BORDER_TOUCH line=1
+val | 100_56_b.jpg | BORDER_TOUCH line=1
+val | 200_156.jpg | BORDER_TOUCH line=1
+val | 200_156_b.jpg | BORDER_TOUCH line=1
+val | 200_17.jpg | BORDER_TOUCH line=1
+val | 200_17_b.jpg | BORDER_TOUCH line=1
+val | 200_47.jpg | BORDER_TOUCH line=1
+val | 200_47_b.jpg | BORDER_TOUCH line=1
+val | 500_67.jpg | BORDER_TOUCH line=1
+val | 500_67_b.jpg | BORDER_TOUCH line=1
+val | 500_69.jpg | BORDER_TOUCH line=1
+val | 500_69_b.jpg | BORDER_TOUCH line=1
+val | 500_71.jpg | BORDER_TOUCH line=1
+val | 500_71_b.jpg | BORDER_TOUCH line=1
+test | 100_30_315.jpg | VERY_LARGE_BOX line=1 area=0.953900
+test | 100_30_45.jpg | VERY_LARGE_BOX line=1 area=0.953900
+test | 100_85.jpg | VERY_LARGE_BOX line=1 area=0.957864
+test | 100_85_315.jpg | VERY_LARGE_BOX line=1 area=0.964507
+test | 100_85_45.jpg | VERY_LARGE_BOX line=1 area=0.964507
+test | 100_85_b.jpg | VERY_LARGE_BOX line=1 area=0.957864
+test | 200_149.jpg | BORDER_TOUCH line=1
+test | 200_149_b.jpg | BORDER_TOUCH line=1
+test | 500_48.jpg | VERY_LARGE_BOX line=1 area=0.987555
+test | 500_48.jpg | BORDER_TOUCH line=1
+test | 500_48_315.jpg | VERY_LARGE_BOX line=1 area=0.993802
+test | 500_48_315.jpg | BORDER_TOUCH line=1
+test | 500_48_45.jpg | VERY_LARGE_BOX line=1 area=0.993802
+test | 500_48_45.jpg | BORDER_TOUCH line=1
+test | 500_48_b.jpg | VERY_LARGE_BOX line=1 area=0.987555
+test | 500_48_b.jpg | BORDER_TOUCH line=1
+test | 500_59.jpg | BORDER_TOUCH line=1
+test | 500_59_b.jpg | BORDER_TOUCH line=1
+test | 50_20.jpg | BORDER_TOUCH line=1
+test | 50_20_b.jpg | BORDER_TOUCH line=1
