@@ -1,10 +1,37 @@
-@"
 .venv/
+dataset/
+
+blockchain_log.json
+
+private_key.pem
+public_key.pem
+
+streamlit_temp/
+temp_uploads/
+
 __pycache__/
 *.pyc
+
+*.zip
+
+*.jpg
+*.png
+
+outputs/
+
+# Streamlit
+.streamlit/
+
+# Outputs
+outputs/
+temp_test/
+
+# Training runs
 runs/
-dataset/
-.env
+
+# Logs
 *.log
-.ipynb_checkpoints/
-"@ | Set-Content .gitignore
+
+# OS
+.DS_Store
+Thumbs.db

@@ -19,7 +19,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 YOLO_MODEL_PATH = (
     PROJECT_ROOT
     / "runs"
-    / "currency_yolo11n"
+    / "currency_yolo11n-3"
     / "weights"
     / "best.pt"
 )
@@ -27,8 +27,8 @@ YOLO_MODEL_PATH = (
 MOBILENET_MODEL_PATH = (
     PROJECT_ROOT
     / "runs"
-    / "mobilenetv2"
-    / "best_mobilenetv2.pt"
+    / "authenticity_new"
+    / "best_authenticity_mobilenetv2_new.pt"
 )
 
 TEST_IMAGES_DIR = (
@@ -95,6 +95,7 @@ MOBILENET_CLASS_NAMES = [
     "2000",
     "50",
     "500",
+    "2000",
 ]
 
 
@@ -185,8 +186,8 @@ mobilenet_model = models.mobilenet_v2(
 )
 
 mobilenet_model.classifier[1] = nn.Linear(
-    mobilenet_model.classifier[1].in_features,
-    7,
+    mobilenet_model.last_channel,
+    2
 )
 
 mobilenet_model.load_state_dict(

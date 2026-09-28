@@ -8,7 +8,7 @@ from ultralytics import YOLO
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
 DATASET_DIR = PROJECT_ROOT / "dataset" / "yolo11"
-MODEL_PATH = PROJECT_ROOT / "runs" / "currency_yolo11n" / "weights" / "best.pt"
+MODEL_PATH = PROJECT_ROOT / "runs" / "currency_yolo11n-3" / "weights" / "best.pt"
 OUTPUT_DIR = PROJECT_ROOT / "outputs" / "yolo11_predictions"
 
 # ---------------------------------------------------------

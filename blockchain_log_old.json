@@ -1,0 +1,1178 @@
+[
+    {
+        "timestamp": "1790240166.6261513",
+        "data": {
+            "serial_number": "0AA 000000",
+            "denomination": "200",
+            "authenticity": "FAKE",
+            "denomination_confidence": 82.91,
+            "authenticity_confidence": 99.87,
+            "saved_at": "2026-09-24 14:26:06.626151"
+        },
+        "previous_hash": "0",
+        "hash": "8959b3ba2bc3cf2c6ab17eac6dac705e91519b0c1a3f62dc79cf5431b6fa4b0c",
+        "signature": "5faa499b0c13c4eab2428eb1ba9860ce5eda6b51314c06f7bfee0a0b274e8523439b29af07b3f6b12907bc8f34555fabff8d619d77de66a6c708147b49f1592ab63c85b5478e0d568e88d40eacdb76b6c7a77e2924027ec2f256101d57a890ca1099dc01a2480c95d624ff2ad93bf71f76a0074f5d6e55604fdc9405da98d65d7fb098fa2a20c55dc669170efe091e995a6951765ac6607fb79178019a8d05ea17f3671ea054f5b1c25fa0de1910706e8ca01efe2c2c830fdf9df07288b87e1e40fdd2674d6248046401556620b6ca567e52e8fa8d41aec0b180bc836b644307fbe16dfa4d2863a39cece53d3272aa4dc9bf34f21123d10a8a1e07f5790d3d01"
+    },
+    {
+        "timestamp": "1790244164.4155772",
+        "data": {
+            "serial_number": "NOT_FOUND",
+            "denomination": "10",
+            "authenticity": "REAL",
+            "denomination_confidence": 55.29,
+            "authenticity_confidence": 97.91,
+            "scan_time": "24-09-2026 15:32:44"
+        },
+        "previous_hash": "8959b3ba2bc3cf2c6ab17eac6dac705e91519b0c1a3f62dc79cf5431b6fa4b0c",
+        "hash": "ea65617605f4db9da2ae0ecfae8052661c4e4ce327c66ede8830c26966e9a805",
+        "signature": "3c3820cdcd47fba54a7c7a8c3b664855e4fad52fb4348e22944a6d281c879b04889295e3739c73e95ff154e169f777bd80ed66750c4dc1b077ef2437b30bb97fc8ac45b347835b22a3e6c3374c115e1a59ad539a933eb363ab6ed3bd9ba55e9827f88a4c13b1d99f7a5e6858ded4e41b2767bb30d28c419f85a5ec57c972384783556991ccad19a20972c387dec485f1e6c6618d31087394a97d79a1836ab5f90f0f005185054e6c6c0fead3022e442ddc4afccebd9664846f56e96ab25ceb2c9021afd0f7e5a646f453aef2457df1e5d6105c341842c5f174e30e366de6e124a282ba810d6168dc994eae0c40960b36476bf8cf7ac177adc5c41f2d840d9e5b"
+    },
+    {
+        "timestamp": "1790244819.8954637",
+        "data": {
+            "serial_number": "0AA 000000",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 82.91,
+            "authenticity_confidence": 99.87,
+            "scan_time": "24-09-2026 15:43:39"
+        },
+        "previous_hash": "ea65617605f4db9da2ae0ecfae8052661c4e4ce327c66ede8830c26966e9a805",
+        "hash": "095ec313a20a65b3533056e93decea48571068e7e08fa3ed3f6842cf543f396c",
+        "signature": "081f76eb0747550752d95bae9a664bc6b458d63372de93307e543f459a36d17d1d6767a788887c71424a9235107b43c9e0e81aa7c9877521765679578794bffd33df2616b79b33698ce77ebf398a4588b8a2bd247d62c5101b49efae96dead22a5bed2e2a0cab85245cb24457685c0e9f7983b598bb0a700463ac1aa40ba14be6da887c7f1ddb1ff56fd77e8536d8402ea1e98c6577b31f23c7fd77648d323c3236ea6268bdc04f074c4853854a927dced0d993f6e87cfcfcd797ce5bd9e1647c9653fd417413c2e0d57e4b8a636bfbd599f1b493490e3af1196237935a7b4d39acf00bd7425d90d472dd68a773065214b493853ef4eb059a5956c3fce37bc50"
+    },
+    {
+        "timestamp": "1790244904.868301",
+        "data": {
+            "serial_number": "7GE 947099",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 63.96,
+            "authenticity_confidence": 99.67,
+            "scan_time": "24-09-2026 15:45:04"
+        },
+        "previous_hash": "095ec313a20a65b3533056e93decea48571068e7e08fa3ed3f6842cf543f396c",
+        "hash": "69bdfe1da4af38920c8c6bc11aebb149c63a5c23b343284a80251a33091d2fe1",
+        "signature": "534ffaa7a0c088692161bfb7873b6862ceaea3987e4a47b102a6e41a3031856ae4e2b5c80bdfa6d0661b3e2a337fa5eba20a2f3b27b6c6138d76e8e45c694ea95df3e1fea386c37a9107eda08a4b9085ba4d214fb56543fb7a49847f2f7d4490c4be06b4e5d32b38c46b53c514fb3456be2a000f97275dcd0d54f52f828ca0cd27563a628ebbd905c71c6a84c6c8de9c6b519f5994750a23ebd3c50059f383919d8774706bafb6e697f6eff20ba3bb22b9d1dcc60534a8d51d56c67f1abc56ccb412bd0894fea657a29af69c03983dc66b675fedc9d7c2b332218d24e6993d59a937308cf77f779112f9650b5a5b126d6e4f735eafb33bc106914bb8b6ede11f"
+    },
+    {
+        "timestamp": "1790245024.4862244",
+        "data": {
+            "serial_number": "0AA 000000",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 82.91,
+            "authenticity_confidence": 99.87,
+            "scan_time": "24-09-2026 15:47:04"
+        },
+        "previous_hash": "69bdfe1da4af38920c8c6bc11aebb149c63a5c23b343284a80251a33091d2fe1",
+        "hash": "972c023fea461738227b35a4e1f2588df062debea7bd1ceeb5ba3610f907c8fd",
+        "signature": "3a6b603b8e426eb50e4293056094e68a7d6d8429c362e22ebdadbce8f1094bba0aeef7191ea4cc667fba65f4ab4e7f9b7aa3f768067b9ffaa48a8b25792b84486b61611642ff152ce41bf57fa44052dbe8e95c75159b84485cfa9399ba6aa7ffd9dad21f30b914d391b233a09265bf2f4f53f020554a0ffbefa1649a9cb7a3bf633e70395d0bab20b76ff46ea77606dd7744ebff27dea534777167150f139c34b27689933f03f6005062aad9fa8172638fc8a9426a5f7f0e6385bc60540a37b072bad54f80149d6066b46962ac972d77bd0dcc8336dde7c98eb765d2f9b9064b47dd0b8d7c4af4415651b89204a033eee450a694988340b8c1b65229a87dbbbe"
+    },
+    {
+        "timestamp": "1790245069.0523176",
+        "data": {
+            "serial_number": "0AA 000000",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 84.11,
+            "authenticity_confidence": 99.76,
+            "scan_time": "24-09-2026 15:47:49"
+        },
+        "previous_hash": "972c023fea461738227b35a4e1f2588df062debea7bd1ceeb5ba3610f907c8fd",
+        "hash": "88189640105ab9b99af7bafd31f6c533d80f41562d1b81f9efaa825108c463aa",
+        "signature": "68b686b3604f6e7f682f3c9c20607b20a108ca2480ecb5a1a132b3325a1f16ea2e0da317ff1c964f78c488e7bfe103c05d9429bd6d43305115fd1bed2c20715294030b3f093f6416789d6c45669325e5396a2819dcb9f2ac0e0210e410cd976fa488b04a8ec710bbef1d2b1155de2f0deab43a45b776a92541c73f29d519ff66459379ea2be63fab1644344726a8d55467f85b823ce555216982c29b39834e96097941ae3bdab2552680a1ceda977c7b695d4354d312368b966f81f6fecb001f77295826d4899fd17000310febef4379ec72fa30782028ee8fd527211283a69570738bc8c82a90bbc4446fd2ef5f0767ba55953d253dd53860fdeb274e532f81"
+    },
+    {
+        "timestamp": "1790245859.874858",
+        "data": {
+            "serial_number": "7GE 947099",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 63.96,
+            "authenticity_confidence": 99.67,
+            "scan_time": "24-09-2026 16:00:59"
+        },
+        "previous_hash": "88189640105ab9b99af7bafd31f6c533d80f41562d1b81f9efaa825108c463aa",
+        "hash": "e7a1d41732bfde8da0d22c835e7a696c2615ea55b4e13d763025a1b626183762",
+        "signature": "4f19a75dc4bc4f643a3ff708397051383b55e0d49e8b1b5d3722a4ea9364793fa4c333a60bc810377a076783296413873e1d1b43d8e2930fb823f275c93ec1cbcf5c1461d07b41f43fc15af1b6d86ca0a21e35bbbf5526c2513f48f3280f4868e5dd374180bdef584bff3e1429c1a2a98ec38fdb23fe72b881a1f73de2d53d2a062a8dac7c1ea8758c8dbc040064fea827ad6419760d3c86006ba9d3fdfd207cc3b22fe1711dd6bda368828a2fdfa19ae97e659884d05310d43b2c4745bc3dd9ffee31ca58e83f42719d5a00339f8211557fb1517477d0f3a0fb66cdd38795d6a4ed8cace9720a6cbc8e68e919a583fd8be8eb8d664c394c22abbd22e3c45904"
+    },
+    {
+        "timestamp": "1790246325.6631942",
+        "data": {
+            "serial_number": "7GE 947099",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 63.96,
+            "authenticity_confidence": 99.67,
+            "scan_time": "24-09-2026 16:08:45"
+        },
+        "previous_hash": "e7a1d41732bfde8da0d22c835e7a696c2615ea55b4e13d763025a1b626183762",
+        "hash": "5500777a227dac0708cdc37ba76f9d9de30fc68150ec1087d6ecd39ab464dbfe",
+        "signature": "716887037f8f3c83dd480406a0ec22246da82837b56c1946b3dd05a4162962085ce0808a65625a171c7eb0014388751ccbbd73eb29a2641a89b3679d63b0beee15d5eaa3614e3f7173bebabd047179d10d370bdabddd0699299f04ff263e1f6ae7ebdbf6071b3327f8ef17c3b0274df81b889d626cddf5f8de19a0b29ffa9e4374d88a5a862a224c1a0c468dbd2d36285cd0cc73fe3e37435da18f80d11bc93c9f30df01dc89b6ae2c458ef3b34388757406599c2c3bddf152df34103473e59d460bade887aece34d4166cb67c86e29aa114d6f825df2ed94e27cf7640cb8e701e33eba41dd0ec0bc62ab4dbd791ac88b81f2b408add1991697ddbe13fd6433b"
+    },
+    {
+        "timestamp": "1790246752.4217465",
+        "data": {
+            "serial_number": "7GE 947099",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 63.96,
+            "authenticity_confidence": 99.67,
+            "scan_time": "24-09-2026 16:15:52"
+        },
+        "previous_hash": "5500777a227dac0708cdc37ba76f9d9de30fc68150ec1087d6ecd39ab464dbfe",
+        "hash": "decb6503f110500b0a3cfbf7f6820bc2c1caea9bf1d92b0ccd0ef43c114d5089",
+        "signature": "198fab046cdce7305ccc92b72164428911cc549af1eff730893d385227bb006083fbfaf5eccd6c25e6187a2ab35b97d70c025e1bb1f98c11e89a86cf2f9a7f02a12900b2e08da7c67eebcb8bae67e27ee355e4d383c25d1a3fe0c3f11202f1732d053ba8cea2baa393a685895e3139300652a3efc48deb80854b113c853e95754cc0f41db1f8beed1b3050cc36a133d13beb2d99b5717368241111025b2997c77af6c9bc58531aa18d1629e76e7f60b5944aea685cb2cec03b58204e39d2ca4a9d4627c2c1458c316c2a9f3820ca434496769f57c5e1bf40d22e71d5a7018c1f37255bca17dde081cc5c0e545c638a4aa79ac98fc2469f0f8fc822fbe7cc6d73"
+    },
+    {
+        "timestamp": "1790247365.8712218",
+        "data": {
+            "serial_number": "7GE 947099",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 63.96,
+            "authenticity_confidence": 99.67,
+            "scan_time": "24-09-2026 16:26:05"
+        },
+        "previous_hash": "decb6503f110500b0a3cfbf7f6820bc2c1caea9bf1d92b0ccd0ef43c114d5089",
+        "hash": "29f2cc01e90d7a6d78562f0001dfc94c4d133acf6a4db364054a8f6c2bbc065f",
+        "signature": "1a31535308e0fa528e3da2a33c7d3886559f7d666255076d653b632034913261ab53f4603068ca9959afab60c10b01510bb6ed2ab2755259275ba4729e8eb2cba2ff2832842a0bfde238606682984da6fd7c354954fc13c150af8b5cbc93bc58446d4630a5a8983f3cffd44809327026ef463cc76a878b4bc5acbe8fbe2690f459f9b6290eee5ee7497bdb6f986bf919742266160d445f54561315a21b054eac5adb6141928f6f599a12431a78a05f63216f074fd674d0d211b5b1c944c69f4d0308d9f4696e6e76217a8c312edee97080163755fcf5ddb9b94713501e1c4d5ff198cbf29745f21bbe328141e97fdadc48b4006a2a98c2e11b9e7c8b5ffda1ab"
+    },
+    {
+        "timestamp": "1790247605.79047",
+        "data": {
+            "serial_number": "7GE 947099",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 63.96,
+            "authenticity_confidence": 99.67,
+            "scan_time": "24-09-2026 16:30:05"
+        },
+        "previous_hash": "29f2cc01e90d7a6d78562f0001dfc94c4d133acf6a4db364054a8f6c2bbc065f",
+        "hash": "35e03bcdbb5e3a65098a82655fd4a200509ebe9dbb8d3a6f40a1fb978f40543e",
+        "signature": "10bfd1636613b6875ee880f29313f7c15797082e16b33f2150af297cb9dee23d95d4e3d5cd8e470563159cb4e55f289c383fdd8423b0657ddcfaeff15bdc53c29139aee2e0b6b58837bece7db103b70954acb3d94968e9dea04871f332c69464a8b09368555547c72e5a4bdbe922d6326b7cc56db0a471a7148e427656b1dc571cf933b8ca282c101b83771bb472fc2345e6c18c6938fc68ea01246e3cda3cffb5634c2ebcdca06b33219121e452037326d5c9f74d32d2b0c201ab73c6f6d7108d7377dd1075f85e5917dc52890511d8a0412e1c5293352c25ec83aeddeeace021a2cf0289c794e1bd78dcc47ae4e08610e931215aa3e58ddb860259f5d7b952"
+    },
+    {
+        "timestamp": "1790247703.6372423",
+        "data": {
+            "serial_number": "7GE 947099",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 63.96,
+            "authenticity_confidence": 99.67,
+            "scan_time": "24-09-2026 16:31:43"
+        },
+        "previous_hash": "35e03bcdbb5e3a65098a82655fd4a200509ebe9dbb8d3a6f40a1fb978f40543e",
+        "hash": "0fae060e9b4a1cd3c002718651db330c13c53505a2032b6134ea11be28ad0854",
+        "signature": "6225857806957753c5b9a5d74b3efb346261c72e294ccb032e39f9578391626d2ae553e115c75ab678bce64887df5cf3060b67bc5d6970d488964bb644c34e6d3d35537b5478cd4c4f74141acb99b7da08744d210a8be12a7942e5e1964d8a02978b96c619477f6a32591da6f47c71a3f54ba9e53840ef517844630a6f00860ff47c5e1ab1bd1f926892ffb1bc9573c7209eb665002fa591c0b1073ba81aebce1ba221f88a70a00eed3c0fe1e903db4b52a2debf0dca583926636c1d217b14dc9fdc9cbf263aaed0f901c98d7f3e7ee7bb45091c8d916d8000de124ae26922adf995e67ca3db83ed43cd4a32e3964aec0173de1659fd3b013af3de45a5dc1d91"
+    },
+    {
+        "timestamp": "1790247839.4613738",
+        "data": {
+            "serial_number": "7GE 947099",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 63.96,
+            "authenticity_confidence": 99.67,
+            "scan_time": "24-09-2026 16:33:59"
+        },
+        "previous_hash": "0fae060e9b4a1cd3c002718651db330c13c53505a2032b6134ea11be28ad0854",
+        "hash": "6680c74fa3e0af0917db29498ac5907ddf3ecc76548c977c72994175e7ebd939",
+        "signature": "72666e7b6f3fca6f9dc92cd23e2d0085d418494f944c5a0ca5643fbc3b08a7e61834dab8b82de83a310a967d45abeb1265bfc8f85e4c1a9097b9c6ecd498eeb1bbc1c71c55b038d2af979c2a0cd5f171c26bb1c146d7678ae15e8cafd71a4bd0d7776af2354ecbea6eb7d4c3b0fe68f42e8a69b907fc09695294b78919badb191aecba8d25e4fdcc59653eee0bc224294878d7ce5af89b15a02916c626645c3d439ba715a1d1236690a1b4dabe3d1b0121fc845c1fd1c72d7e6661dd1707b9e6c715937a646e011d1b4e2de68724490a6c6211ff21da809535cb3e3a75488c96e3b992007e5614c6b58d9b6259ad2f6af4399174687a11e21ddeff82976bf354"
+    },
+    {
+        "timestamp": "1790248133.5347388",
+        "data": {
+            "serial_number": "7GE 947099",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 63.96,
+            "authenticity_confidence": 99.67,
+            "scan_time": "24-09-2026 16:38:53"
+        },
+        "previous_hash": "6680c74fa3e0af0917db29498ac5907ddf3ecc76548c977c72994175e7ebd939",
+        "hash": "8e3c2e57216e51d6d7b20e0d5c79184b4537c4b1ff414b4848c18493b9b31bb1",
+        "signature": "45e8f17965addd2b1b3f466eb2e3ee4a1becaf43ec4b8f1bd375adcbe7f42df1cecf5cac359a0f9fd70f235ede651cbd747043d594168f777d14bd34f23fa2c3bd386def8d9615dca8c12e9ba187fbccb833b04bacd8259c6c7f5f52b1ed52f7f280ad80d53b239575415ac4476f4613a828b66111b632c028ce7bc763fe75c8c7ef8ea1eb65f894a2e6e4312ce590d8966921aa685b3fd9ad49eef9724b0ead81b2fbdc4af8e0b278e71b1a2f648f9b8e28f8e6b65cfda4cff5f3fac91a27c063664bd2742d0c9de29b00c6e5c582ac09470989c18a12c7e47458c034a190e7a6e8935f11c716274f450249305e7fe6bad14b1653491865d182a0976ce6d95e"
+    },
+    {
+        "timestamp": "1790248266.2771862",
+        "data": {
+            "serial_number": "7GE 947099",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 63.96,
+            "authenticity_confidence": 99.67,
+            "scan_time": "24-09-2026 16:41:06"
+        },
+        "previous_hash": "8e3c2e57216e51d6d7b20e0d5c79184b4537c4b1ff414b4848c18493b9b31bb1",
+        "hash": "b8dd27005640d43f2f2a91517de23d6688f87ca09a8ce20a9169b5ad1ccbbf6f",
+        "signature": "6b8d7f6095e6ac256a11e6b432e48b701eb9a37afaee7ebfe4195db6ea54d55cb22a76724db20f04ec16bbad12ea6b5eb8ca6a42b4baef24096348c9f05b66e5cbee56370c795739f4a4db7f00535e011877313b3757dd3c9493df65ad7c8584248b605dc5d486bbe72e20a64c1762d166e8bb197e8c936f8ed59f75334c5052037148d8e7b0929c1324f3630f8d121dd57dfa9c2c63bb3e627d3e68b38489dbc438fbeb66e82ade436c67968e3ed713ba17b4da2c0c43c1b60058067a84a4ca844ed59a1f45efa7d3e3cd9ef86846922efd5bd9aa948d0843458c2fb0fa5e1a565eae754ccb7824f3fdf1ccdc34bf7fe21ff4b18a8eafbc6d5a72e71efd9723"
+    },
+    {
+        "timestamp": "1790248398.0739226",
+        "data": {
+            "serial_number": "7GE 947099",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 63.96,
+            "authenticity_confidence": 99.67,
+            "scan_time": "24-09-2026 16:43:18"
+        },
+        "previous_hash": "b8dd27005640d43f2f2a91517de23d6688f87ca09a8ce20a9169b5ad1ccbbf6f",
+        "hash": "510018774aa6e411fc5b11d20a8930305d225073f44d16bc26327b3bb5597f20",
+        "signature": "177a00ee80b86f478687276579a3b136f39a4cdc081fb95cd3a1b6be6d21853b1f73ee2b8c028528dd004809f53ec582e16dcca07329771a1b020026b4b776f79e75e9ed7efc532768fe712eef14bb82beec3dddebdca59011a6d3e20b4c7f4e7204cba49096d37c798fa35555d3b24602163b02c175804e36e3474753124e981f5a1982f0d741350c037c938389e26f07283cb8f01f8b178029114a12f67e9e8b3fdc264e01b06b52bd3b395db4919d1d24c95278db09577b84350be8bfa1b35c8cfe988b02654ced8ffd80d828c40eb8f15f257d2b0e807e25cd5e5609afe72dea5f47975ce763186ae2b4166cb5bb0342b3cfbdf4bf8811e3aed391ef31dc"
+    },
+    {
+        "timestamp": "1790248658.9671302",
+        "data": {
+            "serial_number": "7GE 947099",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 63.96,
+            "authenticity_confidence": 99.67,
+            "scan_time": "24-09-2026 16:47:38"
+        },
+        "previous_hash": "510018774aa6e411fc5b11d20a8930305d225073f44d16bc26327b3bb5597f20",
+        "hash": "df18442f876df785361a2dfb852895a295ad6406c9950026c60205f899fb76a0",
+        "signature": "02b3d7f9fc802510c7555b874ce87be6ed9bf7a1517768f2ee2fc8531f90f393b55cb766430e89e225e189ec29e04bdd6e212e75fa0fc0969f3f3bbc5d23ebb87e5a94ef539f87d1d41ff31863cdda2780412d5f72a90a76240b3fe5966b2288541a42dcb3672de71e527e94baebb9498f473f5cb18101e0a995d27ce8b456eb1563a0f55d762d92f3c4a48b4d0e7a329d781ef367838eafd6cb4cb6f5471b19d66f091f74113bb877ee7a42fc9a83f491776a95917351d428e537b36312169fda5c3f5188cd07d3760d3e5765d3c59d0ff8d7ec20199c181e062a9dfdc9139386d942eb89c42a8fad0a738224b511d97df453562a490c44f85e0dc8e6954526"
+    },
+    {
+        "timestamp": "1790249165.209293",
+        "data": {
+            "serial_number": "947099",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 63.96,
+            "authenticity_confidence": 99.67,
+            "scan_time": "24-09-2026 16:56:05"
+        },
+        "previous_hash": "df18442f876df785361a2dfb852895a295ad6406c9950026c60205f899fb76a0",
+        "hash": "90533ac6f20141cc1c4dcba4b4bcf5ff8d6bf86a26459f4d89d1f3eabefe325f",
+        "signature": "0509fbf227809bbc2b25517ef8fbcb41048b2888d9e8fa03929a20e9c15e3799f847df72879063cf008b6cae2faf2040f04e26416cf20401027adf6d389ddae07e59a666dd4c6fcebcac1bbe1bedade820d2526d6b0daf0032c27f34fe32acde6291376c7a15c97318fa75ebb924d42df0369ac033b1200d1eb0dde60776dea6d3b697debcb0f8a5a0841141a819ffe74d6e6769582bbf9560a126ca53f45cf7076b3da9182675b2364b31a5b6c85b6bbe5dd7dd9ffdd63f0815af0263f62c65d4f403c614bfaf90d23496e1fbb917429653c75b2ab6d94e660451c0fa51cd9fc42b2bb7c97dd55e842a9c259bd07cc5a161fb39b3dfe845f158d8fc3501e53b"
+    },
+    {
+        "timestamp": "1790249530.1136096",
+        "data": {
+            "serial_number": "7GE 947099",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 63.96,
+            "authenticity_confidence": 99.67,
+            "scan_time": "24-09-2026 17:02:10"
+        },
+        "previous_hash": "90533ac6f20141cc1c4dcba4b4bcf5ff8d6bf86a26459f4d89d1f3eabefe325f",
+        "hash": "825343965f8f3002f7cdcddeaefcabe6169a54ce65d7e73b4cbb9e03cb09fed7",
+        "signature": "49e587d3acaa19e61be164ed870b13c0a4fe74260efb0d847a9ac7ae0a773490ed19d3ecb86797a144fa66eaea0efdb1ee7f98377bdfece3511b3d8e5a72b69ea86bb387f269e70391fc2802b550b8e244b7a9662ce007dc9aaabe7142a2e4ed6282d6df893b4c409fd701e87c0237bef9960c9ab529d8692d0282263337a36e30b8ae812866af5d22fae3a0818778f1ecd6b4f3e54d7a4e8a499afda3f9da94ae5f5e998b4daa7adc1e2721e51378aa9791f6f89b3efe1ab799c0ed76dd7ce1929f6bfa9ba11df83cdbd6cd042ce3fb85ec04ae167843ac80d1419367dc1365d301359dcff8850eddbaa5b6472247176fcf1443ac896bba1088b77d2cd7e9f2"
+    },
+    {
+        "timestamp": "1790260939.2990427",
+        "data": {
+            "serial_number": "7GE 947099",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 63.96,
+            "authenticity_confidence": 99.67,
+            "scan_time": "24-09-2026 20:12:19"
+        },
+        "previous_hash": "825343965f8f3002f7cdcddeaefcabe6169a54ce65d7e73b4cbb9e03cb09fed7",
+        "hash": "a2e90f67a9dc834ea04decc726d1ce1f08f56df629af4e9b8118d9ff4db8da7f",
+        "signature": "709876776b1f33dc051005fe3317377896b0b0315f07a2b355b3ed04a9e60a50c9ae689d4d6be68e83b1e8840d59a437f402cef0d6f010a3e9354d4924b756dc1cdc99960a1d9b07efb04f6298f302f184c31cc98f55b6bc13cab134847e2cd8e9bbbd25bf18baf6313c265311f97c8dba4c76eae2513b262d0b054f4fb946c56678c5ff659783214d49c7197553f1c02db42d7d5c8badfa5a1056d137a71f7aa39784e72956cf784d8bfd663dccb1c9d026dd697600a856c1a98111967d7fd5ef69672e852242b8425a8812a0b8944cc72a5f996e64b3fc40de8831c0dfd38e1b248e6fb40d1939a87c044d9efd640e31f7a8f01189fa179d538589351a5302"
+    },
+    {
+        "timestamp": "1790262021.1571016",
+        "data": {
+            "serial_number": "7GE 947099",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 63.96,
+            "authenticity_confidence": 99.67,
+            "scan_time": "24-09-2026 20:30:21"
+        },
+        "previous_hash": "a2e90f67a9dc834ea04decc726d1ce1f08f56df629af4e9b8118d9ff4db8da7f",
+        "hash": "b6dfe6b0e9a2ac02db9a38645bb769f0d5002fc86520ef4330585bc4de29a3fc",
+        "signature": "1e1b3c43f7071c6a1400e7c60f0df4a095fc765b7f56d2535722daf894e97070b765c4ee9deaaed7523239bbded4eea4faa7f15fffa303dc00d2ff6c7b99e6eb3e9525fca55295c9fc85c4ff900a1c284f1811552140ff4380940b71f5fb64b140da1548cde2729f94e4fcacac841f3f050735ff0cd8dbbd3efa6401348d6d94b78a571b53d50a5b880a428f553bb70d60d7c8c87cf0fc3ea5e2f5dcea19a6f70ac4853e5be1b68e4000abe0c90eb743846ad33f1cbb759f898f22454231292f7f2cf0bdfb23da6b575446ae45a962a07be657da33715300a7c371bec2e37c802a87f8e32124e1fb9631332d294b1bec8e5d478b240de0791c7e61b62b83c08d"
+    },
+    {
+        "timestamp": "1790262241.8605306",
+        "data": {
+            "serial_number": "0AA 000000",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 82.91,
+            "authenticity_confidence": 99.87,
+            "scan_time": "24-09-2026 20:34:01"
+        },
+        "previous_hash": "b6dfe6b0e9a2ac02db9a38645bb769f0d5002fc86520ef4330585bc4de29a3fc",
+        "hash": "d652fb12ea405d2ac8106386ab5924db7e8dc906adb6d1c3458034dae2d936b2",
+        "signature": "4d7358ffbf77814d8fe387b6ac895a91294e96da44b28d112aaf8409814ac0aaf2fc31f22b5b1794480d45343f433c9dd9ed7c058a18e3b95b1894c287d93fca0f67a4204fa4ddadc15b65dbabb3062cc8e947efad7cdb433852e0c16df0fa2b8e17d17739a62464fbb1a2e1d774f5614e5e0bc16d70b42be6f7a8a2530d470cbcceb0d50de1f5734b7aab8aec06a2bc002e745cdbe1d53c9cb869b371b583ec514f1cc93412bd959d30e146fbec0c768f360e21597339ec6e0207c5b109d7942b40c8588d0674b504b65609cd38fbe835bed5c527319fc6899b85fdfbd7538cb351d0936a99d54de618fd14295049480e4475254e497b62342317404678a1e5"
+    },
+    {
+        "timestamp": "1790262823.3272843",
+        "data": {
+            "serial_number": "0AA 000000",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 82.91,
+            "authenticity_confidence": 99.87,
+            "scan_time": "24-09-2026 20:43:43"
+        },
+        "previous_hash": "d652fb12ea405d2ac8106386ab5924db7e8dc906adb6d1c3458034dae2d936b2",
+        "hash": "dee6090cf89744a7d6c1fe6a7742a1f080859916cc6d6c6f0add7f080ee9d5ba",
+        "signature": "27a4fd92f6d34156a3711c3b7acfdf1d4dedd342272bb382a7bc85971fc3b4dc6a8524ed1fdbd56f7703f8af8426afce345eee120fbc5afb90c74a7d010b2e094f901dd030cbe0434be454c311da956eff6d48f4e884ace2834a5b8cc80af4d6128a36515674690b7f879e7984b25f62c0dbd4bfee3a7f3860206322ff00530482461a6ca7cd3e2a394fbe335f37471659c89d86be550c6fb7cc6876ed40582077a75ffa7bcf973579f46f7897c79826b21b461e1d7c2a3300c3e003cfb960503fe0a42aa0ff673a808a138b17ec519f4b152e7ed27a51a46b759e0ce166e2b4573aa6b9dd6888da4f474cb1b27ee316a2cd9d0eeff77ef215bc422ad01ffff9"
+    },
+    {
+        "timestamp": "1790262899.1921089",
+        "data": {
+            "serial_number": "0AA 000000",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 82.91,
+            "authenticity_confidence": 99.87,
+            "scan_time": "24-09-2026 20:44:59"
+        },
+        "previous_hash": "dee6090cf89744a7d6c1fe6a7742a1f080859916cc6d6c6f0add7f080ee9d5ba",
+        "hash": "7b0f9f7ce268e8238c969bc7aa11713d7afdb6c70343ffb12a87ac3c92e0ccf9",
+        "signature": "5648ef25daef437af9cd870fb15f07f902be082fa9474c9ea934f4df89ac304368d334d75c5edf76a7370299e9b22fa10637d514f491b89b318768cf0305183610d1ca07a956c249fd846b23818e4048b468b90d22fead4f845a43c3148d82a024099ed11057be46752b27dc9f1e259290a4c4b1eb6d217c274ff0917dde2e8d6c69d5a5bf9803425bf80d66f2ee1cbfb9d5b8f881d0860b2059c204c03d7d230d07b9cad2f2a11063fa218279aea0f6c9b9c3a5827f92aad6584bc93b386c34c649fe6cfd85a4fa3e22538f04047cf654a88e2ab0fcb96e3a1a6ce485f687e090a437c56e72364f1a37d03261c4ec13ed60c012f3ef29b51e919aa2cfb6fe41"
+    },
+    {
+        "timestamp": "1790265126.5995843",
+        "data": {
+            "serial_number": "0AA 000000",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 82.91,
+            "authenticity_confidence": 99.87,
+            "scan_time": "24-09-2026 21:22:06"
+        },
+        "previous_hash": "7b0f9f7ce268e8238c969bc7aa11713d7afdb6c70343ffb12a87ac3c92e0ccf9",
+        "hash": "c9f32a6e98b9f65d5979dedc80222e0ad0c3d4ea8236045697ca6bd0ac3cb9e8",
+        "signature": "79f37d039e1ec909c127c699c0b8cba924674d097cf46a09e30d26b84f8530004e50cdb417e39be7fc1d811a7360221ae07a9c3b13dd12af7915ad152986f537ce20a5f516ae2f3a60ea7e44e8587db5069f97d605e34a2ca36e41b42b3788adb63264ef3fd118843c808bb2186c4359dc2df36156c140756105dde2ed54a6049a7969bbdcf6ad7103286e5f7e739fdfdfd8723cd5a8ae774abf74cdd3cec082da4127e7422b1130aab27a6f1e8c320c134ec81588222077e1f7cb3ba6b506d0e756280427443927d41e965eb22ee93ccc2d84fa1502513a45699c672828987c037a208b51ac5ab0735e048fde4bb9be17f5c5dd392093ee33712b82955abfb5"
+    },
+    {
+        "timestamp": "1790266671.7319953",
+        "data": {
+            "serial_number": "9EB 548786",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 92.29,
+            "authenticity_confidence": 98.77,
+            "scan_time": "24 Sep 2026, 09:47 PM"
+        },
+        "previous_hash": "c9f32a6e98b9f65d5979dedc80222e0ad0c3d4ea8236045697ca6bd0ac3cb9e8",
+        "hash": "18535cd8672384ec7c9187901f4c6814726c83a642519dc441891b2080449d8a",
+        "signature": "1c3411d4f5929078c16fb3bafa842657ab69294ebaf0be79d8b72513d884227f958583c34eac1a1ef46687b563d417478b5e1f5e1c9adf27b2a3c0d34d9e7b4731b9db26fad45ab6898631c282caf1403e2b3e3e7c7222e7734c3279b25922542bde087021fe6f3b4420aa4805fb53034d3c46ac52db7cfc06aa616765e6586223db0862c3597ce9896267822130a1292d3f03ef59adb511d9b1251451eaeea4065862589afde8057169ba9574c0609bf501910058dbac460bb2d1924aae1bc1e288bb416b114e71da022e88afd65e6c40a138d8a68abae83f99b03c0eea4247addba3edf921641f939b502eab4e629fdc7b8d7125862499faf553f86ed20bcf"
+    },
+    {
+        "timestamp": "1790266779.3114173",
+        "data": {
+            "serial_number": "9EB 548786",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 92.29,
+            "authenticity_confidence": 98.77,
+            "scan_time": "24 Sep 2026, 09:49 PM"
+        },
+        "previous_hash": "18535cd8672384ec7c9187901f4c6814726c83a642519dc441891b2080449d8a",
+        "hash": "2ae9346436fb1f3ad0ac4c774cd0b9be6a3eaa1f346cd823be787d0b25cff889",
+        "signature": "4a1366e5da913df6ef7a530a7b5fc253dd732099d4a1027511d47062ad6133a4daff6dbb1f12e8e9f10e321962788987d2da466ed6bc3449f50145b97ab37a9cb195b7dff350476d4f2ceb6e3ecd7754c33e4d25cf033bcff28e8655b295957e4a830dbee6f358069d25488aa390e3fc15c441fa5c38cbef740a8a0ff456c4df175011c1cc35077dc8c0da4c51ea9a75dc2674d5f925d5b5dace72e141a6bc271af04f813281ceb97e3ac0186fde7a44b01613b89a0e8a7e39ff870e25a63e14bd984d2e77cc16684adf34c766fd28fca0104dd7abb2e157c21c4be19987e6fbd2a5b5572e7bc970b214fe4d9160e76237fb5128174bad5308608c0d52bedf5f"
+    },
+    {
+        "timestamp": "1790270001.245752",
+        "data": {
+            "serial_number": "9EB 548786",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 92.29,
+            "authenticity_confidence": 98.77,
+            "scan_time": "24-09-2026 22:43:21"
+        },
+        "previous_hash": "2ae9346436fb1f3ad0ac4c774cd0b9be6a3eaa1f346cd823be787d0b25cff889",
+        "hash": "588e523a767f55028f7ab8b3ab60d9d3d81c8200aa1c3709006666a455ade515",
+        "signature": "80cc3ca581f7eb6ac104129e1596adf3880a77f56e2bdb0696172e5a514ef197aee2fd513dfdcb84e0b4a4db74634893c169e7e50aa3f8ec812334222c657a690246d369fbbc9825343c8f7ef012317d81a412812cfd1368ed292a428993e7144962c16d2f5fbf1a17b16bc455477f6ba14ae58c8b81c759236b2a4c6ec2ce078f1c70fbe9b88bada2803e8b27fb348dbbac99ad74047bc3501370fddc6af5d67f8d02d647663aa8dc8a0b7b7cb64ff4a53edf0f5724b762ed8a9e68c082ebbb23faa7a7652cc8f34995603f3f9a6476ba4a3be802adf40e3dca05bc18a3ca5337105daa542fe106e465d30738debdae411e9291ddaf834eddf86e2b6132df9b"
+    },
+    {
+        "timestamp": "1790271019.9743204",
+        "data": {
+            "serial_number": "9EB 548786",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 92.29,
+            "authenticity_confidence": 98.77,
+            "scan_time": "24 Sep 2026, 11:00 PM"
+        },
+        "previous_hash": "588e523a767f55028f7ab8b3ab60d9d3d81c8200aa1c3709006666a455ade515",
+        "hash": "e7fb23d61e07bbf23a9186b6717ba73026ff1af1c175ebe97d3143818a7f0cee",
+        "signature": "2f0a091285cdbe838d54fdc7a1ef27e16c8bf08911676f375e1234819ba7412be30b5e847c0f321b37c9cfaf3cdeb91dfd790290f31637733f0cb54d3da23cc246f49da9c7e30b175e5c4eaa164e254c49d7c3b20eb7f2fc44fe04eb4d84bc6c6908e535794bd2a1bd4071401e725fd51d645c9e314f3909e51561b312dda13eab4b215f63117534155e28d75372500dc6322d40568c7dfbc2f1853e57c82c980d8b852584135d10c04c1d44cf49f84c11d8ac257a7d5db715fe53e712cb404d33b4079861a9b9ee8607d9e63d54519e5dbfacb81dee8e0e934f15688e83b9a2c55b4564e8a598012be507a20e1df2effb67df3bef61ca9d8154d3b6c4435740"
+    },
+    {
+        "timestamp": "1790272857.9840748",
+        "data": {
+            "serial_number": "9EB 548786",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 92.29,
+            "authenticity_confidence": 98.77,
+            "scan_time": "24 Sep 2026, 11:30 PM"
+        },
+        "previous_hash": "e7fb23d61e07bbf23a9186b6717ba73026ff1af1c175ebe97d3143818a7f0cee",
+        "hash": "2a2ad947dbf20ba8ab0fc30084f507fa2179b79f54ac6378f60794186f72b946",
+        "signature": "588e81f8bf1f4d1f1624e59ad26f6ce58c348ce8b850dd59dd2ea95af672302b41e9928f17682171f2e818391c1a5437fce1ca559a1db8ee8e442c5a88aa271046c6db353abaf65768ab3e31dbc0bc5c9f63ba4eb8a80b502d459b4e0451e0d5c86f296d621ee8bbb30a0b8872534e76565fdc4086e54e5861f58121d92db938474b9241e17d5db8923df44c7edb18aa7f75a9f8737b1f8c84c39d11ec5aeb9c975e21a4c55f03d2f93f5ae65d9133d5d9187596ebe9296527a19eaa745e15dbc22c733d0a2ac39433faceb3fa5bfa47777fd5a1a0adc3f1e50ee7b03a6e010cce57d67d6ff7066d1941ad76a2a7171cf84e87fcc53539a8a44d6d088ea3216e"
+    },
+    {
+        "timestamp": "1790273341.6128826",
+        "data": {
+            "serial_number": "9EB 548786",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 92.29,
+            "authenticity_confidence": 98.77,
+            "scan_time": "24 Sep 2026, 11:39 PM"
+        },
+        "previous_hash": "2a2ad947dbf20ba8ab0fc30084f507fa2179b79f54ac6378f60794186f72b946",
+        "hash": "1b5ae6164f0ea7f646f01ec909215f30e6369d0355e18004b7717f447de3c757",
+        "signature": "135e17800a46441a45ac0a29cc1f85e102ce38068288c88a52224a8afa528e77993ea30f46c0338a65874347567af73759d2d8cee25d2b664dd8a7b78ef520f65d41dea4d7e09ad7a0c80bf5bfc7fc34e9d01b22dcfa367e7cdb5ed7ec884ba810503fa990594673b12d06f78ce931f570a77fcaeda18698f6af4108d0c7a031fe060c8a2648169630f40c8f87d4f14778a55027ad4e8c19429c94ae88523c2c56a6d0e4f5c59e5a07cbab0bbc0a2264fe90312518618f20b94f94a49f97241463b9e402d6a8706cec9f112741498e92853882933acb1aa0e95b46f43d44bc08901f690070ee231ee650bb0f734eca435dc890b89e2d8534004250db3318a2b0"
+    },
+    {
+        "timestamp": "1790273433.1265204",
+        "data": {
+            "serial_number": "9EB 548786",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 92.29,
+            "authenticity_confidence": 98.77,
+            "scan_time": "24 Sep 2026, 11:40 PM"
+        },
+        "previous_hash": "1b5ae6164f0ea7f646f01ec909215f30e6369d0355e18004b7717f447de3c757",
+        "hash": "9af27329416f355dc78cc385f6ff6e5ea5bd85b6dcd541af5a31369e4b28d21c",
+        "signature": "7762e5c1a08cf399afd9c2cd8169c1b5c163ae5c0ee581f25034574eb97932729f80c189ce6bac2999bf53b815bac941c5f21d284a2a2f39812eb3391a0493276c8f682883e2e3cbeb87046c1a8428f09a91cfaea581c747f0232dbbf6139110c7acb71ea365223bef697cb2f1e63aadc25b9a3a2794378b4f87cfdf16e8c888a13a28820b4e35313e123d5210173b6e4d29d25e491f95a1e2fd5028a038135a12edb6d6c1b2180ab7a6ad47b97093033d9488b379ba6a89ce2beb5c2a9f301786a2e0a606f3f7abe7ea2cde42ea5bdc500cfd49f8d1d9e2c1a7dc99a180c714fad0b31b205939f4219a74b3da13a2a2dee67cc3398c4f1bde8ac5ced8b97cdf"
+    },
+    {
+        "timestamp": "1790273575.5362682",
+        "data": {
+            "serial_number": "9EB 548786",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 92.29,
+            "authenticity_confidence": 98.77,
+            "scan_time": "24 Sep 2026, 11:42 PM"
+        },
+        "previous_hash": "9af27329416f355dc78cc385f6ff6e5ea5bd85b6dcd541af5a31369e4b28d21c",
+        "hash": "6e077ce0cad807a6f9c8ea50025763670e448587eaaa7382e8e7988ffe3ac005",
+        "signature": "7a41cd9b8e771dea87792fd0acff8025025f0d4644b93466d80b7fe9112f0a430d732b15eb4d17886f916dc71e87b4bd65a9ab17677e80dcfb42e4a75b7cd805a721e45e20380711180f67a5f40a258b6539eb4abf07fca6a9892b72a7634d1e0931d53e9036e96f70e003505fbaa1d8b4e13102c2055853729d0516f4bf9a55bdd4587a1ac2b9cbaf82accae91a24c9a30d7d124edf1fc4c8f73b9cb4339db3ff504aaaca51e6d9cea5dbf769fa1cfbc76231221099a1ec4dafaf89f8eb560283d1a4c9ce7aa7d5b6513ecdded6dc5dbc2167f583dc48b7494c585e88e5506e33c57d4d934883dc1deffe20b13d62dad646e22812b7a0bf8102078f1a4cd5d7"
+    },
+    {
+        "timestamp": "1790274534.123417",
+        "data": {
+            "serial_number": "0AA 000000",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 82.91,
+            "authenticity_confidence": 99.87,
+            "scan_time": "24 Sep 2026, 11:58 PM"
+        },
+        "previous_hash": "6e077ce0cad807a6f9c8ea50025763670e448587eaaa7382e8e7988ffe3ac005",
+        "hash": "ede749f3c167682fcf1de1b086ebcaf725368f14fc5decf0d38d73dba2edcb55",
+        "signature": "7d5f474bee6c3bc6af7bcc0510158fe0626e5bee1b864a2c0b9f0d4c48e698376865dcdc4cdffec53dc752803ff5c7b6c1c80bfc7502f9078fea1e234dc4aa503a71bb82db4a133fcef10713889fb86d3225594ced0385dd49fe4a55a4cd7bb66cc67705f15eff4bcfd063fc1063a6edce986b5a64b4ba36c412e67d00ffab4cf2c8b4e0c0d2732ce779a0fa6b21f880a0fb640b32f69fd05fdae34bcee1c0a0137effe2b36e71321e150efe6e809311aa9ba48fa8430213dc0ed7b4bdca2fc03830a8bb6c66b08993205a261eb7cff7cb1e55ab38b9087afa96044a158843daf37d9678e184bfc61984378414bc21b28a27795fe76712ca363e9c4ed8e3ef1b"
+    },
+    {
+        "timestamp": "1790275430.2352011",
+        "data": {
+            "serial_number": "9EB 548786",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 92.29,
+            "authenticity_confidence": 98.77,
+            "scan_time": "25 Sep 2026, 12:13 AM"
+        },
+        "previous_hash": "ede749f3c167682fcf1de1b086ebcaf725368f14fc5decf0d38d73dba2edcb55",
+        "hash": "dbd4d05eeb868a940c4c2bc9018c76a744aee4a2d95388d36371bc91ba3b0b91",
+        "signature": "316063986094ba387fb2965f97c460ec0e57eefaa689b9be430a5a3cf73039db04014b24db19f847c68c55945fa0bacc6a8b07ea41c6ea7e08d2aaef84625f31ba72faa173afbbc8691d84e4e95ca4ccf19b17a8fbba8344a64b5f8fb7a54c775f987fc4e638a3b56bc853f4b30ba450b10c6b9d30b94003bb3281dd8984fc72d92a3e050856b5ff168c87a85b75bbc1b0fe7065ac35133e6ee784b88bdb8873f8d1714c5e521a343eff283170ef694db20683d0bb34ee06ebe708a226ec301f729afa91679acc6c432350a20a08a6b7dcc889ed44178f5305c1a80be85af4ab5935da0dbd20163ee6e90c71f44c0912a2edc6a4a16b69a4fe49f77fbbaf1ec7"
+    },
+    {
+        "timestamp": "1790277117.0248291",
+        "data": {
+            "serial_number": "0BG 889899",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 87.78,
+            "authenticity_confidence": 99.05,
+            "scan_time": "25 Sep 2026, 12:41 AM"
+        },
+        "previous_hash": "dbd4d05eeb868a940c4c2bc9018c76a744aee4a2d95388d36371bc91ba3b0b91",
+        "hash": "74ddbe2f3e8c1d7ba71dd09943810b5c5daad9c9d68cd350739d9c549d8a80ad",
+        "signature": "42306983ec71912bca608f2d3947995c42c385357eb757f0d268b783f1fc013da9d8f382ff33a1a02f976f0d801e8fd816556258e82ae70cd9cdaf783ccd69d230fd62885491f3005987ec5fa7990eadece98c739ac0ec28e105b6eda6a8f28b257c41c62b9b03059de492a271fc1c2da8f08a79219643ef128b224404b091646aedbd10db58a64541fbbaab72635609a738726fe71aa926a83ad0680aedbba1f9b303d8fcd443d8df7ca21c9c18a4a8f327ec0363113fea9926da6d67f391342cc4b8d36896becea2ebe52dc7dea2d3d248e285f6e8eb0f43b7ba7bbc7a03cd3cbda7ce7977e9312f20f7c51d14f1dfd51997ea4553c47957f9ed5be55ec61f"
+    },
+    {
+        "timestamp": "1790278689.8831534",
+        "data": {
+            "serial_number": "0AA 000000",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 82.91,
+            "authenticity_confidence": 99.87,
+            "scan_time": "25 Sep 2026, 01:08 AM"
+        },
+        "previous_hash": "74ddbe2f3e8c1d7ba71dd09943810b5c5daad9c9d68cd350739d9c549d8a80ad",
+        "hash": "03471ad2db13882510b6b7b0495deaaa043a302f9cf01af463fa04b3ebcfbec2",
+        "signature": "0fc5d54cc34480bcd23864d0d32bb914dd81f8074c4ee17b28bdaba25ec91e7e23016bf2c5479be33f0a59547bae378fd434d15ed8318f73c0965a4016faa644754f074887250393bb72d940623636ddd7bbd31286f751df7eb493f7ee3745f8c86c197fc77c8b02bd96e3c80df08e2176c60c9367d491c979da8511048ac0f0bbd535194b111851fe9bc667d03f7a03accac4e5c27ba88f9490e03d48a3448f55f422faa32a9da2ba897083a1b04156c5b377e8fbb62f73c10aa6f365716b17764ba41504a1a887fd9f0cbd95d9614886e799e81db8121d32db6a7a82e100e5a72147236d3adbe0f8bf70957409bec59dac355586eb80632d13fdb950235c16"
+    },
+    {
+        "timestamp": "1790279511.0422795",
+        "data": {
+            "serial_number": "7GE 947099",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 63.96,
+            "authenticity_confidence": 99.67,
+            "scan_time": "25 Sep 2026, 01:21 AM"
+        },
+        "previous_hash": "03471ad2db13882510b6b7b0495deaaa043a302f9cf01af463fa04b3ebcfbec2",
+        "hash": "9f280b6678919b2972d22dad63147f400ebd092b1db1934b45e5d346d1050b41",
+        "signature": "33eba3012b223d7460e93ee950952af3f720e4df49c152990eb9d87bcbf8d6bd1c8301863499a19107c1af8472d349ec088fb26b89b0efa4d312b3a978fcaa0f5e9c921977c7d4bc42f1e8aaba5b1bfa17f5541a9414bfb5b8ea5a5e59b93071717d2390ab380e18e928eee0d2ba06d6ae26221b887b21fcd7581a369c97486fe1ac3a65095e669356702f691abdc507670d23edab803aae17a2a97c83374871995285f7848d62f59501948a9910c7a13be62879327717c730381976b8edf671e86649d867b111bbc1533fa318fd071dc5131dfb76bb8eacaae75ebbe51e3a7abedcef5243c990f5385a22d9ea532c499578f7eed1b302deb25a40d77f0fefb1"
+    },
+    {
+        "timestamp": "1790279852.1524844",
+        "data": {
+            "serial_number": "7GE 947099",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 63.96,
+            "authenticity_confidence": 99.67,
+            "scan_time": "25 Sep 2026, 01:27 AM"
+        },
+        "previous_hash": "9f280b6678919b2972d22dad63147f400ebd092b1db1934b45e5d346d1050b41",
+        "hash": "5401ec7f661da22fec7bb58deb3289f7f056ce7e93d4d48b82b3b3a4f7f61841",
+        "signature": "2c44b86f5c8f89f2235dc464f371bf837516cc37fafcfefd4b2b334b54ba591f35b0aeb7a38604b68bb83d68dd33380155d196e24f8eb715bc9cc1e7c75969030546ff9f048cc6babebfe53eba2bd79e6c3373747f4974bb1347615d72a19694d7ddc1c7f9af83dea0f2007167316d8f3a9fa1c51755544d4a6d269c9d3fae80469aec6b005112708bb73c1193bc9525b8f4af6d17be1c671c65fcb8817582e1733a6d5877796cb141ef79e6528c3d3bb1a5907a28aa23f5f21bcbafc4b09f78cdc1fc5ad421c72faca22c3044cedae2ab08cb6348cbcbf031988aa58befb529d4a6a2c5952a94bd4db8f4c533b832e199075366212aa096de907ff577f764ec"
+    },
+    {
+        "timestamp": "1790312244.2530887",
+        "data": {
+            "serial_number": "9EB 548786",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 92.29,
+            "authenticity_confidence": 98.77,
+            "scan_time": "25 Sep 2026, 10:27 AM"
+        },
+        "previous_hash": "5401ec7f661da22fec7bb58deb3289f7f056ce7e93d4d48b82b3b3a4f7f61841",
+        "hash": "a03340eabc7d75b88dde0b281af068a6e452960b412e0f493a119be9c1342069",
+        "signature": "4ecb8d40784e3cf82a4e6167dc502443de464cbfccedb80534794cd8b5bc0ffa4071b1a327cfdbe64b3b19c50283a7bec28d6c6951370bff395df9ffdf89c97ad4cef944c876a9d2604abddf397b0d5bfca9c594b4e3ac8e8e4b982efab504ee529205ac9cdc82d6151a181c2b5a72468230a9e8bc57a1c5a629b7ed9093a3a3c2e34e7be2b4ad384c764b2fc8444e61ed43a479c531ff3a265259202d0daefcd6d371ec8c0aca7d1b6a4b96173620d6ae656b850414bbccbebb78fc994894f431d3f2fbf3a3ac1fee82d29f51c92180f9854ea16a46b7b7f18833daef4c5c443eace6e8acf37d3cf45e2d850482b8d8b0c86b497b6daeefed064ff89046891b"
+    },
+    {
+        "timestamp": "1790326461.4368534",
+        "data": {
+            "serial_number": "9EB 548786",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 92.29,
+            "authenticity_confidence": 98.77,
+            "scan_time": "25 Sep 2026, 02:24 PM"
+        },
+        "previous_hash": "a03340eabc7d75b88dde0b281af068a6e452960b412e0f493a119be9c1342069",
+        "hash": "142cbcf0b89433c71997dd9c8b6d7e7dbe384e3e5a2b8417d67f6323259dfe0e",
+        "signature": "0d135105a22d2c23d8e92f6f16287027ac17fe55b3e210d5dfda4a1be488ad85847e21a55362fab0f279ae14ca740866bd17e3079c361e6ef47cbe1339b92cbd253d68fd3e281309687369042f5abb17ed42cc3dd92fcc53d74b44b882a673e45219e5e12cc1f6598edb63d331f867c2ee469e57f99b3c956eaec923a0169449aa3dbb75d0be555f637a134815b0b5145919fb1e1e10069fdcc9de47745c237e4f9c9cd784890fd144764b8cef96c337c7424ae60412f83f3a830dce8fcc6d6fda84e9f9638990d28e57b804c415c11e76e3c8989686193469b24c3fbbc4d9e223ca1b990e27089567142d1997666acdf6d9a168cd95d24b3e7b54c71b742363"
+    },
+    {
+        "timestamp": "1790327092.4379907",
+        "data": {
+            "serial_number": "9EB 548786",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 92.29,
+            "authenticity_confidence": 98.77,
+            "scan_time": "25 Sep 2026, 02:34 PM"
+        },
+        "previous_hash": "142cbcf0b89433c71997dd9c8b6d7e7dbe384e3e5a2b8417d67f6323259dfe0e",
+        "hash": "7087b67e11e00ca50274be18b063021c987fd0394faf30df25c54a71fdbdb9f8",
+        "signature": "7d1976a0aa159040459e47e9827d8320cd2dd9ba5520a36662a83955d41f7787ba3869c71ebcbd0c530f06f69efd6a809a6cb3bb512dff81c7f44e295cda221ec489556bf5ff0ed8b3516eadc352544cb9e2cbf5f335682e88bd4a2660c3e0b78ed630ac0a60523e238b600e866bf005006760866e1caf34f2a2ae5572a38bef80984a94db41d8bf6ecdab6c4bbd90fd42944fcaa534e1511fff7a70e70203fd2a7a8708f94e6840858478ff6a114079e58ae74d73abe5c2a1fe080c44f8d52ef1ae61c331322dae8ad3428519086349d91f202e131148e353b734190bd0c89805be57d2764fcbbe0f34c4152ab407b0358679257e09cafe7d6e3a5ae4bc041d"
+    },
+    {
+        "timestamp": "1790327369.072295",
+        "data": {
+            "serial_number": "9EB 548786",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 92.29,
+            "authenticity_confidence": 98.77,
+            "scan_time": "25 Sep 2026, 02:39 PM"
+        },
+        "previous_hash": "7087b67e11e00ca50274be18b063021c987fd0394faf30df25c54a71fdbdb9f8",
+        "hash": "a43dd32a566477055f0a2fe5c64848396a746f3153796b90466aa2af015ceeae",
+        "signature": "1e7de291f5af4dfd347802a174d175dbe684ac7889c30885a2f9cde7c1bb253c8be8b490445509a47596c3edc83a4c701bee379337d78ab2f35c7af1b4193e969b1e1b32981b3f9e05245491dbf083b8614c2ab10884a9a985f6acd2634578dcd452c09f8f2bd69dcb14f2ea2d15aa9778a5b11f565b2cab7c8a29c6dc4cad163006ac43be7f981177c83d623d65cc0d9f917a0404d772e117edacb3592bd5c3e7f41a230df7ab7d59fdef5b98e5d1881180842ad4129f5473743a10c60ca4459faff26d87c93cf86c33ab29ad9f08bc560bf2685cb2c1183bdab562df1ea08dbf8f0ac8b450d79464db07aa4bec2656deb282860e9665d4c22cf89e615d166e"
+    },
+    {
+        "timestamp": "1790328324.0177922",
+        "data": {
+            "serial_number": "9EB 548786",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 92.29,
+            "authenticity_confidence": 98.77,
+            "scan_time": "25 Sep 2026, 02:55 PM"
+        },
+        "previous_hash": "a43dd32a566477055f0a2fe5c64848396a746f3153796b90466aa2af015ceeae",
+        "hash": "3ca260e11bc1a8fe72aea130cc0746a0ca2998cbea8754aea4a51b17e1a03a97",
+        "signature": "6046a8eff628994593a786e887fc2d1d10680506921dde36c9155f3cff82c6d266828e533e2fe989b2b55590f5f4d21908ee48c3f70267d2b91aedadd74116d6046034f2ea9a1750b46b3fa671086848fc063ae4a2afcf819ce5ce424467bbab149fa427b0bcd278044fd54cf802798a9b16d93185fcb8ff9f1d59cb016df0cf1249007e2bc9443d82621061902c22f60099caa4a5c083d37ca74a07bc083c5e88d5f502d513a25affd99c2f6aa67b4e65ffebea2e5d1ecccd31a5dab978e0a78f2c0debf7ea5f2b7ee9bb1c8b2b138052ff2a531ee2ea4756a07aa2b41ec0e2c89f2d6e4a3f513fbde1261bef3ccb260d5b1fa4686a6e14eb2ccc83eacbd982"
+    },
+    {
+        "timestamp": "1790328440.5518415",
+        "data": {
+            "serial_number": "9EB 548786",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 92.29,
+            "authenticity_confidence": 98.77,
+            "scan_time": "25 Sep 2026, 02:57 PM"
+        },
+        "previous_hash": "3ca260e11bc1a8fe72aea130cc0746a0ca2998cbea8754aea4a51b17e1a03a97",
+        "hash": "7bd6c79198c303e1586767b669bbdcb0ec4b42d66dbfc9dd67f35cd714247015",
+        "signature": "0ae4423d5267d4633512aef7beb125c45728769831a09059b88c466a48429f34ca0f74fe3a9840d09cdad5d42b2e07f47e4e3b9618f85886f1a33f15e48e90f84611d447f2ec3844265f668cc9e9a77afa4e735e71e58b13cc23175ef2c62fb963f3989aff6ef5fe8d0bcbee68ece2a205fb13e14999c9bd0a2cfe48e5af2dbfc27b77a264406385457878e9c8ad9ab7784080b19b5088681501f8de0d80dfeae463f7decf0ab3074498723eae9ef4ab3fe8f3bdb33990d1869395f40e409068c6430c8b0a244230338988cfcd396e854310a3cfbd7309dbf4b1a6d8c12ebc4fb8b8cf23d6682b3f493e93e4281f98d35be3915a3e9100e9667e092f9b39a20b"
+    },
+    {
+        "timestamp": "1790329622.6557708",
+        "data": {
+            "serial_number": "9EB 548786",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 92.29,
+            "authenticity_confidence": 98.77,
+            "scan_time": "25 Sep 2026, 03:17 PM"
+        },
+        "previous_hash": "7bd6c79198c303e1586767b669bbdcb0ec4b42d66dbfc9dd67f35cd714247015",
+        "hash": "941029184e3cb71e52f541f578d2b4dbbc1449d5695ffd0494fd89e3d5af2471",
+        "signature": "3d691462449210ee5a27ee9796e9610a11000532067e670c77e48f73e51a7cff4bbe9f516c250d228d873bf9cfa90ff56e5af1f0edc022c609272bc22ee47d3b3701c1b51a621719b17be02386dee997d0022dd3170c853928dc037540ca9516d794ff1edfeaaf7e62399ac12b6e48995434313a8580bacc6bcbfbfbc2d0ae9b3de3774ddccd07d8c812403c370ce50d0ea7eb97807c3e4806677953bd11b04d7528a3811893b5d0df91976e8398922a63ed665efd7496f2619bd66cb8ec75b967220ee5105e3cd6e2343bc6012f44fa09cc2126f4acd7ad317613a4d9433569fa004e8a17134cba79318bf6c9d2c479be01b843e0a51c0428ff5173a7a3a48d"
+    },
+    {
+        "timestamp": "1790329952.1578166",
+        "data": {
+            "serial_number": "9EB 548786",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 92.29,
+            "authenticity_confidence": 98.77,
+            "scan_time": "25 Sep 2026, 03:22 PM"
+        },
+        "previous_hash": "941029184e3cb71e52f541f578d2b4dbbc1449d5695ffd0494fd89e3d5af2471",
+        "hash": "828d69d786886991410ac61ba45008bc983888347305acb19cc5304eaa38066e",
+        "signature": "68a14110cb6d73ba387fa30db2f3500ad45935075a1baae179c1b0acb4b163bb9901cec49d2fbec4ce9b6c9f1607fe1744896d286094edd3d593a3fc0dc9bb18f441e870e404ee878e32164e83face11c2e9848b1012637c95d3eb295d0e1d4afeefe0d759f6cbefec67b310d9e2ad5f389529a7b9e41cadc2574153d7567585ab2cc310684674c958ed57c9ecf82ca3f02eb08323bdafa0775df68e9a02a9142a337bf7fd7362004455da302f9fd31c609d568f66d4a9135727db662e8ba7cc2f5db229d9754ff3791117c3171f1a60bc923a4d408b6867b1746a40c451fdb4d1c3958656d4cd838c7179bff6093519cd447a513b8a6d7f3e661f3d533f3cf1"
+    },
+    {
+        "timestamp": "1790330661.4219742",
+        "data": {
+            "serial_number": "9EB 548786",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 92.29,
+            "authenticity_confidence": 98.77,
+            "scan_time": "25 Sep 2026, 03:34 PM"
+        },
+        "previous_hash": "828d69d786886991410ac61ba45008bc983888347305acb19cc5304eaa38066e",
+        "hash": "b9742747d5a8f894526159fcb2ee63cbdaf5f1fd4cd8e66cc03d606482069584",
+        "signature": "530226a6a99662d03bd965079b5304391bda36045030a122d9b3af3d3c8bcf16f3cb32e6e59025938dfb3e78004ca48ac27f210a31655c47bd2c7f42312f4306602a6cf3533251bfe9f862631154b245aae2400822a5fc995fb59486430d4bb36e5edafc326578282b75381a341aba8510bfc9b43125b5472d78fe606781bce55ec9f5916d654cf87ea553a84c40f9e8f94950e73419444940c1431ce439e70283de10b2b221b63f457963de2f00e8b0b7c1787cb9be188fd0a360efba00196cbb06ac787a6d98e57c18daa02a4fad31982a34212ba658534de9d9feba89fdcbb873399da26cbd525b5b1d706b322193c33f6b5ab9edf687cc9bbccc26015529"
+    },
+    {
+        "timestamp": "1790332514.5722306",
+        "data": {
+            "serial_number": "7GE 548786",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 92.29,
+            "authenticity_confidence": 98.77,
+            "scan_time": "25 Sep 2026, 04:05 PM"
+        },
+        "previous_hash": "b9742747d5a8f894526159fcb2ee63cbdaf5f1fd4cd8e66cc03d606482069584",
+        "hash": "b968dacd2bd335ca5595314204459fa8f189405f718cb76dc890a2ec52999485",
+        "signature": "1ff0b875ff62c13ac6f65e4a1d80cdfa0f9140af3e4c76f6536cfa4114f87db456e58228a1db9d3cf2f77d0612d7010c2912f9f163d7771ae47a700529b2d9cb7014efea726f1741488ae60aabf5e163a067b23b57f07b7616337f3a3f001b394dfabfc41cdc78382d395e6b6c42861f276b90880ff010170c84b8476c97ac1429b04a670f378dadd0bf4e7e3778fe904be3de4ba45a3bc63dbb476cf3d9a16f0ba489146ede912a5abeb7bc119602368213a1403bbb0870ab88e29db3a13543abfd5226e3e74bdcc8642c469b9464aee377b487fb56ba51847bc9cd99797013f7207405ad0cb728e3d438a884a0e6ae09a3f2c62a6b046815f1758774aa15d8"
+    },
+    {
+        "timestamp": "1790333605.1666157",
+        "data": {
+            "serial_number": "9EB 548786",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 92.29,
+            "authenticity_confidence": 98.77,
+            "scan_time": "25 Sep 2026, 04:23 PM"
+        },
+        "previous_hash": "b968dacd2bd335ca5595314204459fa8f189405f718cb76dc890a2ec52999485",
+        "hash": "d40e4c28ec387ecf9647b8977c28ed3b8a6c0c6be9509ee414df56f6e80bc615",
+        "signature": "4a1c371c21c5843d7b2d3f3b5a3239831724b5918e8cc78f83030c6f9c42d285024f5e8b47291c3e2a250ca00e1305a5f7a53746ad66533d3bc96fb9e36f07b367418b2ef3b400e153cb72e557f038924ec540232bafc62f02fbf6fafe89e6fbe66226421a84a1064be2e3dae0dac29d9b153d43f92d91684e50e67878320fb42e0d11d107706750b6c3fb617329b46c289d1d8300d8a66cf3ee7c28aea1364bc3261b4759064b8ce97c706f67e95beb0bbf7a972951ec1f161c762686d1318c4310be95fa33f93c6573398d7b4e323782c5910ea2f494a8ff471f070f12c2408e822c43c73cac11563bdeb355f87af43a4d2a1ba0708db6401ddd849c1cf6d9"
+    },
+    {
+        "timestamp": "1790333827.363264",
+        "data": {
+            "serial_number": "9EB 548786",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 92.29,
+            "authenticity_confidence": 98.77,
+            "scan_time": "25 Sep 2026, 04:27 PM"
+        },
+        "previous_hash": "d40e4c28ec387ecf9647b8977c28ed3b8a6c0c6be9509ee414df56f6e80bc615",
+        "hash": "c846659465cab749dc949a43d327040034ce6cd85d0c9ae73025be7376249d74",
+        "signature": "6d8bec924299d52cc2a5a5d7e643ee746051bce4ec54a5b27fc79814d7b593a2a57a7091ec98eb37082dac473c6de2d711143088ae974afb29306a5bdde7be698d888c1c5041023e4d0354dcbd4904866419da87e7a1a92664ca1cc80af4bab5a0212662de6105643424926aeb2fb93d037d74dd68090eb2db03a89ea31e231493f7eb13c641e228c8d43284d96d654acfa5be08cc7e94591309e110d5e40f882efe69f680ddd1879ec30c3c4a4a8b8ce8b4d4b6fb27fafd9385807dea931ece5a67377fea1817e2d700836c669fead7a86619e2de8def64a4259fc020c814ba69d4c17c86312b7bc401d2e8df885df129a836abc13f12838ff6850a067a07b2"
+    },
+    {
+        "timestamp": "1790333921.2947154",
+        "data": {
+            "serial_number": "9EB 548786",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 92.29,
+            "authenticity_confidence": 98.77,
+            "scan_time": "25 Sep 2026, 04:28 PM"
+        },
+        "previous_hash": "c846659465cab749dc949a43d327040034ce6cd85d0c9ae73025be7376249d74",
+        "hash": "564f79758da1d43ae73ee09a78c937ec09f4d9122ddc9e992f214896406e84a6",
+        "signature": "703bf1ca90bbb3a0f294e8e2bcab47a48c646e5ea574ebcec2c1094a48b734733ef0d0ed6c0dcb69986022d96401fc8ad43c2c7b900ff0cf8f38f9795e89a8a896f34b2c8f5ee216abb8715f451101658a7848d707c2b777570b5c6066fc398d724a0c7afa8cdb2dae899f6f16776cdda122f3f212d360505816d65cf18e3b5293f8e5cc2ae62425e0bc2ec1a85e36050319b4b51e3e965f2429a3d03eba68bab271cae5b894e8bda7c937f83946d5b5d80954feb5ffd1ddc30033afef2090a8d5692bd134496014a18fb2c068f399f56abf6f86fac3443a82cc379ce33d9e4be050b876b40f0cc94b60233910d4add918db72c79cc467ef71979f3be7dbcea0"
+    },
+    {
+        "timestamp": "1790334183.8601985",
+        "data": {
+            "serial_number": "9EB 548786",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 92.29,
+            "authenticity_confidence": 98.77,
+            "scan_time": "25 Sep 2026, 04:33 PM"
+        },
+        "previous_hash": "564f79758da1d43ae73ee09a78c937ec09f4d9122ddc9e992f214896406e84a6",
+        "hash": "b6d36a3250275bfaf8f077a98563dbb6c1e0751d8f6aa58a89fca34e31f2d2f5",
+        "signature": "5a0a200e9bb3631b8232bb516269c8843350919a35ecde4b100a56886aed3a3b467aa99a8dc1dd2714c6d2589721f92d89071940d431a8065e44bf76427731126edf11730945cfcb7df8841ad4731d1d5bcaf598dec38dfc487e7750140510e2952203ce82a82e54dc520978635e502d26214b66fe3e3368dd3a7eb7241ae71a35f54a214c4f4c0be5fc23276eabd95cb5764b3da718508ba29a60d9f3e7f06bf52179385e5b4ce9b8a0134a5b268158dc9865f4871b8a73b84bd6a2b00cdc07d35c127261c02f2badf5fa94ea33ace272822a740cdc626111ec4a5f6316fa538b912c7027eb603c88da49bf6abfdcb6ab50f47f0d367defbebae315f4803fbe"
+    },
+    {
+        "timestamp": "1790334497.934486",
+        "data": {
+            "serial_number": "9EB 548786",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 92.29,
+            "authenticity_confidence": 98.77,
+            "scan_time": "25 Sep 2026, 04:38 PM"
+        },
+        "previous_hash": "b6d36a3250275bfaf8f077a98563dbb6c1e0751d8f6aa58a89fca34e31f2d2f5",
+        "hash": "c42e47da5db5c478531d4a5efb3ee1aef432d4f8af81f047de182ea0ec87dd4a",
+        "signature": "71039bb33d5c744bb44393ceaa75014db9e0d7823a041597d7013c9ae02ea5dc432060e06133ca527e79660996dd080a18004732b5fe89ea97ac993be9bdcdbf8194bb7d1a3b33091d5c25ce2295179dcf94b31f41fcfa8ec22307fa0f91091cb4af29d80d3a85c30e21165552fcf8f828275ca36e29abec751e9baf18897aed9e9f5c5776e303df09b1e45dc897f3e411f739698bb1108e0163814478c1fd42569d6613f90937ce1d619f6748f3ed100a536cef7749c1e70b17380bea4a3b8c27058366b729bb48c774f501cd3b444bb124c2a8b9c90dbb67b59d31a64dbac3f58a3a65d9b795768362e29522e5e90a8de1b1f56258bb5ae36db9aa0ebd2445"
+    },
+    {
+        "timestamp": "1790350063.956759",
+        "data": {
+            "serial_number": "9EB 548786",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 92.29,
+            "authenticity_confidence": 98.77,
+            "scan_time": "25 Sep 2026, 08:57 PM"
+        },
+        "previous_hash": "c42e47da5db5c478531d4a5efb3ee1aef432d4f8af81f047de182ea0ec87dd4a",
+        "hash": "dbd89a409e6235b69703667bf53402d4c14488eeea2ef011cb11dc1f24b99157",
+        "signature": "8076a9aa40a5f8b5006fdb0b9caa2fe79c7a6d8042d1cbdfcda459e2dfa4949a57a8ef1f3fc55f41dab73032d1e1f6d0659cb71ceeec36ee6faa84fc7d46156b5f893c9dbd5a8ba0ce0910476347d98c82a8b99dd205e492ae78faa2351ed69acbf750ebf414782f56fa905844eb503082d5155ad7d3269f2cc49a31ce2ad92220eba46e0b885321d679fa26a8509b10e6c0f91a190bd3512c585b23a33c15751d4af7818ba152d57a07d429a24ffe9d7490f54a8fd23e99853800607c5a2975d72a82c5edea27e75c3dc62bf16c649c90a13166af244b6d7ac0b43b8235daa55b9f70fb1ba747134c787147899424f3c20f3985ab5e75c8069f946f6cacf890"
+    },
+    {
+        "timestamp": "1790351049.4584832",
+        "data": {
+            "serial_number": "9EB 548786",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 92.29,
+            "authenticity_confidence": 98.77,
+            "scan_time": "25 Sep 2026, 09:14 PM"
+        },
+        "previous_hash": "dbd89a409e6235b69703667bf53402d4c14488eeea2ef011cb11dc1f24b99157",
+        "hash": "ef0e10145fe56921e4c4cece1c37b0664009e99b3e3c07e33bd8849c7148e857",
+        "signature": "7b69aa85cae969a7ddc40aa4e05b1d2b4b5e64f17e8dbaaeaef0e1d92cb9a45f7eed33430cea1d083389ba5145fe31cd4b32f219d81ffe23dd02310daae433e0ea893217e733e3e693513363c9548974a22ba18aa2c24c2a2554dc37beea7439ee2ee0b7989f85db0eff90a92304c33047f887c27c8105762946fc3c671bc0afaaa163f06b1171e29c6daa77ce8f81dd6a612b261a37dd35949e11507f9d81b5d3692a923164bcd0e059acbffe59106aeab05bf9308e8e2c91207fa1e78b3443e68694e1ebceb63b9c3729fe868b0b487b00a78d07caaf9e2b55b427f5e096f7f6c9120ca89abd0ff5bb9c7bf14372c4d6ee0549cb75d52e43e0250d9ad9e3d0"
+    },
+    {
+        "timestamp": "1790351154.5949545",
+        "data": {
+            "serial_number": "9EB 548786",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 92.29,
+            "authenticity_confidence": 98.77,
+            "scan_time": "25 Sep 2026, 09:15 PM"
+        },
+        "previous_hash": "ef0e10145fe56921e4c4cece1c37b0664009e99b3e3c07e33bd8849c7148e857",
+        "hash": "7cbcd6778bb5bcd60bcc2ddd5a23666654cd788f73915554e4775c9dc0757f5b",
+        "signature": "0befbd83d7a5126d06232307c61b3eb017d8087047da923c90825228ecd2b602c35a1c7e934234c2ae5497589c98e656da43c70ae27f02fcf509b2a998aecc61f960017eb57788656e8627dcff7a86056932fdd77ad5570d18bc334bbc17ebee2aeb6ac99b8f4678d808ca233ae276f12ee0a0858f444b42abca1d11e83d67e24bc33d45424523080715ac1aa1f95d2ebadee340e857feef9797990f4dcd66fcedc099f0da66e50ba5ef03c16e530b030a310f619af1492de7aa25080ad76a89b6a2bc2d36dbe8cb89e83e7ddc4a00b001c901e24d426879407abf8edec855a0fb7dd03f5ce1179961599a0a849285d63162bbfc512aa87242a603c431a7d16a"
+    },
+    {
+        "timestamp": "1790351989.2634764",
+        "data": {
+            "serial_number": "9EB 548786",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 92.29,
+            "authenticity_confidence": 98.77,
+            "scan_time": "25 Sep 2026, 09:29 PM"
+        },
+        "previous_hash": "7cbcd6778bb5bcd60bcc2ddd5a23666654cd788f73915554e4775c9dc0757f5b",
+        "hash": "69f8c9fdc247be8d6b3775f1b710e7a321103250c2ccae06e037aa46a54aacb7",
+        "signature": "095eff51c18639fc45f267099f84bb5d4e149d02899439860806cb4111ff73fbcb0a364e728507f2b5c89d70328d3dff84ec4e246e2bd67c3987d1929defb315204730a2c42a4b553b502fc4250d979d17374c247e5c416f64141973ff86ce2d6f39291aeae6d94e3f1d88c3efdbcacd120b8a9e80456f046b844227460e75b441ad8e5a5821fd1b116768c0f904d356e1366bcd4cd22ebc58f49d8c64542c7b0dc5114b4ddcdafdca7261ed21c5d3f74ac879f053b1bc9da48b690d409dbf0d172f40bd603377c2d3dc4e87b1d226e66a4b04ef86cd1e0cdcb13c97e950b9fd1c366eb416aaf2edb70d0f72933594643ddfcb604f90a4111a4069b49c7f5e0c"
+    },
+    {
+        "timestamp": "1790352130.349882",
+        "data": {
+            "serial_number": "9EB 548786",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 92.29,
+            "authenticity_confidence": 98.77,
+            "scan_time": "25 Sep 2026, 09:32 PM"
+        },
+        "previous_hash": "69f8c9fdc247be8d6b3775f1b710e7a321103250c2ccae06e037aa46a54aacb7",
+        "hash": "45d79fddbce80d446c4d068c0d16cb43d14b2e784d5ab4e066f846706ab69d04",
+        "signature": "4e0441f8e725dc0a5db74df3b4aa5b6d43d1e920201417435cb0b3c1b3b3aafb6c47e6becc59d47ab30315563cd69debe05136a113d02a4187b8b680d4c8e049e85e54b4acf5e977db05ae8ee8414b755f060fc609949e8d959b084d5a0f577fdcd9b576699cb54c9da374396bd5680a3957eaaab2a05d55f0ba5ba74c85b19ec3d11fd0d2c2d44b98edb20b7597b81b0755a1fcdcb52df961ccc9efc0393e7d2876384c024af8665f8149e481ff2adc6a6e117d73172c4286910978573bd8979fcc4089eb297f159873ea6b1dd527c74786e21fff3f0e2940548c8e460f93d6d5df068e0a27336a125b978a34db5dd49983ae95688b8a5444c559322f19c623"
+    },
+    {
+        "timestamp": "1790352335.7219813",
+        "data": {
+            "serial_number": "9EB 548786",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 92.29,
+            "authenticity_confidence": 98.77,
+            "scan_time": "25 Sep 2026, 09:35 PM"
+        },
+        "previous_hash": "45d79fddbce80d446c4d068c0d16cb43d14b2e784d5ab4e066f846706ab69d04",
+        "hash": "dd4e4e9c66c5ec53e0e3c075be4ab608efb21240aeec34fad51fcc5d509c794c",
+        "signature": "647f01945f7814f6735cb0adafc4e4227ae5136b7f9181d42142ea3220ac1cd66cb3c32c743b6c26aee11001eeab4a728b7c5995ffae6849d5ecc431b3388e1acd7f0e3bd08a07c3d8f4d4bd551b92a151a79eb69fe1c612988e202d5dc5db690e8dba5bd73632af6f0f415f859cd7dcb4811d3865c46024276b2b477d0c37f4a1f30e891e7b2d01aee84bf19f409312967bfb58115ac9f2abebbd43be9d7fde9c1e3efe0647c40b15406f656d2999be8bc454930cca63397e87acf4c54899185bcc105155ebcdc873fedfe973712e170a59a32ab037c00c75212aa1e9658f8aed8b4461cd5ff42e92a3e658e437f255b3273c5a900231f38a41dc25f5d3d1a4"
+    },
+    {
+        "timestamp": "1790352725.6956863",
+        "data": {
+            "serial_number": "9EB 548786",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 92.29,
+            "authenticity_confidence": 98.77,
+            "scan_time": "25 Sep 2026, 09:42 PM"
+        },
+        "previous_hash": "dd4e4e9c66c5ec53e0e3c075be4ab608efb21240aeec34fad51fcc5d509c794c",
+        "hash": "bf9f349450a747bb1d1253e2b6699fca7615fa7594b5da317252acfbc2b2a9af",
+        "signature": "465d92be25f54e3ba6d29d22aafdf03bb2414aa227df146b79973a4fa97812d8453708d596d387017a2926bd44acdb95435b1d1e943802e69e7aadf2431907b5628caadc5fc991e4a8529332e8ef14f80ec360860c16cf312ed627c02e8812b208f93e3c6e8e239015dd2229e1078811250d355b71ead46bc164c4db7bc7d36954041abf6b94e7cba3a5bed6b82df5f8564d9e55c5f6d1bf25231bd2703e4f2d85cc7535d8e1e5e75d63e9f7d9ec924d8533ef272a9e27d4bd1d34168830506050036da41d021e86857087177b712d56832d983ea4d599b2b7858d529387f1ff0d1b8981b8358ec7d81d66f23273a71d03434fe3d16d61c906f22f4c9e8f8dac"
+    },
+    {
+        "timestamp": "1790352821.3568037",
+        "data": {
+            "serial_number": "0AA 000000",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 82.91,
+            "authenticity_confidence": 99.87,
+            "scan_time": "25 Sep 2026, 09:43 PM"
+        },
+        "previous_hash": "bf9f349450a747bb1d1253e2b6699fca7615fa7594b5da317252acfbc2b2a9af",
+        "hash": "aec59f7a52d9baa12017ce531f9e1d6de6c080faafb7aaf6dd78ca8f5a9cb757",
+        "signature": "5782986f083cb908513ef5e387c994c78f8d59b85dd7008f4c95f816df0c69b03bcb999332f1c6a61bf4ae490bc7f0b27111523a0f6a795bfe92aab8fc6179eb41d5658adc59ea772ef6baa554f9950e19127e8f47b77e17ce3aff7d5972e0cb2c2590aa9c49214f3039ffc0757ea929259f6b79e3cd6fc911f4ef867a0d287b1df852e881eef6ce8e055ba493eb40c4d418234e40815839fba4fba4a6b77d2f79fb334882368641ce6a2399a5648acac03dfaa7f6f38675bb88192fbe948c8a3bdc00c31011146cb196a28caf5e795c727a0d571e251b1b38964a4206abc2aeaf1ced30156d3b0784020f99380c92234b6e48486e624e712b02af2d483a91ad"
+    },
+    {
+        "timestamp": "1790353120.7538931",
+        "data": {
+            "serial_number": "7GE 947099",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 63.96,
+            "authenticity_confidence": 99.67,
+            "scan_time": "25 Sep 2026, 09:48 PM"
+        },
+        "previous_hash": "aec59f7a52d9baa12017ce531f9e1d6de6c080faafb7aaf6dd78ca8f5a9cb757",
+        "hash": "8b013937582cd5f726d3de683c0c1eadbe30e67b7310f8839eb07f0ac38ee2b4",
+        "signature": "21de720652ff590ba897af752efcef1c9c6db06810ad3b4407934713f8dd33f621628157b7d02c1ae8ca97629f3ff592c890ec3b8c38f9c3f8eb62e16b10c389cd141f432cc5fe0030ab610c107953d2cb93633e00c3c86309c5b399a5dcfadf01965b9753ff4c3e56786d3deb36295f9211a3210c73be25988620e12e3407da45347f79773fea6d263a930b60a0a10c429a3f0abe66a4cf7695828357d7a73b8560a9d9162d52d1a075803186a541350e73a2e42775b54a3e54d23c22aa3ed900e17c679d46c31dc901f84df82c2006f161c20288eecc9b0294b909ba068af7c6c1f5776496f8ef0faa7fd2764107d653667c60057d1f33698b6abf26de6c95"
+    },
+    {
+        "timestamp": "1790353493.5408554",
+        "data": {
+            "serial_number": "947099",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 63.96,
+            "authenticity_confidence": 99.67,
+            "scan_time": "25 Sep 2026, 09:54 PM"
+        },
+        "previous_hash": "8b013937582cd5f726d3de683c0c1eadbe30e67b7310f8839eb07f0ac38ee2b4",
+        "hash": "f4f84ecf89538891adfd3a51a18ebdc5e9cebbf51c93d695768162b90481e584",
+        "signature": "095048d3dfc863527fd48b26c79562b127b506393abcde34ece7525c709d4ba89c1be943819d64b2f486b47fee819474785362c2cfedd0f455e260df17161f6287ae26411cfbffbb1308ac22893d6dab88de01374f5b1e26728dcc8bdcc7de48d14b8b386a355b38cc9d28baa3967272862ad301c46a53934f8cb5e8d30e8d641879c4c3043b8e4d6e000c846072d36314b09014cf04b66ff97f6a3d7103add8c7146960eadff0df5bd874adae7c0a6f0528f8d8b5afaf8a95a0282a57c4c5d9cfca87003be98a7af592dde2990d3d5a49cfb89c13711db34ddb9b6f8a510cfaffe0165b0efabbca737ad1a7bf102ff0769b305011afcb64a493301531ce16fc"
+    },
+    {
+        "timestamp": "1790354901.7416816",
+        "data": {
+            "serial_number": "9EB 548786",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 92.29,
+            "authenticity_confidence": 98.77,
+            "scan_time": "25 Sep 2026, 10:18 PM"
+        },
+        "previous_hash": "f4f84ecf89538891adfd3a51a18ebdc5e9cebbf51c93d695768162b90481e584",
+        "hash": "e8982d4672d8765811c2aa019dd0121096296359901a39b86a9a1fa08dd1041f",
+        "signature": "5e070bbe294957900a24a2c0228b59b8fdc0a032a5dd1a1670354e12020ef63b7943116e89fffd1327ee9fa8479210a8290fb60fef9649db8da58a33a5a61ac33d3c0139ad0afa7f66e5c6dcaf751cda14c17ff1b6f092779bd3312b6c77e6ff0bb12ee76b6ac789715d9cadd58144d62b66b56b67e902a1330a96a06bdc16875aa105b9517ed0fab992a093dc3a22284eb3b0fb631e94aa14d24c2b73cfb2b5ad16bf8802394e4e5c6fe1ae2275c4fc785f0eb0242f6af3cbbf55775e2b9273fdbaffaad77e522319dfb80cd95614bf9b88fbb0f38cf1d7968e9b8c9c2de3497b942c1e24951e024e37a5c521e107498485a960994cf18889f34244cbccaa7c"
+    },
+    {
+        "timestamp": "1790355412.7566614",
+        "data": {
+            "serial_number": "9EB 548786",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 92.29,
+            "authenticity_confidence": 98.77,
+            "scan_time": "25 Sep 2026, 10:26 PM"
+        },
+        "previous_hash": "e8982d4672d8765811c2aa019dd0121096296359901a39b86a9a1fa08dd1041f",
+        "hash": "be8c2f81ed1701abfbf1b3481d11b1069261b711d6520406a2a943361ddfb892",
+        "signature": "17abce7d106afd8fffb7b53a92cecf4ad7246783cf2fb14ba0c2e0ac4696ef0fe79551188aeeead09a8b756fd25bdbe38cb3ad33c4c992d949e05c773807101920dc7ce86ebc01fc8a8382fb040b3e0232436dc706c17e7b8eb9326a97aa29748cf7db4a85168012f5de3ec0b41dd765cb27b065a239470006917e7cac72bb27f6c84797378924ab581b0fdaff84c280322cf22d6569edd0c2a06742b62d626d24fe8c766fbb9bab6cc6ecf98d0d5cdeddbe59efeaba0b26b3a8bc24cee2835a4e1f5066b7530d7f49abec4f1957509aafc118a73a338aa2166c4f6aa0639337cc3120f84781f2836345c46c36bf1580270e5963b6d1d397223d7ffa3a0d8d1d"
+    },
+    {
+        "timestamp": "1790355642.8521209",
+        "data": {
+            "serial_number": "9EB 548786",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 92.29,
+            "authenticity_confidence": 98.77,
+            "scan_time": "25 Sep 2026, 10:30 PM"
+        },
+        "previous_hash": "be8c2f81ed1701abfbf1b3481d11b1069261b711d6520406a2a943361ddfb892",
+        "hash": "42273f90bffc2a70b74a070ba64f5a76b498e11af9df63088b156d291716b676",
+        "signature": "58c605255b19766c8a9f685d35ec1fc588a0f295f97ea7cfb06840f5cced4c3830e0ec2caea29f9030a653f1448eaf3480751fd8b0c0b37236d7e3a94f735aea3a677fa672ea78418187a8dcc4f13199bcc25f8a575d27c6ed600ac2f60e0da5451373b5ff269579c83e26bbb290cf05a3f7440ea42948fbfb98dbd305cd2610267d8d2ebd19e3c4b96a3b90d0dcf0692f0964113b650c2acfb35c4e4847785e11dff9b367d3eabae64d2dd9d0fbcb81eb405e6a4c709b7d99a1c157a1be0c1456dd00fdd6c806db54fbd338653b16638cd0776b7ad0b58124e96c8b4a4773da60fd565076c16fa2d727fb6077441b336aa88dfea368c056be4edeee78cbda02"
+    },
+    {
+        "timestamp": "1790355942.785642",
+        "data": {
+            "serial_number": "9EB 548786",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 92.29,
+            "authenticity_confidence": 98.77,
+            "scan_time": "25 Sep 2026, 10:35 PM"
+        },
+        "previous_hash": "42273f90bffc2a70b74a070ba64f5a76b498e11af9df63088b156d291716b676",
+        "hash": "aca85b494c67dbea81daf75b498faa46ace66c54a1ce210eedd76396ceb1704a",
+        "signature": "06a4964b2e3fa4bd38bd5f1bed9f0cbca24a4e0bae60c9a1ba1eb1372d08f7a30e03669f97565e7cb69f8e07c73775ebfff525957b7d887c4b9045b8fdd72877ae6a0eb0c24a87ad3f05321f4d64c91a75e1170f8c6c71364cae72fff19786757c47893c33e7e3f312402ac6534239c08adcde3ac6a433c18c040cab99131e15b98914b2310bfd998672eedede19344c1195702756cb6f97000d49cd3f2e8b145a56026a85b7ac8dcad641091e2064d7da5c119b19e1a300af0385eb0885c5d83148448848aa33d27f529f2ad36b11fddf95fc864e38b66e10e819b785808ecf8e91277b598a9040513c187575eab1d8b61380a77226cea7b4f640a6a22431e9"
+    },
+    {
+        "timestamp": "1790356037.8910387",
+        "data": {
+            "serial_number": "9EB 548786",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 92.29,
+            "authenticity_confidence": 98.77,
+            "scan_time": "25 Sep 2026, 10:37 PM"
+        },
+        "previous_hash": "aca85b494c67dbea81daf75b498faa46ace66c54a1ce210eedd76396ceb1704a",
+        "hash": "f030ee42ea42002eb3d8717a837744c9f494c1e1b0ac97523bcecb3cc91c4fa6",
+        "signature": "1b21e6ecb798b45f221aee87230a4427709fbbac953f52ff99607de69c51c6641f052364fd717784659fa420a7357deb92a5c6aaacb8d1aae658804b65f27d5fc46e07f20d9a17bf48ff8ca48e66b4b5c6eeb1fee8205279e88ebdaaa6e14c94fd71cb3dc410273fa6e2b36d5d78d31e9e436b9853af56137a8b44c90b7e1ad6fc9c4f59831af9d6d3cc2739806fc479a8d6c67c364ae4f92f1536feea1c67fd2621a6e906d87d3a141ab09bbfff850b0ba4c92a155c7ab60c14caa99f22fc63dae3586d803a9c064193b850d0cf8988c2c27a46941f1a08981d6090ba2584d120ec5cb5465fb828df5dbf08d2a4d490756cf060a28754c8d25ba977d45b2683"
+    },
+    {
+        "timestamp": "1790356797.3456092",
+        "data": {
+            "serial_number": "9EB 548786",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 92.29,
+            "authenticity_confidence": 98.77,
+            "scan_time": "25 Sep 2026, 10:49 PM"
+        },
+        "previous_hash": "f030ee42ea42002eb3d8717a837744c9f494c1e1b0ac97523bcecb3cc91c4fa6",
+        "hash": "24e1ee28887bdcc240bf003e7d3f35868646bff7d232cf4950c374d1b932ee35",
+        "signature": "5cc90d48db1ecaebb3365142b47b4efa8ac5cd497f21c00f1db240302533e278c6b8869731c805fe588c8bef97ab1dff4f96d5b59a25245630443ba763054ae370f03d58f9ca144afa0c437c2b943778f2ecda19992f81b3414f6eecd6d6bd04809f1b50167c6472166311e76902e971950954328afb9b345da4d2ff035ea977adedcf9a663de71397bcd97f4c3f7dcf8d128a5705847494a46c09e6a2bd7e29ce7a7bae1f3cf7d940ce7109fa4571fb4bc158fcc0d2a89da64f3ad3be6127263c80b5274b410eba8adf3807a7afd9951ddc9d5bc7fc411149d1c856a7ec5f7b6fc6981c9020ae08d24ca1db1858b835a7eea0abc7696374db533c90c07027ec"
+    },
+    {
+        "timestamp": "1790356887.6706147",
+        "data": {
+            "serial_number": "9EB 548786",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 92.29,
+            "authenticity_confidence": 98.77,
+            "scan_time": "25 Sep 2026, 10:51 PM"
+        },
+        "previous_hash": "24e1ee28887bdcc240bf003e7d3f35868646bff7d232cf4950c374d1b932ee35",
+        "hash": "090065e9ac47bbc80692a044615bc3d837f8f3a06781bf95cb37d8443fe60ec9",
+        "signature": "676737edfbc7cb15d91acf83cb8909f317471c62416e51d7c0fd02f765ff021138a373b324798b529d922cce197a8aaaacec709c51be52d6ef458cb7e28ef64ea07771c888b811608c8eef8c23de6b6b95ea5b3d4dd5a437922161cc8b29e563930f842edb5176190219bc69798d874491df41f5d48d0ff7dc01a0e7d9c20cbd4f8d568399240b74927a1138df432ba1ccf8b6fe9cc6f31d293b23706928a8d633b964518033150f84ae85b34e878ca3373b1e2dfd2a82469fe91efb041edb6d78a3fd5e112eebe544c6e21f379134e46e2b6a54481e4d1d9784e66dafcaeabbc181009d205607942897d2fc705e5fec9c3fd00c2ef94e6dc064e395c1286d8e"
+    },
+    {
+        "timestamp": "1790357447.848925",
+        "data": {
+            "serial_number": "9EB 548786",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 92.29,
+            "authenticity_confidence": 98.77,
+            "scan_time": "25 Sep 2026, 11:00 PM"
+        },
+        "previous_hash": "090065e9ac47bbc80692a044615bc3d837f8f3a06781bf95cb37d8443fe60ec9",
+        "hash": "7bd1b2635aaf17a62da837f7c302612b6d66fd82d28c2b7cb0e8fe4eeda89067",
+        "signature": "06cf52e04d7db474c4dcb89187f34f186fe240e94bd3e860cd8722160d6db7c3e5efffaca23187082c3e6f81fa44b0ff780142bac4797c29d898549760dd601f37dd50da82b29b67a0d619b6929bb30e2db6bb4554f007743a47a32d09d1b5127540971852f534b3e8c48ac02875b3c16871cb603a12dbd7c780bb353b996ce8634094d07f2af0783ea6d813f1ea7eef7f7ac0623b8b017cbd6baf79c841d23358e3ffab2c8fd17be62d050d74386633a7b82f4c809e512c9f5ca94bdbb13cca15af3c5c17d98f56fea11ada5a43c91e27be40f19aff12ec3a427760a91f54446954ccf46da43160b022afb749ce2db9be9fdf8a418d9cd956359c69d486023f"
+    },
+    {
+        "timestamp": "1790357598.008499",
+        "data": {
+            "serial_number": "9EB 548786",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 92.29,
+            "authenticity_confidence": 98.77,
+            "scan_time": "25 Sep 2026, 11:03 PM"
+        },
+        "previous_hash": "7bd1b2635aaf17a62da837f7c302612b6d66fd82d28c2b7cb0e8fe4eeda89067",
+        "hash": "5313bfd06a78bf37e226a2f564ec93c61f9702b6e11643f35a2bebc249379d5b",
+        "signature": "5e6bdd5dab9966e14486d87703a6ed39786564dd55371f046ae2b46e4ab25ec141c9f80015e5c2f3871ce4786052a997ae3756111512f18c54d5ea6717ce72a3862ebc9e7634f56a0d86ef29627615d21d05cb81de28e35073f8a2b086c0477dea4070d97a928dbdd945b46677f7e846e31c16e2cff17ebc63f2e2a4d8d0317d3a533c7ac33e88ed56245b16ced1c6cb0cf82fa0e15a71062d72aac0e6f695a782bc1e2863745f3073e29f73517852cb4fb9e353e68404bf9798b270c9c1042c8b2ad9eb637feac19dcd1f07526c798d90d22cf7b584ffcde0d7f797dc9169a19ea55f31c405f6b86032ad98ab8e8dd6ec9ff130d52b28a4eb8311cd876e9433"
+    },
+    {
+        "timestamp": "1790357933.198247",
+        "data": {
+            "serial_number": "9EB 548786",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 92.29,
+            "authenticity_confidence": 98.77,
+            "scan_time": "25 Sep 2026, 11:08 PM"
+        },
+        "previous_hash": "5313bfd06a78bf37e226a2f564ec93c61f9702b6e11643f35a2bebc249379d5b",
+        "hash": "9ca47352d4a65065d39118f7d6a5f7e37a01750a6a24b551605e6b1f032a0418",
+        "signature": "7cadefe276745bbc76951c2f6afb1a1f7a29edf735bf36de16c35a080b8608feac75210d93f6da5d69f7cdc16a0ffa19eb645fd8e3e49cf1920d1b897fa2af564a0c9bbd4108c94e49877ea531b99537b962b4ebf67b7ea4dc7e2dddc27b00d1e1bc915bc496365d60ab622f7d485afc7fb21ba25b755e0836d6467d015dfedd4898f06a0a3e23459dcbd7170022a46e3071e0e682519b536941d1315afa6886140669aab3bcad13ca91fdca3f1e5eaad4c8ed5e99dfdca32403c36a39f43772296ea95f0a7cdbb8652b4ba14edfa9b11ab745461097493cf538da97d82865fa1770a4d6ff09adf5195faf0e92c270f1637e199b12ae6d513de34aa3684ba966"
+    },
+    {
+        "timestamp": "1790358009.372227",
+        "data": {
+            "serial_number": "9EB 548786",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 92.29,
+            "authenticity_confidence": 98.77,
+            "scan_time": "25 Sep 2026, 11:10 PM"
+        },
+        "previous_hash": "9ca47352d4a65065d39118f7d6a5f7e37a01750a6a24b551605e6b1f032a0418",
+        "hash": "db62224182cc4c538baebba07d8b59e42daa673d2b83c9d521319810bf88292d",
+        "signature": "0a84d05ab9798739b41a8cf1a829381efe10ca592604487499221b9652db2dec14e6666e8a21dd2eb76ae53035618c35895542c66bef7acaf4b5f13f44440a4715c9b2aaa31ca3bca5493515f8790db4c17e6feff66b886456b808b8d002d5db32a1e55b3e7fd0736059e6e01528490d38028c704a09f4e4cbfcc0a8739d84abc57bb6405126e2ecb59cd51b60a9b6d326f8d732609ceb65df1925680873a8b0bace8e94a4cb23eaf91f4f4ec04dd753f1500c86f08b8f7162b6a4b2c1093587eb37c61258bf0c497b42c001ed55018b008fbda45a8f3a5859aa52d1db7029f3acfc34c7c28165801e0bcb6ec0cafce23a35e7e2c9742408ba587084cda90777"
+    },
+    {
+        "timestamp": "1790358253.3333497",
+        "data": {
+            "serial_number": "9EB 548786",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 92.29,
+            "authenticity_confidence": 98.77,
+            "scan_time": "25 Sep 2026, 11:14 PM"
+        },
+        "previous_hash": "db62224182cc4c538baebba07d8b59e42daa673d2b83c9d521319810bf88292d",
+        "hash": "0abbc5310d4c6433f520e16abe924662b75ed3189277f929f9607aff2c4ac7be",
+        "signature": "722a5ade63ab75996e09cff960babb4590d479b82ce7215392c334c99bbd16741e9bf65a758dd525a1e5cb232a9ac4400605630412b3ae5d40da96ee8e754e1713694187404a409f0217c85462f19f15975353037d8a185fc490a66e913429992d7c8b0fb486d028a8f7a0939838c6252de27164fb7a146478f26b537dbdae0c1d14ab88f9bff1f7986c6a691fd0f085aaa7462bde5717b2b47c20b5606091bfa9e9c6df62994d348eafbaefc07006b163caebf72f7d96765f0a2663444a960256f662de5f528f9592be2a54d12479e9d844d05208117772c8e750214f43bfbcdf187e435a8e06df5f6106343acc8db1dedfba25a0e5874c66fa6575117f0398"
+    },
+    {
+        "timestamp": "1790358440.8351493",
+        "data": {
+            "serial_number": "9EB 548786",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 92.29,
+            "authenticity_confidence": 98.77,
+            "scan_time": "25 Sep 2026, 11:17 PM"
+        },
+        "previous_hash": "0abbc5310d4c6433f520e16abe924662b75ed3189277f929f9607aff2c4ac7be",
+        "hash": "686509879f6ef1d5003e79e876e935977754eac5e0def38c8a391c3c4e0136ce",
+        "signature": "6cd35dc0eeb52a50c1b800c11e131ef41d671c0f6e82f797f2a1319a44a4809cf19b5e5dd3ca2cafa4ee697e6a789fcb4cd7dfaead00f9b2a5a3628b5eed571c5ae9df073e5dcdf50356ba17d5d59053185202149efec22f2ba3a4d15989bad4a369765970ba32f88d6f7ab0331017abb3631d47b37cf1309d170aa082663a4d3fcc7683ca02e3f79d2202b05dc099bc91a591c2bd70982d3f9f23d4c37f5c6f2677638e1d93beee4fe223ec6451ff37427ebfc1eb6a4318693dd73f959f1c6cd604cf39953c81f333c0ab1b53b1f96d407f7868b289b586865ad989b482e0a7d7df564a471f4b3a9edef36fde8352494b5b25f81e4277a069a648d0adc1dd7c"
+    },
+    {
+        "timestamp": "1790358579.7067833",
+        "data": {
+            "serial_number": "9EB 548786",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 92.29,
+            "authenticity_confidence": 98.77,
+            "scan_time": "25 Sep 2026, 11:19 PM"
+        },
+        "previous_hash": "686509879f6ef1d5003e79e876e935977754eac5e0def38c8a391c3c4e0136ce",
+        "hash": "0a1bef50845d8c0598930e756b616eda64695b9017598b3836fc6bd13926a577",
+        "signature": "67c2a2693ec50489897eb489e5a246891881b2a7bb49e9b07f20ef967f0c4488fd1268d27cf3301ec986f268036221c467902c59e84daa1d743771848100e8472a65e8e88edb62fc66b1c273b60c7b0caafcfaa4c0f8da39c5f78aac68590a7c135237bad3ee38a2cd6e4a1b1c0411845f3a82da6fe39cb04cdb822e21094a7544c29a618763cfd3f7d88352ec6f7e7bbeee45f4ae30d9816020339d29f2060aaa8462c835f923f6f7faffd8e0aa4d255a864d6d23da4836a0af2066455fc585db7fcee5a78c6912b45910fb301ed3002131c95a35465016e0325759b4a0f2ab2214620f5112b14e666648caa2a62ad36781fd08efdd6f3d06c24dc08c87d8f0"
+    },
+    {
+        "timestamp": "1790358782.710774",
+        "data": {
+            "serial_number": "9EB 548786",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 92.29,
+            "authenticity_confidence": 98.77,
+            "scan_time": "25 Sep 2026, 11:23 PM"
+        },
+        "previous_hash": "0a1bef50845d8c0598930e756b616eda64695b9017598b3836fc6bd13926a577",
+        "hash": "efb6a411ca43d0c771a522a043f1cc661fcd3452f4e3cc285dd0507477139d23",
+        "signature": "5941a2ae938e3673458bdb67301c7a890a336850bc04eb721a2c2dfd412fb91f2717c4de187d7c8cafee62ef025b4c8470da46dd9d131918088c3b67c1a739aacb9b7463e6883759de46176261e85bcff5ee03a59136054c9045a018f9c732a569a5ce98d1d900b01ac6a4f9d4222f78ce86a564b4534e1840c01a8ae4bf9c89e64970e9205ec36e16f61fa3a45befd3da18f10546e3939859a3f5c7c03d584c084fe44cfeb85669ed1acc0ef07174e73d79abd072e156bb1f158dcc79bea0a9adbe4dc7318e21dcf9252172378767275978455ae896b853711f6b8a92f31609f4803f22a615fe4fcc3dea34330cb3b23050a41d92605c8dfc1581d9294f08b2"
+    },
+    {
+        "timestamp": "1790359352.5275168",
+        "data": {
+            "serial_number": "9EB 548786",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 92.29,
+            "authenticity_confidence": 98.77,
+            "scan_time": "25 Sep 2026, 11:32 PM"
+        },
+        "previous_hash": "efb6a411ca43d0c771a522a043f1cc661fcd3452f4e3cc285dd0507477139d23",
+        "hash": "25cedc38df6eca9e9c3f34ba8449a328382888138079737bec6b049f88336619",
+        "signature": "382c49be9573d948bed7ea35c74eea0fc3170d3adf40488555619d39ff5e4154a7c4b4d3cffee265304fe14105e6f8ae95a2f6b42e020874b6e3eb3304f23ffeb402685b19581e69872872f7c2837ddc489879781f13aa0abae2495d15fccaf3b26f232ad7a78330d0afaa988718639fcdfe568e4ba11e5532915d12a0f82fb51514051621b37cf212d4d5839d343ec4bf8da757649a3985c645618a4fb4faea2ff810c1beef4947c2fa661979b2c774f8db5aeb7e38c1543ba13d592c44f88d0bc5613f668200ff2ea5a297b6898e48aad2d4d589ba148d8f396f823257b3f49da7d53eba6bba1894faec72756cc7ceadd0fc8a112a6f93d010f8ece78ceda7"
+    },
+    {
+        "timestamp": "1790359834.5243042",
+        "data": {
+            "serial_number": "9EB 548786",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 92.29,
+            "authenticity_confidence": 98.77,
+            "scan_time": "25 Sep 2026, 11:40 PM"
+        },
+        "previous_hash": "25cedc38df6eca9e9c3f34ba8449a328382888138079737bec6b049f88336619",
+        "hash": "4b4dfc4a75ad5eb1f653048e3311b910f835e55a68c493aa6ecd5ef4768a211a",
+        "signature": "2c57bb93a8b7dcf3dace74721d3b76bbe8b0e79430dd8f20f36b8ba4d2f36dba69e678cb75c01b73e545c7b39a11b65ce8bc23b53224c7c1345e32e444d16626f0f18de1fe91ac248e9214f2ed429eeaab750af6a38394c369434caebc25facc7d933f174cc17e821f6f4ed420f15e92ab937df985c0f49aafc9cccde91d00731a201eeee167b4fcee73856bf0e7bb43e72432a4fa25b178071344cb922bc4905ce95b3f848586f83858cc81921c6e1201033d4d24b135caf4e9d776ec92fbcbba4808a4b4ee41ab6de43a9a28c6c2e1387970aa5ab0d3b3cb067e24396db8c3dfb0de9df98023ad5309df8e967df5fdceb824c50a714bc06bb194f3b22f829c"
+    },
+    {
+        "timestamp": "1790360880.157744",
+        "data": {
+            "serial_number": "9EB 548786",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 92.29,
+            "authenticity_confidence": 98.77,
+            "scan_time": "25 Sep 2026, 11:58 PM"
+        },
+        "previous_hash": "4b4dfc4a75ad5eb1f653048e3311b910f835e55a68c493aa6ecd5ef4768a211a",
+        "hash": "c328c1c162303057ecd3a34e38d29dab6cb280b7fe540f6a65230c5521777a6b",
+        "signature": "20965cdd00060020dfd42a2cb05f434a705819af0e7af8834e9103bde77e390b189fac78005fcc3c8b53932aa0902126b81c6387b8bb5e150e2e438191311eed29ec230a5cefcf5c6efdc739721a22a8598e10e1380c441e9256cecb12523030e89690d2aaf92505e9a039554bcf3f4d49ebfa121df8a7b2cfb3d4e3249148712186c3d0778cc60d2b02d2c09ef10b15f54e8ddeb1055637193f5a10fbb45cde8081b35cf53992c64dd2f9a9c69082c737929c5ba8a74ece53846c9887013a9789fa318cededddbeb6a471328420baf6dd2926b17e8c862ddcdc748154f016d3cdcc28ce3eefc53b7c4bdbfcef69c0686c8ff4732c524f2ef4ad51142ce74e90"
+    },
+    {
+        "timestamp": "1790360980.1872058",
+        "data": {
+            "serial_number": "7GE 947099",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 63.96,
+            "authenticity_confidence": 99.67,
+            "scan_time": "25 Sep 2026, 11:59 PM"
+        },
+        "previous_hash": "c328c1c162303057ecd3a34e38d29dab6cb280b7fe540f6a65230c5521777a6b",
+        "hash": "4ea1a7ab857cd65e5aabc5b4390c64dfcfedd3c589157fa49bb0032357baeef4",
+        "signature": "485c7744bd4bbf3d66b43650d7ce9f9fb706dd17d2a64dd9296f674e94731c2604ce6f9b7215cb35bd1a58a7ab3175920597e8650f14d77614ef883fbac0390fa1c321ee16b0c323cf93082ed03683f86b8f4d181fe6a4dc18e0b9121c45708a59c5d169dc8e954c2eaf5506ea686f581aea2f712c145774128f52d270aa4d5ea162c872778792430c9726b75055bd24a137dc93ec594ca3e4f3cfe0e00fbc4500ba86b92be0328f64cccf2dfc34a309fafcbf53acda126a288fceb762ea1edfb205b93a4dd159a2aae802ab79c048848ecd0bd71d0ccd14748020a9819e6146ca15d9c5ba4de23ff6e5e91478cc634f2b88acf640bfbda17a8782b75d8cf1cf"
+    },
+    {
+        "timestamp": "1790363283.1458204",
+        "data": {
+            "serial_number": "9EB 548786",
+            "denomination": "200",
+            "authenticity": "REAL",
+            "denomination_confidence": 92.29,
+            "authenticity_confidence": 98.77,
+            "scan_time": "26 Sep 2026, 12:38 AM"
+        },
+        "previous_hash": "4ea1a7ab857cd65e5aabc5b4390c64dfcfedd3c589157fa49bb0032357baeef4",
+        "hash": "e9dc42b46c25b6f23890b94004b151bcf4268807519376f4756ed07846f68d38",
+        "signature": "105b220a6c580a24cca466e21e20d1305ff19c6ac39f2281b21ad82f1e3b04f1d9b583cbcb703efe5a663bcf53da139836c1d592f99b0a102edb8068a40a6969bc408e621a1b9e2e4b1e40c2d3931a147efe179b27c6e446eb785f63e68c80903a006023db953cc83fc98633299701f7d434f8bf0a65a2d1cf8a14e48714b5a904df3922f69dca79f90dd4d519f16f43770ca5a89648aa997ff973ffb0e67f63051420e7611d8698b50c6ffe1d6fbd85c6ec96a5ae7eee03607d3dba15a589bf49df8515351bd9105b0d9490a7314d92a0949bc6d0ff61820f04b7c4fcc9bce0cf8f0e13a1bbafa6baae3f008e3151ca81fe66bc93028bfcb0b855c677f392a8"
+    }
+]

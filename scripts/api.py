@@ -235,6 +235,25 @@ def detect():
         except Exception:
 
             pass
+        
+        
+    @app.route(
+    "/save_record",
+    methods=["POST"]
+    )
+    def save_record():
+        serial_number = request.form[
+        "serial_number"
+    ]
+
+    add_record(
+        serial_number,
+        result
+    )
+
+    return redirect(
+        "/"
+    )
 
 
 # ============================================================

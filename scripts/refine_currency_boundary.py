@@ -12,7 +12,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 MODEL_PATH = (
     PROJECT_ROOT
     / "runs"
-    / "currency_yolo11n"
+    / "currency_yolo11n-3"
     / "weights"
     / "best.pt"
 )

@@ -1,5 +1,4 @@
 from pathlib import Path
-from collections import defaultdict, Counter
 import copy
 import csv
 import random
@@ -7,13 +6,69 @@ import time
 
 import torch
 import torch.nn as nn
+
 from PIL import Image
+
 from torch.utils.data import Dataset, DataLoader
+
 from torchvision import models, transforms
 
 
 # ============================================================
-# INDIAN CURRENCY AUTHENTICITY - MOBILENETV2 V3
+# INDIAN CURRENCY AUTHENTICITY - MOBILENETV2
+#
+# FAKE vs REAL
+#
+# NEW DATASET VERSION
+#
+# Dataset:
+#
+# dataset/
+# └── authenticity_new/
+#     ├── train/
+#     │   ├── fake/
+#     │   │   ├── 10/
+#     │   │   ├── 20/
+#     │   │   ├── 50/
+#     │   │   ├── 100/
+#     │   │   ├── 200/
+#     │   │   ├── 500/
+#     │   │   └── 2000/
+#     │   │
+#     │   └── real/
+#     │       ├── 10/
+#     │       ├── 20/
+#     │       ├── 50/
+#     │       ├── 100/
+#     │       ├── 200/
+#     │       ├── 500/
+#     │       └── 2000/
+#     │
+#     ├── validation/
+#     │   ├── fake/
+#     │   └── real/
+#     │
+#     └── test/
+#         ├── fake/
+#         └── real/
+#
+# Total:
+#   7,445 images
+#
+# Training:
+#   5,206 images
+#
+# Validation:
+#   1,110 images
+#
+# Test:
+#   1,129 images
+#
+# ============================================================
+
+
+# ============================================================
+# PROJECT PATHS
 # ============================================================
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -21,30 +76,19 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = (
     PROJECT_ROOT
     / "dataset"
-    / "authenticity"
+    / "authenticity_new"
 )
+
+TRAIN_DIR = DATA_DIR / "train"
+VAL_DIR = DATA_DIR / "validation"
+TEST_DIR = DATA_DIR / "test"
+
 
 RUNS_DIR = (
     PROJECT_ROOT
     / "runs"
-    / "authenticity_v2"
+    / "authenticity_new"
 )
-
-MODEL_PATH = (
-    RUNS_DIR
-    / "best_authenticity_mobilenetv2_v2.pt"
-)
-
-TEST_SPLIT_PATH = (
-    RUNS_DIR
-    / "test_split.csv"
-)
-
-ERRORS_PATH = (
-    RUNS_DIR
-    / "test_errors.csv"
-)
-
 
 RUNS_DIR.mkdir(
     parents=True,
@@ -52,41 +96,67 @@ RUNS_DIR.mkdir(
 )
 
 
+MODEL_PATH = (
+    RUNS_DIR
+    / "best_authenticity_mobilenetv2_new.pt"
+)
+
+HISTORY_PATH = (
+    RUNS_DIR
+    / "training_history.csv"
+)
+
+ERRORS_PATH = (
+    RUNS_DIR
+    / "test_errors.csv"
+)
+
+PREDICTIONS_PATH = (
+    RUNS_DIR
+    / "test_predictions.csv"
+)
+
+
 # ============================================================
 # SETTINGS
 # ============================================================
+
+# CPU because your current setup is using CPU.
+DEVICE = torch.device("cpu")
+
+NUM_CLASSES = 2
+
+CLASS_NAMES = [
+    "FAKE",
+    "REAL",
+]
+
+IMAGE_EXTENSIONS = {
+    ".jpg",
+    ".jpeg",
+    ".png",
+    ".bmp",
+    ".webp",
+    ".avif",
+}
 
 SEED = 42
 
 BATCH_SIZE = 32
 
-EPOCHS = 12
-
-PATIENCE = 3
+# 15 epochs is a good time-conscious setting.
+# Early stopping can stop before all 15 epochs.
+EPOCHS = 15
 
 LEARNING_RATE = 0.0001
 
-WEIGHT_DECAY = 0.0001
-
 NUM_WORKERS = 0
 
-DEVICE = torch.device("cpu")
+WEIGHT_DECAY = 1e-4
 
-
-# ============================================================
-# DENOMINATIONS
-#
-# ₹2000 intentionally excluded.
-# ============================================================
-
-DENOMINATIONS = [
-    "10",
-    "20",
-    "50",
-    "100",
-    "200",
-    "500",
-]
+# Stop if validation Macro-F1 does not improve
+# for 4 consecutive epochs.
+PATIENCE = 4
 
 
 # ============================================================
@@ -97,6 +167,9 @@ random.seed(SEED)
 
 torch.manual_seed(SEED)
 
+if torch.cuda.is_available():
+    torch.cuda.manual_seed_all(SEED)
+
 
 # ============================================================
 # HEADER
@@ -105,7 +178,8 @@ torch.manual_seed(SEED)
 print()
 
 print("=" * 70)
-print("Indian Currency Authenticity MobileNetV2 V3 Training")
+print("INDIAN CURRENCY AUTHENTICITY - MobileNetV2")
+print("NEW DATASET TRAINING")
 print("=" * 70)
 
 print()
@@ -116,486 +190,360 @@ print(f"Device  : {DEVICE}")
 
 print()
 
-print("Classes:")
-
-print("  0: FAKE")
-print("  1: REAL")
-
-print()
-
-print("Denominations:")
-
-for denomination in DENOMINATIONS:
-    print(f"  ₹{denomination}")
-
-print()
-
-print("₹2000 is EXCLUDED.")
-
-print()
-
 
 # ============================================================
-# VERIFY DATASET
+# DATASET
 # ============================================================
 
-if not DATA_DIR.exists():
+class AuthenticityDataset(Dataset):
 
-    raise FileNotFoundError(
-        f"Dataset not found:\n{DATA_DIR}"
-    )
+    def __init__(
+        self,
+        root_dir,
+        transform=None,
+    ):
 
+        self.root_dir = Path(root_dir)
 
-for authenticity in [
-    "real",
-    "fake",
-]:
+        self.transform = transform
 
-    folder = (
-        DATA_DIR
-        / authenticity
-    )
+        self.samples = []
 
-    if not folder.exists():
+        # ----------------------------------------------------
+        # FAKE = 0
+        # REAL = 1
+        # ----------------------------------------------------
 
-        raise FileNotFoundError(
-            f"Missing folder:\n{folder}"
-        )
+        class_directories = {
+            "fake": 0,
+            "real": 1,
+        }
 
+        for class_name, label in class_directories.items():
 
-# ============================================================
-# COLLECT IMAGES
-# ============================================================
-
-IMAGE_EXTENSIONS = {
-    ".jpg",
-    ".jpeg",
-    ".png",
-    ".bmp",
-    ".webp",
-}
-
-
-all_samples = []
-
-
-for authenticity in [
-    "fake",
-    "real",
-]:
-
-    for denomination in DENOMINATIONS:
-
-        folder = (
-            DATA_DIR
-            / authenticity
-            / denomination
-        )
-
-        if not folder.exists():
-
-            print(
-                f"WARNING: Missing folder: {folder}"
+            class_dir = (
+                self.root_dir
+                / class_name
             )
 
-            continue
+            if not class_dir.exists():
 
-
-        for image_path in folder.rglob("*"):
-
-            if (
-                image_path.is_file()
-                and image_path.suffix.lower()
-                in IMAGE_EXTENSIONS
-            ):
-
-                label = (
-                    0
-                    if authenticity == "fake"
-                    else 1
+                print(
+                    f"WARNING: Missing directory: "
+                    f"{class_dir}"
                 )
 
+                continue
 
-                all_samples.append(
-                    {
-                        "path": image_path,
-                        "label": label,
-                        "authenticity": authenticity,
-                        "denomination": denomination,
-                    }
-                )
+            # Recursively find images.
+            # This handles:
+            #
+            # train/fake/10/image.jpg
+            # train/fake/20/image.jpg
+            #
+            # as well as images directly inside fake/.
+            for image_path in class_dir.rglob("*"):
 
+                if (
+                    image_path.is_file()
+                    and
+                    image_path.suffix.lower()
+                    in IMAGE_EXTENSIONS
+                ):
 
-print(
-    f"Total images found: {len(all_samples)}"
-)
+                    self.samples.append(
+                        {
+                            "path": image_path,
+                            "label": label,
+                        }
+                    )
 
-print()
-
-
-# ============================================================
-# DATASET DISTRIBUTION
-# ============================================================
-
-print("=" * 70)
-print("DATASET DISTRIBUTION")
-print("=" * 70)
-
-print()
-
-
-for denomination in DENOMINATIONS:
-
-    real_count = sum(
-        1
-        for x in all_samples
-        if (
-            x["denomination"]
-            == denomination
-            and
-            x["authenticity"]
-            == "real"
-        )
-    )
-
-
-    fake_count = sum(
-        1
-        for x in all_samples
-        if (
-            x["denomination"]
-            == denomination
-            and
-            x["authenticity"]
-            == "fake"
-        )
-    )
-
-
-    print(
-        f"₹{denomination:>4}: "
-        f"REAL={real_count:<4} "
-        f"FAKE={fake_count:<4} "
-        f"TOTAL={real_count + fake_count}"
-    )
-
-
-print()
-
-
-# ============================================================
-# STRATIFIED SPLIT
-#
-# 70% train
-# 15% validation
-# 15% test
-#
-# Exact test filenames are saved below.
-# ============================================================
-
-groups = defaultdict(list)
-
-
-for sample in all_samples:
-
-    key = (
-        sample["denomination"],
-        sample["authenticity"],
-    )
-
-    groups[key].append(sample)
-
-
-train_samples = []
-
-val_samples = []
-
-test_samples = []
-
-
-for key in sorted(groups.keys()):
-
-    samples = groups[key]
-
-    # IMPORTANT:
-    # deterministic shuffle
-    random.shuffle(samples)
-
-    n = len(samples)
-
-    train_end = int(
-        n * 0.70
-    )
-
-    val_end = int(
-        n * 0.85
-    )
-
-
-    train_samples.extend(
-        samples[
-            :train_end
-        ]
-    )
-
-
-    val_samples.extend(
-        samples[
-            train_end:val_end
-        ]
-    )
-
-
-    test_samples.extend(
-        samples[
-            val_end:
-        ]
-    )
-
-
-random.shuffle(train_samples)
-
-random.shuffle(val_samples)
-
-random.shuffle(test_samples)
-
-
-print("=" * 70)
-print("DATASET SPLIT")
-print("=" * 70)
-
-print()
-
-print(
-    f"Train: {len(train_samples)}"
-)
-
-print(
-    f"Val  : {len(val_samples)}"
-)
-
-print(
-    f"Test : {len(test_samples)}"
-)
-
-print()
-
-print(
-    f"Total: "
-    f"{len(train_samples) + len(val_samples) + len(test_samples)}"
-)
-
-print()
-
-
-# ============================================================
-# SAVE EXACT TEST SPLIT
-# ============================================================
-
-with open(
-    TEST_SPLIT_PATH,
-    "w",
-    newline="",
-    encoding="utf-8",
-) as file:
-
-    writer = csv.writer(file)
-
-    writer.writerow(
-        [
-            "path",
-            "label",
-            "authenticity",
-            "denomination",
-        ]
-    )
-
-
-    for sample in test_samples:
-
-        writer.writerow(
-            [
-                str(
-                    sample["path"]
-                ),
-                sample["label"],
-                sample["authenticity"],
-                sample["denomination"],
-            ]
+        # Deterministic ordering
+        self.samples.sort(
+            key=lambda x: str(x["path"]).lower()
         )
 
 
-print(
-    "Exact test split saved:"
-)
+    def __len__(self):
 
-print(
-    TEST_SPLIT_PATH
-)
+        return len(self.samples)
 
-print()
+
+    def __getitem__(
+        self,
+        index,
+    ):
+
+        sample = self.samples[index]
+
+        image_path = sample["path"]
+
+        label = sample["label"]
+
+        image = Image.open(
+            image_path
+        ).convert("RGB")
+
+        if self.transform is not None:
+
+            image = self.transform(
+                image
+            )
+
+        return image, label
 
 
 # ============================================================
 # TRANSFORMS
 # ============================================================
 
-train_transforms = transforms.Compose([
+# Training augmentation.
+#
+# These transformations help the model handle:
+# - different lighting
+# - small rotations
+# - different camera positions
+# - small scale differences
+# - real-world image conditions
+#
+# We do NOT use aggressive transformations because
+# currency security features should not be destroyed.
 
-    transforms.Resize(
-        (224, 224)
-    ),
+train_transform = transforms.Compose(
+    [
 
-    transforms.RandomRotation(
-        degrees=5
-    ),
-
-    transforms.RandomAffine(
-        degrees=0,
-        translate=(
-            0.03,
-            0.03
+        transforms.Resize(
+            (256, 256)
         ),
-        scale=(
-            0.95,
-            1.05
+
+        transforms.RandomResizedCrop(
+            224,
+            scale=(0.85, 1.0),
         ),
-    ),
 
-    transforms.ColorJitter(
-        brightness=0.12,
-        contrast=0.12,
-        saturation=0.08,
-    ),
+        transforms.RandomHorizontalFlip(
+            p=0.5
+        ),
 
-    transforms.ToTensor(),
+        transforms.RandomRotation(
+            degrees=5
+        ),
 
-    transforms.Normalize(
-        mean=[
-            0.485,
-            0.456,
-            0.406,
-        ],
-        std=[
-            0.229,
-            0.224,
-            0.225,
-        ],
-    ),
-])
+        transforms.ColorJitter(
+            brightness=0.15,
+            contrast=0.15,
+            saturation=0.10,
+            hue=0.02,
+        ),
 
+        transforms.ToTensor(),
 
-eval_transforms = transforms.Compose([
-
-    transforms.Resize(
-        (224, 224)
-    ),
-
-    transforms.ToTensor(),
-
-    transforms.Normalize(
-        mean=[
-            0.485,
-            0.456,
-            0.406,
-        ],
-        std=[
-            0.229,
-            0.224,
-            0.225,
-        ],
-    ),
-])
+        transforms.Normalize(
+            mean=[
+                0.485,
+                0.456,
+                0.406,
+            ],
+            std=[
+                0.229,
+                0.224,
+                0.225,
+            ],
+        ),
+    ]
+)
 
 
-# ============================================================
-# DATASET
-# ============================================================
+# Validation/test transformation.
+eval_transform = transforms.Compose(
+    [
 
-class AuthenticityDataset(
-    Dataset
-):
+        transforms.Resize(
+            (256, 256)
+        ),
 
-    def __init__(
-        self,
-        samples,
-        transform=None,
-    ):
+        transforms.CenterCrop(
+            224
+        ),
 
-        self.samples = samples
+        transforms.ToTensor(),
 
-        self.transform = transform
-
-
-    def __len__(self):
-
-        return len(
-            self.samples
-        )
-
-
-    def __getitem__(
-        self,
-        index
-    ):
-
-        sample = (
-            self.samples[index]
-        )
-
-
-        try:
-
-            image = Image.open(
-                sample["path"]
-            ).convert("RGB")
-
-        except Exception as e:
-
-            raise RuntimeError(
-                f"Could not read:\n"
-                f"{sample['path']}\n"
-                f"{e}"
-            )
-
-
-        if self.transform:
-
-            image = self.transform(
-                image
-            )
-
-
-        return (
-            image,
-            sample["label"],
-            sample["denomination"],
-            str(sample["path"]),
-        )
+        transforms.Normalize(
+            mean=[
+                0.485,
+                0.456,
+                0.406,
+            ],
+            std=[
+                0.229,
+                0.224,
+                0.225,
+            ],
+        ),
+    ]
+)
 
 
 # ============================================================
-# DATASETS
+# CREATE DATASETS
 # ============================================================
+
+print("=" * 70)
+print("LOADING DATASET")
+print("=" * 70)
+
+print()
+
 
 train_dataset = AuthenticityDataset(
-    train_samples,
-    train_transforms,
+    TRAIN_DIR,
+    transform=train_transform,
 )
 
 val_dataset = AuthenticityDataset(
-    val_samples,
-    eval_transforms,
+    VAL_DIR,
+    transform=eval_transform,
 )
 
 test_dataset = AuthenticityDataset(
-    test_samples,
-    eval_transforms,
+    TEST_DIR,
+    transform=eval_transform,
 )
 
 
+print(
+    f"Training images   : "
+    f"{len(train_dataset)}"
+)
+
+print(
+    f"Validation images : "
+    f"{len(val_dataset)}"
+)
+
+print(
+    f"Test images       : "
+    f"{len(test_dataset)}"
+)
+
+print()
+
+
 # ============================================================
-# DATALOADERS
+# CHECK DATASET
+# ============================================================
+
+if len(train_dataset) == 0:
+
+    raise RuntimeError(
+        f"No training images found in:\n"
+        f"{TRAIN_DIR}"
+    )
+
+
+if len(val_dataset) == 0:
+
+    raise RuntimeError(
+        f"No validation images found in:\n"
+        f"{VAL_DIR}"
+    )
+
+
+if len(test_dataset) == 0:
+
+    raise RuntimeError(
+        f"No test images found in:\n"
+        f"{TEST_DIR}"
+    )
+
+
+# ============================================================
+# DATASET CLASS COUNTS
+# ============================================================
+
+def count_classes(dataset):
+
+    fake_count = 0
+
+    real_count = 0
+
+    for sample in dataset.samples:
+
+        if sample["label"] == 0:
+
+            fake_count += 1
+
+        else:
+
+            real_count += 1
+
+    return fake_count, real_count
+
+
+train_fake, train_real = count_classes(
+    train_dataset
+)
+
+val_fake, val_real = count_classes(
+    val_dataset
+)
+
+test_fake, test_real = count_classes(
+    test_dataset
+)
+
+
+print("=" * 70)
+print("CLASS DISTRIBUTION")
+print("=" * 70)
+
+print()
+
+print(
+    f"TRAIN:"
+)
+
+print(
+    f"  FAKE : {train_fake}"
+)
+
+print(
+    f"  REAL : {train_real}"
+)
+
+print()
+
+print(
+    f"VALIDATION:"
+)
+
+print(
+    f"  FAKE : {val_fake}"
+)
+
+print(
+    f"  REAL : {val_real}"
+)
+
+print()
+
+print(
+    f"TEST:"
+)
+
+print(
+    f"  FAKE : {test_fake}"
+)
+
+print(
+    f"  REAL : {test_real}"
+)
+
+print()
+
+
+# ============================================================
+# DATA LOADERS
 # ============================================================
 
 train_loader = DataLoader(
@@ -603,6 +551,7 @@ train_loader = DataLoader(
     batch_size=BATCH_SIZE,
     shuffle=True,
     num_workers=NUM_WORKERS,
+    pin_memory=False,
 )
 
 val_loader = DataLoader(
@@ -610,6 +559,7 @@ val_loader = DataLoader(
     batch_size=BATCH_SIZE,
     shuffle=False,
     num_workers=NUM_WORKERS,
+    pin_memory=False,
 )
 
 test_loader = DataLoader(
@@ -617,44 +567,113 @@ test_loader = DataLoader(
     batch_size=BATCH_SIZE,
     shuffle=False,
     num_workers=NUM_WORKERS,
+    pin_memory=False,
 )
+
+
+# ============================================================
+# MODEL
+# ============================================================
+
+print("=" * 70)
+print("CREATING MobileNetV2")
+print("=" * 70)
+
+print()
+
+
+# Use ImageNet pretrained MobileNetV2.
+#
+# This gives the network useful visual features before
+# training on Indian currency.
+#
+# If your installed torchvision is older and does not support
+# weights=..., change this to:
+#
+# models.mobilenet_v2(pretrained=True)
+
+try:
+
+    weights = (
+        models.MobileNet_V2_Weights.DEFAULT
+    )
+
+    model = models.mobilenet_v2(
+        weights=weights
+    )
+
+except AttributeError:
+
+    model = models.mobilenet_v2(
+        pretrained=True
+    )
+
+
+# Replace final classifier.
+#
+# Original MobileNetV2 output:
+# 1000 ImageNet classes
+#
+# New output:
+# 2 classes
+#
+# 0 = FAKE
+# 1 = REAL
+
+in_features = (
+    model.classifier[-1].in_features
+)
+
+
+model.classifier[-1] = nn.Linear(
+    in_features,
+    NUM_CLASSES,
+)
+
+
+model = model.to(
+    DEVICE
+)
+
+
+print(
+    "Architecture : MobileNetV2"
+)
+
+print(
+    "Classes      : FAKE / REAL"
+)
+
+print()
 
 
 # ============================================================
 # CLASS WEIGHTS
 # ============================================================
-
-train_label_counts = Counter(
-    sample["label"]
-    for sample in train_samples
-)
-
-
-fake_count = (
-    train_label_counts[0]
-)
-
-real_count = (
-    train_label_counts[1]
-)
+#
+# REAL has more training images than FAKE.
+#
+# Weighted loss prevents the model from simply favoring REAL.
+#
+# Weight is inversely related to class frequency.
+# ============================================================
 
 total_train = (
-    fake_count
-    + real_count
+    train_fake
+    +
+    train_real
 )
-
 
 fake_weight = (
     total_train
     /
-    (2.0 * fake_count)
+    (2.0 * train_fake)
 )
-
 
 real_weight = (
     total_train
     /
-    (2.0 * real_count)
+    (2.0 * train_real)
 )
 
 
@@ -664,7 +683,8 @@ class_weights = torch.tensor(
         real_weight,
     ],
     dtype=torch.float32,
-).to(DEVICE)
+    device=DEVICE,
+)
 
 
 print("=" * 70)
@@ -674,80 +694,11 @@ print("=" * 70)
 print()
 
 print(
-    f"FAKE count   : {fake_count}"
+    f"FAKE weight : {fake_weight:.4f}"
 )
 
 print(
-    f"REAL count   : {real_count}"
-)
-
-print(
-    f"FAKE weight  : {fake_weight:.4f}"
-)
-
-print(
-    f"REAL weight  : {real_weight:.4f}"
-)
-
-print()
-
-
-# ============================================================
-# MOBILENETV2
-# ============================================================
-
-print("=" * 70)
-print("LOADING PRETRAINED MOBILENETV2")
-print("=" * 70)
-
-print()
-
-
-weights = (
-    models.MobileNet_V2_Weights.DEFAULT
-)
-
-
-model = models.mobilenet_v2(
-    weights=weights
-)
-
-
-# Freeze everything first
-
-for parameter in (
-    model.features.parameters()
-):
-
-    parameter.requires_grad = False
-
-
-# Fine-tune later layers
-
-for parameter in (
-    model.features[14:].parameters()
-):
-
-    parameter.requires_grad = True
-
-
-# Replace classifier
-
-model.classifier[1] = nn.Linear(
-    model.classifier[1].in_features,
-    2,
-)
-
-
-model = model.to(DEVICE)
-
-
-print(
-    "MobileNetV2 loaded."
-)
-
-print(
-    "Fine-tuning later layers."
+    f"REAL weight : {real_weight:.4f}"
 )
 
 print()
@@ -766,323 +717,159 @@ criterion = nn.CrossEntropyLoss(
 # OPTIMIZER
 # ============================================================
 
-trainable_parameters = [
-    parameter
-    for parameter in model.parameters()
-    if parameter.requires_grad
-]
-
-
 optimizer = torch.optim.AdamW(
-    trainable_parameters,
+    model.parameters(),
     lr=LEARNING_RATE,
     weight_decay=WEIGHT_DECAY,
 )
 
 
 # ============================================================
-# SCHEDULER
+# LEARNING RATE SCHEDULER
 # ============================================================
 
-scheduler = (
-    torch.optim.lr_scheduler.ReduceLROnPlateau(
-        optimizer,
-        mode="max",
-        factor=0.5,
-        patience=1,
-    )
+scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
+    optimizer,
+    mode="max",
+    factor=0.5,
+    patience=2,
+    min_lr=1e-6,
 )
 
 
 # ============================================================
-# RUN EPOCH
+# TRAIN ONE EPOCH
 # ============================================================
 
-def run_epoch(
+def train_one_epoch(
+    model,
     loader,
-    training=False,
+    criterion,
+    optimizer,
 ):
 
-    if training:
-
-        model.train()
-
-    else:
-
-        model.eval()
-
+    model.train()
 
     running_loss = 0.0
 
     correct = 0
 
-    total = 0
+    total_count = 0
 
 
-    with torch.set_grad_enabled(
-        training
-    ):
+    for images, labels in loader:
 
-        for (
-            images,
-            labels,
-            _,
-            _,
-        ) in loader:
+        images = images.to(
+            DEVICE
+        )
 
-            images = images.to(
-                DEVICE
+        labels = labels.to(
+            DEVICE
+        )
+
+
+        optimizer.zero_grad()
+
+
+        outputs = model(
+            images
+        )
+
+
+        loss = criterion(
+            outputs,
+            labels
+        )
+
+
+        loss.backward()
+
+
+        optimizer.step()
+
+
+        batch_size = (
+            labels.size(0)
+        )
+
+
+        running_loss += (
+            loss.item()
+            *
+            batch_size
+        )
+
+
+        predictions = (
+            outputs.argmax(
+                dim=1
             )
-
-            labels = labels.to(
-                DEVICE
-            )
+        )
 
 
-            if training:
-
-                optimizer.zero_grad()
-
-
-            outputs = model(
-                images
-            )
+        correct += (
+            predictions
+            ==
+            labels
+        ).sum().item()
 
 
-            loss = criterion(
-                outputs,
-                labels
-            )
+        total_count += batch_size
 
 
-            if training:
-
-                loss.backward()
-
-
-                torch.nn.utils.clip_grad_norm_(
-                    model.parameters(),
-                    max_norm=1.0,
-                )
+    epoch_loss = (
+        running_loss
+        /
+        total_count
+    )
 
 
-                optimizer.step()
-
-
-            running_loss += (
-                loss.item()
-                * images.size(0)
-            )
-
-
-            predictions = (
-                outputs.argmax(
-                    dim=1
-                )
-            )
-
-
-            correct += (
-                predictions
-                == labels
-            ).sum().item()
-
-
-            total += (
-                labels.size(0)
-            )
+    epoch_accuracy = (
+        correct
+        /
+        total_count
+    )
 
 
     return (
-        running_loss / total,
-        correct / total,
+        epoch_loss,
+        epoch_accuracy,
     )
 
 
 # ============================================================
-# TRAINING
+# EVALUATION
 # ============================================================
 
-best_val_accuracy = 0.0
-
-best_state = None
-
-epochs_without_improvement = 0
-
-start_time = time.time()
-
-
-print("=" * 70)
-print("TRAINING V3")
-print("=" * 70)
-
-print()
-
-
-for epoch in range(
-    1,
-    EPOCHS + 1,
+@torch.no_grad()
+def evaluate(
+    model,
+    loader,
+    criterion,
 ):
 
-    train_loss, train_acc = (
-        run_epoch(
-            train_loader,
-            training=True,
-        )
-    )
+    model.eval()
+
+    running_loss = 0.0
+
+    correct = 0
+
+    total_count = 0
 
 
-    val_loss, val_acc = (
-        run_epoch(
-            val_loader,
-            training=False,
-        )
-    )
+    confusion = {
 
+        "fake_fake": 0,
 
-    scheduler.step(
-        val_acc
-    )
+        "fake_real": 0,
 
+        "real_fake": 0,
 
-    current_lr = (
-        optimizer.param_groups[0]["lr"]
-    )
-
-
-    print(
-        f"Epoch {epoch:02d}/{EPOCHS} | "
-        f"Train Loss: {train_loss:.4f} | "
-        f"Train Acc: {train_acc * 100:.2f}% | "
-        f"Val Loss: {val_loss:.4f} | "
-        f"Val Acc: {val_acc * 100:.2f}% | "
-        f"LR: {current_lr:.6f}"
-    )
-
-
-    if (
-        val_acc
-        > best_val_accuracy
-    ):
-
-        best_val_accuracy = val_acc
-
-        best_state = copy.deepcopy(
-            model.state_dict()
-        )
-
-        epochs_without_improvement = 0
-
-
-        torch.save(
-            {
-                "model_state_dict": best_state,
-                "class_names": [
-                    "fake",
-                    "real",
-                ],
-                "val_accuracy":
-                    best_val_accuracy,
-                "denominations":
-                    DENOMINATIONS,
-                "version":
-                    "V3",
-                "seed":
-                    SEED,
-            },
-            MODEL_PATH,
-        )
-
-
-        print(
-            f"  -> BEST MODEL SAVED "
-            f"({best_val_accuracy * 100:.2f}%)"
-        )
-
-
-    else:
-
-        epochs_without_improvement += 1
-
-
-    if (
-        epochs_without_improvement
-        >= PATIENCE
-    ):
-
-        print()
-
-        print(
-            "Early stopping."
-        )
-
-        break
-
-
-    print()
-
-
-# ============================================================
-# RESTORE BEST MODEL
-# ============================================================
-
-if best_state is not None:
-
-    model.load_state_dict(
-        best_state
-    )
-
-
-# ============================================================
-# EXACT TEST EVALUATION
-#
-# This also records every wrong image.
-# ============================================================
-
-print("=" * 70)
-print("EXACT TEST EVALUATION")
-print("=" * 70)
-
-print()
-
-
-model.eval()
-
-
-total = 0
-
-correct = 0
-
-wrong = 0
-
-
-confusion = {
-    "fake_fake": 0,
-    "fake_real": 0,
-    "real_fake": 0,
-    "real_real": 0,
-}
-
-
-errors = []
-
-
-denomination_results = defaultdict(
-    lambda: {
-        "correct": 0,
-        "total": 0,
+        "real_real": 0,
     }
-)
 
 
-with torch.no_grad():
-
-    for (
-        images,
-        labels,
-        denominations,
-        paths,
-    ) in test_loader:
+    for images, labels in loader:
 
         images = images.to(
             DEVICE
@@ -1098,9 +885,21 @@ with torch.no_grad():
         )
 
 
-        probabilities = torch.softmax(
+        loss = criterion(
             outputs,
-            dim=1
+            labels
+        )
+
+
+        batch_size = (
+            labels.size(0)
+        )
+
+
+        running_loss += (
+            loss.item()
+            *
+            batch_size
         )
 
 
@@ -1111,119 +910,513 @@ with torch.no_grad():
         )
 
 
-        for i in range(
-            len(labels)
+        correct += (
+            predictions
+            ==
+            labels
+        ).sum().item()
+
+
+        total_count += batch_size
+
+
+        # ----------------------------------------------------
+        # CONFUSION MATRIX
+        # ----------------------------------------------------
+
+        for true_label, predicted_label in zip(
+            labels.cpu().tolist(),
+            predictions.cpu().tolist(),
         ):
 
-            actual = (
-                labels[i].item()
-            )
+            if (
+                true_label == 0
+                and predicted_label == 0
+            ):
 
-            predicted = (
-                predictions[i].item()
-            )
-
-            confidence = float(
-                probabilities[
-                    i,
-                    predicted
-                ].item()
-            )
+                confusion["fake_fake"] += 1
 
 
-            denomination = (
-                denominations[i]
-            )
+            elif (
+                true_label == 0
+                and predicted_label == 1
+            ):
 
-            image_path = (
-                paths[i]
-            )
-
-
-            total += 1
+                confusion["fake_real"] += 1
 
 
-            denomination_results[
-                denomination
-            ]["total"] += 1
+            elif (
+                true_label == 1
+                and predicted_label == 0
+            ):
+
+                confusion["real_fake"] += 1
 
 
-            if actual == predicted:
+            elif (
+                true_label == 1
+                and predicted_label == 1
+            ):
 
-                correct += 1
-
-                denomination_results[
-                    denomination
-                ]["correct"] += 1
-
-            else:
-
-                wrong += 1
-
-                errors.append(
-                    {
-                        "image":
-                            image_path,
-                        "denomination":
-                            denomination,
-                        "actual":
-                            "FAKE"
-                            if actual == 0
-                            else "REAL",
-                        "predicted":
-                            "FAKE"
-                            if predicted == 0
-                            else "REAL",
-                        "confidence":
-                            confidence,
-                    }
-                )
+                confusion["real_real"] += 1
 
 
-            if actual == 0 and predicted == 0:
+    epoch_loss = (
+        running_loss
+        /
+        total_count
+    )
 
-                confusion[
-                    "fake_fake"
-                ] += 1
 
-            elif actual == 0 and predicted == 1:
+    epoch_accuracy = (
+        correct
+        /
+        total_count
+    )
 
-                confusion[
-                    "fake_real"
-                ] += 1
 
-            elif actual == 1 and predicted == 0:
-
-                confusion[
-                    "real_fake"
-                ] += 1
-
-            elif actual == 1 and predicted == 1:
-
-                confusion[
-                    "real_real"
-                ] += 1
+    return (
+        epoch_loss,
+        epoch_accuracy,
+        confusion,
+    )
 
 
 # ============================================================
-# SAVE ERROR REPORT
+# METRICS
+# ============================================================
+
+def calculate_metrics(
+    confusion,
+):
+
+    tp_fake = confusion[
+        "fake_fake"
+    ]
+
+    fn_fake = confusion[
+        "fake_real"
+    ]
+
+    fp_fake = confusion[
+        "real_fake"
+    ]
+
+    tn_fake = confusion[
+        "real_real"
+    ]
+
+
+    # --------------------------------------------------------
+    # FAKE
+    # --------------------------------------------------------
+
+    fake_precision = (
+
+        tp_fake
+        /
+        (tp_fake + fp_fake)
+
+        if (
+            tp_fake + fp_fake
+        ) > 0
+
+        else 0.0
+    )
+
+
+    fake_recall = (
+
+        tp_fake
+        /
+        (tp_fake + fn_fake)
+
+        if (
+            tp_fake + fn_fake
+        ) > 0
+
+        else 0.0
+    )
+
+
+    fake_f1 = (
+
+        2
+        *
+        fake_precision
+        *
+        fake_recall
+        /
+        (
+            fake_precision
+            +
+            fake_recall
+        )
+
+        if (
+            fake_precision
+            +
+            fake_recall
+        ) > 0
+
+        else 0.0
+    )
+
+
+    # --------------------------------------------------------
+    # REAL
+    # --------------------------------------------------------
+
+    real_precision = (
+
+        tn_fake
+        /
+        (tn_fake + fn_fake)
+
+        if (
+            tn_fake + fn_fake
+        ) > 0
+
+        else 0.0
+    )
+
+
+    real_recall = (
+
+        tn_fake
+        /
+        (tn_fake + fp_fake)
+
+        if (
+            tn_fake + fp_fake
+        ) > 0
+
+        else 0.0
+    )
+
+
+    real_f1 = (
+
+        2
+        *
+        real_precision
+        *
+        real_recall
+        /
+        (
+            real_precision
+            +
+            real_recall
+        )
+
+        if (
+            real_precision
+            +
+            real_recall
+        ) > 0
+
+        else 0.0
+    )
+
+
+    macro_f1 = (
+        fake_f1
+        +
+        real_f1
+    ) / 2.0
+
+
+    return {
+
+        "fake_precision":
+            fake_precision,
+
+        "fake_recall":
+            fake_recall,
+
+        "fake_f1":
+            fake_f1,
+
+        "real_precision":
+            real_precision,
+
+        "real_recall":
+            real_recall,
+
+        "real_f1":
+            real_f1,
+
+        "macro_f1":
+            macro_f1,
+    }
+
+
+# ============================================================
+# TRAINING
+# ============================================================
+
+print("=" * 70)
+print("STARTING TRAINING")
+print("=" * 70)
+
+print()
+
+print(
+    f"Epochs       : {EPOCHS}"
+)
+
+print(
+    f"Batch size   : {BATCH_SIZE}"
+)
+
+print(
+    f"Learning rate: {LEARNING_RATE}"
+)
+
+print(
+    f"Device       : {DEVICE}"
+)
+
+print()
+
+
+best_val_f1 = -1.0
+
+best_val_accuracy = 0.0
+
+best_model_state = None
+
+epochs_without_improvement = 0
+
+training_history = []
+
+
+training_start = time.time()
+
+
+for epoch in range(
+    1,
+    EPOCHS + 1,
+):
+
+    epoch_start = time.time()
+
+
+    train_loss, train_accuracy = (
+        train_one_epoch(
+            model,
+            train_loader,
+            criterion,
+            optimizer,
+        )
+    )
+
+
+    val_loss, val_accuracy, val_confusion = (
+        evaluate(
+            model,
+            val_loader,
+            criterion,
+        )
+    )
+
+
+    val_metrics = calculate_metrics(
+        val_confusion
+    )
+
+
+    val_f1 = val_metrics[
+        "macro_f1"
+    ]
+
+
+    scheduler.step(
+        val_f1
+    )
+
+
+    epoch_time = (
+        time.time()
+        -
+        epoch_start
+    )
+
+
+    current_lr = (
+        optimizer
+        .param_groups[0]["lr"]
+    )
+
+
+    print(
+        f"Epoch {epoch:02d}/{EPOCHS} | "
+        f"Train Loss: {train_loss:.4f} | "
+        f"Train Acc: {train_accuracy * 100:.2f}% | "
+        f"Val Loss: {val_loss:.4f} | "
+        f"Val Acc: {val_accuracy * 100:.2f}% | "
+        f"Val Macro-F1: {val_f1 * 100:.2f}% | "
+        f"LR: {current_lr:.6f} | "
+        f"Time: {epoch_time:.1f}s"
+    )
+
+
+    training_history.append(
+        {
+            "epoch":
+                epoch,
+
+            "train_loss":
+                train_loss,
+
+            "train_accuracy":
+                train_accuracy,
+
+            "val_loss":
+                val_loss,
+
+            "val_accuracy":
+                val_accuracy,
+
+            "val_macro_f1":
+                val_f1,
+
+            "learning_rate":
+                current_lr,
+        }
+    )
+
+
+    # --------------------------------------------------------
+    # SAVE BEST MODEL
+    # --------------------------------------------------------
+
+    if val_f1 > best_val_f1:
+
+        best_val_f1 = val_f1
+
+        best_val_accuracy = (
+            val_accuracy
+        )
+
+
+        best_model_state = (
+            copy.deepcopy(
+                model.state_dict()
+            )
+        )
+
+
+        epochs_without_improvement = 0
+
+
+        checkpoint = {
+
+            "model_state_dict":
+                best_model_state,
+
+            "class_names":
+                CLASS_NAMES,
+
+            "num_classes":
+                NUM_CLASSES,
+
+            "best_val_accuracy":
+                best_val_accuracy,
+
+            "best_val_macro_f1":
+                best_val_f1,
+
+            "architecture":
+                "mobilenet_v2",
+
+            "dataset":
+                "authenticity_new",
+
+            "dataset_format":
+                "train_validation_test_nested_fake_real",
+
+            "seed":
+                SEED,
+        }
+
+
+        torch.save(
+            checkpoint,
+            MODEL_PATH,
+        )
+
+
+        print(
+            f"  -> Best model saved "
+            f"(Val Macro-F1: "
+            f"{best_val_f1 * 100:.2f}%)"
+        )
+
+
+    else:
+
+        epochs_without_improvement += 1
+
+
+    # --------------------------------------------------------
+    # EARLY STOPPING
+    # --------------------------------------------------------
+
+    if (
+        epochs_without_improvement
+        >= PATIENCE
+    ):
+
+        print()
+
+        print(
+            f"Early stopping after "
+            f"{epoch} epochs."
+        )
+
+        break
+
+
+print()
+
+
+training_time = (
+    time.time()
+    -
+    training_start
+)
+
+
+print(
+    f"Training time: "
+    f"{training_time / 60:.2f} minutes"
+)
+
+print()
+
+
+# ============================================================
+# SAVE TRAINING HISTORY
 # ============================================================
 
 with open(
-    ERRORS_PATH,
+    HISTORY_PATH,
     "w",
     newline="",
     encoding="utf-8",
-) as file:
+) as f:
 
     writer = csv.DictWriter(
-        file,
+        f,
         fieldnames=[
-            "image",
-            "denomination",
-            "actual",
-            "predicted",
-            "confidence",
+            "epoch",
+            "train_loss",
+            "train_accuracy",
+            "val_loss",
+            "val_accuracy",
+            "val_macro_f1",
+            "learning_rate",
         ],
     )
 
@@ -1231,50 +1424,123 @@ with open(
     writer.writeheader()
 
 
-    writer.writerows(
-        errors
+    for row in training_history:
+
+        writer.writerow(
+            row
+        )
+
+
+print(
+    f"Training history saved:\n"
+    f"{HISTORY_PATH}"
+)
+
+print()
+
+
+# ============================================================
+# RESTORE BEST MODEL
+# ============================================================
+
+if best_model_state is None:
+
+    raise RuntimeError(
+        "No best model was produced."
     )
 
 
-# ============================================================
-# RESULTS
-# ============================================================
-
-test_accuracy = (
-    correct / total
-    if total > 0
-    else 0.0
+model.load_state_dict(
+    best_model_state
 )
 
 
-elapsed = (
-    time.time()
-    - start_time
-)
+model.eval()
 
 
-print()
+# ============================================================
+# FINAL VALIDATION
+# ============================================================
 
 print("=" * 70)
-print("FINAL TEST RESULTS")
+print("FINAL VALIDATION")
 print("=" * 70)
 
 print()
 
+
+val_loss, val_accuracy, val_confusion = (
+    evaluate(
+        model,
+        val_loader,
+        criterion,
+    )
+)
+
+
+val_metrics = calculate_metrics(
+    val_confusion
+)
+
+
 print(
-    f"Test images : {total}"
+    f"Validation loss     : "
+    f"{val_loss:.4f}"
 )
 
 print(
-    f"Correct     : {correct}"
+    f"Validation accuracy : "
+    f"{val_accuracy * 100:.2f}%"
 )
 
 print(
-    f"Wrong       : {wrong}"
+    f"Validation Macro-F1 : "
+    f"{val_metrics['macro_f1'] * 100:.2f}%"
+)
+
+print()
+
+
+# ============================================================
+# FINAL TEST
+#
+# The test dataset has NEVER been used for training.
+# ============================================================
+
+print("=" * 70)
+print("FINAL TEST")
+print("=" * 70)
+
+print()
+
+
+test_loss, test_accuracy, test_confusion = (
+    evaluate(
+        model,
+        test_loader,
+        criterion,
+    )
+)
+
+
+test_metrics = calculate_metrics(
+    test_confusion
+)
+
+
+print(
+    f"Test loss     : "
+    f"{test_loss:.4f}"
 )
 
 print(
-    f"Accuracy    : {test_accuracy * 100:.2f}%"
+    f"Test accuracy : "
+    f"{test_accuracy * 100:.2f}%"
+)
+
+print(
+    f"Test Macro-F1 : "
+    f"{test_metrics['macro_f1'] * 100:.2f}%"
 )
 
 print()
@@ -1285,178 +1551,426 @@ print()
 # ============================================================
 
 print("=" * 70)
-print("AUTHENTICITY CONFUSION MATRIX")
+print("TEST CONFUSION MATRIX")
 print("=" * 70)
 
 print()
 
+
 print(
     f"FAKE predicted FAKE : "
-    f"{confusion['fake_fake']}"
+    f"{test_confusion['fake_fake']}"
 )
 
 print(
     f"FAKE predicted REAL : "
-    f"{confusion['fake_real']}"
+    f"{test_confusion['fake_real']}"
 )
 
 print(
     f"REAL predicted FAKE : "
-    f"{confusion['real_fake']}"
+    f"{test_confusion['real_fake']}"
 )
 
 print(
     f"REAL predicted REAL : "
-    f"{confusion['real_real']}"
+    f"{test_confusion['real_real']}"
 )
 
 print()
 
 
 # ============================================================
-# PER DENOMINATION
+# CLASS PERFORMANCE
 # ============================================================
 
 print("=" * 70)
-print("PER-DENOMINATION RESULTS")
+print("CLASS PERFORMANCE")
 print("=" * 70)
 
 print()
 
 
-for denomination in DENOMINATIONS:
+print(
+    f"FAKE precision : "
+    f"{test_metrics['fake_precision'] * 100:.2f}%"
+)
 
-    result = (
-        denomination_results[
-            denomination
+print(
+    f"FAKE recall    : "
+    f"{test_metrics['fake_recall'] * 100:.2f}%"
+)
+
+print(
+    f"FAKE F1        : "
+    f"{test_metrics['fake_f1'] * 100:.2f}%"
+)
+
+print()
+
+
+print(
+    f"REAL precision : "
+    f"{test_metrics['real_precision'] * 100:.2f}%"
+)
+
+print(
+    f"REAL recall    : "
+    f"{test_metrics['real_recall'] * 100:.2f}%"
+)
+
+print(
+    f"REAL F1        : "
+    f"{test_metrics['real_f1'] * 100:.2f}%"
+)
+
+print()
+
+
+# ============================================================
+# TEST PREDICTIONS + ERROR ANALYSIS
+# ============================================================
+
+print("=" * 70)
+print("TEST ERROR ANALYSIS")
+print("=" * 70)
+
+print()
+
+
+errors = []
+
+all_predictions = []
+
+
+@torch.no_grad()
+def collect_test_predictions(
+    model,
+    samples,
+):
+
+    model.eval()
+
+
+    for sample in samples:
+
+        image_path = sample["path"]
+
+        true_label = sample["label"]
+
+
+        try:
+
+            image = Image.open(
+                image_path
+            ).convert("RGB")
+
+
+            image_tensor = (
+                eval_transform(
+                    image
+                )
+                .unsqueeze(0)
+                .to(DEVICE)
+            )
+
+
+            outputs = model(
+                image_tensor
+            )
+
+
+            probabilities = torch.softmax(
+                outputs,
+                dim=1,
+            )
+
+
+            predicted_label = (
+                probabilities
+                .argmax(
+                    dim=1
+                )
+                .item()
+            )
+
+
+            fake_probability = (
+                probabilities[
+                    0,
+                    0,
+                ].item()
+            )
+
+
+            real_probability = (
+                probabilities[
+                    0,
+                    1,
+                ].item()
+            )
+
+
+            confidence = (
+                probabilities[
+                    0,
+                    predicted_label,
+                ].item()
+            )
+
+
+            prediction = {
+
+                "image":
+                    str(image_path),
+
+                "true_label":
+                    CLASS_NAMES[
+                        true_label
+                    ],
+
+                "predicted_label":
+                    CLASS_NAMES[
+                        predicted_label
+                    ],
+
+                "fake_probability":
+                    fake_probability,
+
+                "real_probability":
+                    real_probability,
+
+                "confidence":
+                    confidence,
+            }
+
+
+            all_predictions.append(
+                prediction
+            )
+
+
+            if (
+                predicted_label
+                !=
+                true_label
+            ):
+
+                errors.append(
+                    prediction
+                )
+
+
+        except Exception as e:
+
+            print(
+                f"Could not process: "
+                f"{image_path}"
+            )
+
+            print(
+                f"Error: {e}"
+            )
+
+
+collect_test_predictions(
+    model,
+    test_dataset.samples,
+)
+
+
+# ============================================================
+# SAVE TEST PREDICTIONS
+# ============================================================
+
+with open(
+    PREDICTIONS_PATH,
+    "w",
+    newline="",
+    encoding="utf-8",
+) as f:
+
+    writer = csv.writer(f)
+
+
+    writer.writerow(
+        [
+            "image",
+            "true_label",
+            "predicted_label",
+            "fake_probability",
+            "real_probability",
+            "confidence",
         ]
     )
 
 
-    denom_total = (
-        result["total"]
-    )
+    for prediction in all_predictions:
 
-    denom_correct = (
-        result["correct"]
-    )
-
-
-    accuracy = (
-        denom_correct
-        / denom_total
-        * 100
-        if denom_total > 0
-        else 0
-    )
-
-
-    print(
-        f"₹{denomination:>4} : "
-        f"{denom_correct}/{denom_total} "
-        f"= {accuracy:.2f}%"
-    )
-
-
-print()
-
-
-# ============================================================
-# INCORRECT IMAGES
-# ============================================================
-
-print("=" * 70)
-print("INCORRECT TEST IMAGES")
-print("=" * 70)
-
-print()
-
-
-if len(errors) == 0:
-
-    print(
-        "No incorrect test images."
-    )
-
-else:
-
-    for number, error in enumerate(
-        errors,
-        start=1,
-    ):
-
-        print(
-            f"{number}. "
-            f"{error['image']}"
+        writer.writerow(
+            [
+                prediction["image"],
+                prediction["true_label"],
+                prediction["predicted_label"],
+                f"{prediction['fake_probability']:.6f}",
+                f"{prediction['real_probability']:.6f}",
+                f"{prediction['confidence']:.6f}",
+            ]
         )
-
-        print(
-            f"   Denomination : "
-            f"₹{error['denomination']}"
-        )
-
-        print(
-            f"   Actual       : "
-            f"{error['actual']}"
-        )
-
-        print(
-            f"   Predicted    : "
-            f"{error['predicted']}"
-        )
-
-        print(
-            f"   Confidence   : "
-            f"{error['confidence'] * 100:.2f}%"
-        )
-
-        print()
 
 
 print(
-    "Error report:"
-)
-
-print(
-    ERRORS_PATH
+    f"Test predictions saved:\n"
+    f"{PREDICTIONS_PATH}"
 )
 
 print()
 
 
 # ============================================================
-# TRAINING COMPLETE
+# SAVE ERRORS
 # ============================================================
 
-print("=" * 70)
-print("AUTHENTICITY V3 TRAINING COMPLETE")
-print("=" * 70)
+with open(
+    ERRORS_PATH,
+    "w",
+    newline="",
+    encoding="utf-8",
+) as f:
 
-print()
+    writer = csv.writer(f)
 
-print(
-    f"Best validation accuracy: "
-    f"{best_val_accuracy * 100:.2f}%"
-)
 
-print(
-    f"Exact test accuracy: "
-    f"{test_accuracy * 100:.2f}%"
-)
+    writer.writerow(
+        [
+            "image",
+            "true_label",
+            "predicted_label",
+            "fake_probability",
+            "real_probability",
+            "confidence",
+        ]
+    )
+
+
+    for error in errors:
+
+        writer.writerow(
+            [
+                error["image"],
+                error["true_label"],
+                error["predicted_label"],
+                f"{error['fake_probability']:.6f}",
+                f"{error['real_probability']:.6f}",
+                f"{error['confidence']:.6f}",
+            ]
+        )
+
 
 print(
     f"Wrong test images: "
-    f"{wrong}"
+    f"{len(errors)}"
 )
 
 print(
-    f"Training time: "
-    f"{elapsed / 60:.1f} minutes"
+    f"Error file saved:\n"
+    f"{ERRORS_PATH}"
 )
 
 print()
 
-print("Best model:")
+
+# ============================================================
+# FINAL MODEL CHECKPOINT
+# ============================================================
+
+final_checkpoint = {
+
+    "model_state_dict":
+        model.state_dict(),
+
+    "class_names":
+        CLASS_NAMES,
+
+    "num_classes":
+        NUM_CLASSES,
+
+    "best_val_accuracy":
+        best_val_accuracy,
+
+    "best_val_macro_f1":
+        best_val_f1,
+
+    "test_accuracy":
+        test_accuracy,
+
+    "test_macro_f1":
+        test_metrics["macro_f1"],
+
+    "fake_precision":
+        test_metrics["fake_precision"],
+
+    "fake_recall":
+        test_metrics["fake_recall"],
+
+    "fake_f1":
+        test_metrics["fake_f1"],
+
+    "real_precision":
+        test_metrics["real_precision"],
+
+    "real_recall":
+        test_metrics["real_recall"],
+
+    "real_f1":
+        test_metrics["real_f1"],
+
+    "architecture":
+        "mobilenet_v2",
+
+    "dataset":
+        "authenticity_new",
+
+    "dataset_format":
+        "train_validation_test_nested_fake_real",
+
+    "train_images":
+        len(train_dataset),
+
+    "validation_images":
+        len(val_dataset),
+
+    "test_images":
+        len(test_dataset),
+
+    "seed":
+        SEED,
+
+    "training_epochs":
+        len(training_history),
+}
+
+
+torch.save(
+    final_checkpoint,
+    MODEL_PATH,
+)
+
+
+# ============================================================
+# FINAL SUMMARY
+# ============================================================
+
+print("=" * 70)
+print("TRAINING COMPLETE")
+print("=" * 70)
+
+print()
+
+
+print(
+    "Model saved to:"
+)
 
 print(
     MODEL_PATH
@@ -1464,31 +1978,78 @@ print(
 
 print()
 
-print("Exact test split:")
 
 print(
-    TEST_SPLIT_PATH
+    f"Best validation accuracy : "
+    f"{best_val_accuracy * 100:.2f}%"
+)
+
+print(
+    f"Best validation Macro-F1 : "
+    f"{best_val_f1 * 100:.2f}%"
 )
 
 print()
 
-print("Error report:")
 
 print(
-    ERRORS_PATH
+    f"Test accuracy            : "
+    f"{test_accuracy * 100:.2f}%"
+)
+
+print(
+    f"Test Macro-F1            : "
+    f"{test_metrics['macro_f1'] * 100:.2f}%"
 )
 
 print()
 
-print("Class order:")
 
-print("  0: FAKE")
+print(
+    f"FAKE precision           : "
+    f"{test_metrics['fake_precision'] * 100:.2f}%"
+)
 
-print("  1: REAL")
+print(
+    f"FAKE recall              : "
+    f"{test_metrics['fake_recall'] * 100:.2f}%"
+)
+
+print(
+    f"FAKE F1                  : "
+    f"{test_metrics['fake_f1'] * 100:.2f}%"
+)
 
 print()
 
-print("₹2000 excluded.")
+
+print(
+    f"REAL precision           : "
+    f"{test_metrics['real_precision'] * 100:.2f}%"
+)
+
+print(
+    f"REAL recall              : "
+    f"{test_metrics['real_recall'] * 100:.2f}%"
+)
+
+print(
+    f"REAL F1                  : "
+    f"{test_metrics['real_f1'] * 100:.2f}%"
+)
+
+print()
+
+
+print(
+    "Next step:"
+)
+
+print(
+    "Use this new MobileNetV2 authenticity "
+    "model together with the existing YOLO11 "
+    "denomination detector."
+)
 
 print()
 

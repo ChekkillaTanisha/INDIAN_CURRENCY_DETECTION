@@ -88,7 +88,7 @@ results = model.train(
 
     # Project organization
     project=str(RUNS_DIR),
-    name="currency_yolo11n",
+    name="currency_yolo11n-3",
 
     # Validation during training
     val=True,
@@ -112,8 +112,8 @@ print("=" * 70)
 print()
 
 print(f"Training output:")
-print(RUNS_DIR / "currency_yolo11n")
+print(RUNS_DIR / "currency_yolo11n-3")
 
 print()
 print("Best model should be:")
-print(RUNS_DIR / "currency_yolo11n" / "weights" / "best.pt")
+print(RUNS_DIR / "currency_yolo11n-3" / "weights" / "best.pt")

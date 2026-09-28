@@ -1,24 +1,40 @@
+import sys
 from pathlib import Path
+
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+sys.path.append(str(PROJECT_ROOT))
+
+from blockchain import add_record
+from ocr_serial import extract_serial_number
+
 
 import torch
 import torch.nn as nn
+
 from PIL import Image
 from torchvision import models, transforms
 from ultralytics import YOLO
 
 
 # ============================================================
-# INDIAN CURRENCY DETECTION
-# YOLO11 + MobileNetV2 V2
+# INDIAN CURRENCY DETECTION SYSTEM
 #
 # YOLO11:
-#   Detects the currency note and denomination.
+#   Detects denomination.
 #
 # MobileNetV2:
 #   Detects REAL vs FAKE.
 #
-# This file performs INFERENCE ONLY.
-# It does NOT train the models.
+# FINAL SYSTEM:
+#   YOLO11 + MobileNetV2
+#
+# YOLO11 answers:
+#   "Which denomination is this?"
+#
+# MobileNetV2 answers:
+#   "Is this note REAL or FAKE?"
+#
+# Both results are combined into the final application result.
 # ============================================================
 
 
@@ -32,7 +48,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 YOLO_MODEL_PATH = (
     PROJECT_ROOT
     / "runs"
-    / "currency_yolo11n"
+    / "currency_yolo11n-3"
     / "weights"
     / "best.pt"
 )
@@ -41,8 +57,8 @@ YOLO_MODEL_PATH = (
 AUTHENTICITY_MODEL_PATH = (
     PROJECT_ROOT
     / "runs"
-    / "authenticity_v2"
-    / "best_authenticity_mobilenetv2_v2.pt"
+    / "authenticity_new"
+    / "best_authenticity_mobilenetv2_new.pt"
 )
 
 
@@ -54,7 +70,9 @@ DEVICE = torch.device("cpu")
 
 
 # ============================================================
-# YOLO DENOMINATION CLASSES
+# YOLO11 DENOMINATION CLASSES
+#
+# MUST MATCH YOLO11 TRAINING CLASS ORDER
 # ============================================================
 
 YOLO_CLASS_NAMES = [
@@ -69,9 +87,7 @@ YOLO_CLASS_NAMES = [
 
 
 # ============================================================
-# AUTHENTICITY CLASSES
-#
-# IMPORTANT:
+# MobileNetV2 AUTHENTICITY CLASSES
 #
 # 0 = FAKE
 # 1 = REAL
@@ -84,53 +100,58 @@ AUTHENTICITY_CLASS_NAMES = [
 
 
 # ============================================================
-# AUTHENTICITY SUPPORTED DENOMINATIONS
+# AUTHENTICITY THRESHOLD
 #
-# ₹2000 was excluded from V2 authenticity training.
+# The NEW MobileNetV2 was trained on:
+#
+# ₹10
+# ₹20
+# ₹50
+# ₹100
+# ₹200
+# ₹500
+# ₹2000
+#
+# Therefore ALL denominations are supported.
+#
+# The new model was trained with class weights and the
+# final decision uses P(FAKE) >= 0.50.
 # ============================================================
 
-AUTHENTICITY_SUPPORTED_DENOMINATIONS = {
-    "10",
-    "20",
-    "50",
-    "100",
-    "200",
-    "500",
-}
+AUTHENTICITY_THRESHOLD = 0.50
 
 
 # ============================================================
 # IMAGE TRANSFORM
-#
-# Must match MobileNetV2 V2 evaluation preprocessing.
 # ============================================================
 
-AUTHENTICITY_TRANSFORM = transforms.Compose([
+AUTHENTICITY_TRANSFORM = transforms.Compose(
+    [
+        transforms.Resize(
+            (224, 224)
+        ),
 
-    transforms.Resize(
-        (224, 224)
-    ),
+        transforms.ToTensor(),
 
-    transforms.ToTensor(),
+        transforms.Normalize(
+            mean=[
+                0.485,
+                0.456,
+                0.406,
+            ],
 
-    transforms.Normalize(
-        mean=[
-            0.485,
-            0.456,
-            0.406,
-        ],
-
-        std=[
-            0.229,
-            0.224,
-            0.225,
-        ],
-    ),
-])
+            std=[
+                0.229,
+                0.224,
+                0.225,
+            ],
+        ),
+    ]
+)
 
 
 # ============================================================
-# LOAD YOLO MODEL
+# LOAD YOLO11
 # ============================================================
 
 if not YOLO_MODEL_PATH.exists():
@@ -147,13 +168,13 @@ yolo_model = YOLO(
 
 
 # ============================================================
-# LOAD AUTHENTICITY MODEL
+# LOAD NEW MobileNetV2
 # ============================================================
 
 if not AUTHENTICITY_MODEL_PATH.exists():
 
     raise FileNotFoundError(
-        "Authenticity model not found:\n"
+        "New MobileNetV2 authenticity model not found:\n"
         f"{AUTHENTICITY_MODEL_PATH}"
     )
 
@@ -161,20 +182,21 @@ if not AUTHENTICITY_MODEL_PATH.exists():
 checkpoint = torch.load(
     AUTHENTICITY_MODEL_PATH,
     map_location=DEVICE,
+    weights_only=False,
 )
 
+print(type(checkpoint))
+print(checkpoint.keys())
 
-# ------------------------------------------------------------
-# Recreate the SAME MobileNetV2 architecture used during V2
-# training.
-# ------------------------------------------------------------
+
+# ============================================================
+# RECREATE MobileNetV2
+# ============================================================
 
 authenticity_model = models.mobilenet_v2(
     weights=None
 )
 
-
-# Fine-tuned V2 architecture has a 2-class classifier.
 
 authenticity_model.classifier[1] = nn.Linear(
     authenticity_model.classifier[1].in_features,
@@ -187,8 +209,8 @@ authenticity_model.load_state_dict(
 )
 
 
-authenticity_model = (
-    authenticity_model.to(DEVICE)
+authenticity_model = authenticity_model.to(
+    DEVICE
 )
 
 
@@ -204,9 +226,6 @@ def _clamp_box(
     width,
     height,
 ):
-    """
-    Keep YOLO bounding box inside the image.
-    """
 
     x1, y1, x2, y2 = box
 
@@ -256,46 +275,92 @@ def _clamp_box(
 
 
 # ============================================================
-# MAIN INFERENCE FUNCTION
+# MobileNetV2 AUTHENTICITY CLASSIFICATION
+# ============================================================
+
+def _classify_authenticity(
+    crop,
+):
+
+    input_tensor = (
+        AUTHENTICITY_TRANSFORM(
+            crop
+        )
+        .unsqueeze(0)
+        .to(DEVICE)
+    )
+
+
+    with torch.no_grad():
+
+        outputs = authenticity_model(
+            input_tensor
+        )
+
+
+        probabilities = torch.softmax(
+            outputs,
+            dim=1,
+        )
+
+
+    fake_probability = float(
+        probabilities[
+            0,
+            0,
+        ].item()
+    )
+
+
+    real_probability = float(
+        probabilities[
+            0,
+            1,
+        ].item()
+    )
+
+
+    # --------------------------------------------------------
+    # FINAL AUTHENTICITY DECISION
+    # --------------------------------------------------------
+
+    if (
+        fake_probability
+        >= AUTHENTICITY_THRESHOLD
+    ):
+
+        authenticity = "FAKE"
+
+        authenticity_confidence = (
+            fake_probability
+        )
+
+    else:
+
+        authenticity = "REAL"
+
+        authenticity_confidence = (
+            real_probability
+        )
+
+
+    return (
+        authenticity,
+        authenticity_confidence,
+        fake_probability,
+        real_probability,
+    )
+
+
+# ============================================================
+# MAIN INFERENCE
 # ============================================================
 
 def detect_currency(
     image_path,
-    yolo_conf=0.25,
+    yolo_conf=0.40,
     yolo_iou=0.45,
 ):
-    """
-    Run complete currency detection.
-
-    Parameters
-    ----------
-    image_path:
-        Path to uploaded image.
-
-    yolo_conf:
-        Minimum YOLO detection confidence.
-
-    yolo_iou:
-        YOLO NMS IoU threshold.
-
-    Returns
-    -------
-    dict
-        Detection results for the frontend.
-    """
-
-
-    image_path = Path(
-        image_path
-    )
-
-
-    if not image_path.exists():
-
-        raise FileNotFoundError(
-            f"Image not found:\n{image_path}"
-        )
-
 
     # ========================================================
     # OPEN IMAGE
@@ -312,7 +377,7 @@ def detect_currency(
 
 
     # ========================================================
-    # YOLO11 DETECTION
+    # STEP 1 — YOLO11 DENOMINATION DETECTION
     # ========================================================
 
     yolo_results = yolo_model.predict(
@@ -339,26 +404,41 @@ def detect_currency(
 
         return {
             "success": False,
+
             "message": (
                 "No Indian currency note "
-                "was detected in the image."
+                "was detected."
             ),
+
             "denomination": None,
+
             "denomination_confidence": 0.0,
+
             "authenticity": None,
+
             "authenticity_confidence": 0.0,
+
+            "fake_probability": 0.0,
+
+            "real_probability": 0.0,
+
+            "combined_confidence": 0.0,
+
             "box": None,
+
             "crop": None,
         }
 
 
     # ========================================================
-    # SELECT HIGHEST-CONFIDENCE NOTE
+    # SELECT BEST YOLO DETECTION
     # ========================================================
 
     best_index = int(
-        result.boxes.conf.argmax().item()
-    )
+    torch.argmax(
+        result.boxes.conf
+    ).item()
+)
 
 
     yolo_class_id = int(
@@ -375,46 +455,87 @@ def detect_currency(
     )
 
 
-    # Safety check
+    # ========================================================
+    # YOLO CLASS SAFETY CHECK
+    # ========================================================
+
+    # Reject ₹2000 notes completely
+    if yolo_class_id == 6:
+
+      return {
+        "success": False,
+
+        "message": "₹2000 notes are not supported.",
+        
+        "denomination": "2000",
+
+        "denomination_confidence": yolo_confidence,
+
+        "authenticity": None,
+
+        "authenticity_confidence": 0.0,
+
+        "fake_probability": 0.0,
+
+        "real_probability": 0.0,
+
+        "combined_confidence": 0.0,
+
+        "box": None,
+
+        "crop": None,
+    }
+
 
     if (
-        yolo_class_id < 0
-        or
-        yolo_class_id >= len(
-            YOLO_CLASS_NAMES
-        )
-    ):
+    yolo_class_id < 0
+    or
+    yolo_class_id >= len(result.names)
+):
 
-        return {
-            "success": False,
-            "message": (
-                "YOLO detected an unknown "
-                "currency class."
-            ),
-            "denomination": None,
-            "denomination_confidence": 0.0,
-            "authenticity": None,
-            "authenticity_confidence": 0.0,
-            "box": None,
-            "crop": None,
-        }
+      return {
+        "success": False,
+
+        "message": (
+            "YOLO11 detected an unknown "
+            "currency class."
+        ),
+
+        "denomination": None,
+
+        "denomination_confidence": 0.0,
+
+        "authenticity": None,
+
+        "authenticity_confidence": 0.0,
+
+        "fake_probability": 0.0,
+
+        "real_probability": 0.0,
+
+        "combined_confidence": 0.0,
+
+        "box": None,
+
+        "crop": None,
+    }
 
 
-    denomination = (
-        YOLO_CLASS_NAMES[
-            yolo_class_id
-        ]
-    )
+    denomination = result.names[yolo_class_id]
+    
+    
 
 
     # ========================================================
-    # GET BOUNDING BOX
+    # GET YOLO BOUNDING BOX
     # ========================================================
 
     raw_box = (
         result.boxes.xyxy[
             best_index
-        ].cpu().numpy()
+        ]
+        .cpu()
+        .numpy()
     )
 
 
@@ -437,23 +558,36 @@ def detect_currency(
 
         return {
             "success": False,
+
             "message": (
                 "Currency note was detected "
                 "but the bounding box was invalid."
             ),
+
             "denomination": denomination,
+
             "denomination_confidence": (
                 yolo_confidence
             ),
+
             "authenticity": None,
+
             "authenticity_confidence": 0.0,
+
+            "fake_probability": 0.0,
+
+            "real_probability": 0.0,
+
+            "combined_confidence": 0.0,
+
             "box": None,
+
             "crop": None,
         }
 
 
     # ========================================================
-    # CROP NOTE
+    # STEP 2 — CROP NOTE FROM YOLO BOX
     # ========================================================
 
     crop = image.crop(
@@ -467,120 +601,139 @@ def detect_currency(
 
 
     # ========================================================
-    # AUTHENTICITY CHECK
-    # ========================================================
+    # STEP 3 — MobileNetV2 AUTHENTICITY
     #
-    # ₹2000 was NOT included in V2 training.
+    # YOLO11 detected the denomination.
     #
-    # Therefore we must NOT pretend to classify ₹2000
-    # as REAL/FAKE using this model.
+    # MobileNetV2 now receives the YOLO-detected note crop
+    # and determines REAL vs FAKE.
     # ========================================================
 
-    if (
-        denomination
-        not in AUTHENTICITY_SUPPORTED_DENOMINATIONS
-    ):
-
-        return {
-            "success": True,
-            "message": (
-                "₹2000 detected. "
-                "Authenticity classification "
-                "is not available because "
-                "₹2000 was excluded from "
-                "the authenticity model."
-            ),
-            "denomination": denomination,
-            "denomination_confidence": (
-                yolo_confidence
-            ),
-            "authenticity": "UNSUPPORTED",
-            "authenticity_confidence": 0.0,
-            "box": (
-                x1,
-                y1,
-                x2,
-                y2,
-            ),
-            "crop": crop,
-        }
-
-
-    # ========================================================
-    # PREPARE CROP
-    # ========================================================
-
-    input_tensor = (
-        AUTHENTICITY_TRANSFORM(
-            crop
-        )
-        .unsqueeze(0)
-        .to(DEVICE)
+    (
+        authenticity,
+        authenticity_confidence,
+        fake_probability,
+        real_probability,
+    ) = _classify_authenticity(
+        crop
     )
 
 
     # ========================================================
-    # MOBILENETV2
+    # STEP 4 — COMBINE YOLO11 + MobileNetV2
+    #
+    # This is NOT averaging the probabilities.
+    #
+    # YOLO confidence describes denomination confidence.
+    # MobileNet confidence describes authenticity confidence.
+    #
+    # The conservative combined confidence is the lower of
+    # the two, because BOTH decisions are required.
     # ========================================================
 
-    with torch.no_grad():
-
-        outputs = authenticity_model(
-            input_tensor
-        )
-
-
-        probabilities = torch.softmax(
-            outputs,
-            dim=1,
-        )
-
-
-        predicted_id = int(
-            probabilities.argmax(
-                dim=1
-            ).item()
-        )
-
-
-        authenticity_confidence = float(
-            probabilities[
-                0,
-                predicted_id
-            ].item()
-        )
-
-
-    authenticity = (
-        AUTHENTICITY_CLASS_NAMES[
-            predicted_id
-        ]
+    combined_confidence = min(
+        yolo_confidence,
+        authenticity_confidence,
     )
+    
+    # ========================================================
+    # OCR SERIAL NUMBER
+    # ========================================================
+
+    try:
+
+        serial_number = extract_serial_number(
+            str(image_path)
+        )
+
+    except Exception:
+
+        serial_number = "Not Detected"
 
 
     # ========================================================
-    # FINAL RESULT
+    # FINAL SYSTEM MESSAGE
+    # ========================================================
+
+    if authenticity == "REAL":
+
+        final_message = (
+            f"₹{denomination} detected by YOLO11 "
+            f"and classified as REAL by MobileNetV2."
+        )
+
+    else:
+
+        final_message = (
+            f"₹{denomination} detected by YOLO11 "
+            f"and classified as FAKE by MobileNetV2."
+        )
+
+
+    # ========================================================
+    # FINAL COMBINED RESULT
     # ========================================================
 
     return {
+
         "success": True,
 
-        "message": (
-            "Currency note detected "
-            "and authenticity checked."
-        ),
+        "message": final_message,
+    
+
+        # ----------------------------------------------------
+        # YOLO11 RESULT
+        # ----------------------------------------------------
 
         "denomination": denomination,
+        
+        "serial_number": serial_number,
 
         "denomination_confidence": (
             yolo_confidence
         ),
+
+        # ----------------------------------------------------
+        # MobileNetV2 RESULT
+        # ----------------------------------------------------
 
         "authenticity": authenticity,
 
         "authenticity_confidence": (
             authenticity_confidence
         ),
+
+        "fake_probability": (
+            fake_probability
+        ),
+
+        "real_probability": (
+            real_probability
+        ),
+
+        # ----------------------------------------------------
+        # COMBINED RESULT
+        # ----------------------------------------------------
+
+        "combined_confidence": (
+            combined_confidence
+        ),
+
+        "model_combination": (
+            "YOLO11 + MobileNetV2"
+        ),
+
+        # ----------------------------------------------------
+        # THRESHOLD
+        # ----------------------------------------------------
+
+        "authenticity_threshold": (
+            AUTHENTICITY_THRESHOLD
+        ),
+
+        # ----------------------------------------------------
+        # IMAGE INFORMATION
+        # ----------------------------------------------------
 
         "box": (
             x1,
@@ -591,142 +744,3 @@ def detect_currency(
 
         "crop": crop,
     }
-
-
-# ============================================================
-# SIMPLE COMMAND-LINE TEST
-#
-# Run:
-#
-# python .\scripts\app_inference.py
-#
-# It will test the first image inside:
-#
-# test_images/
-# ============================================================
-
-if __name__ == "__main__":
-
-    TEST_IMAGES_DIR = (
-        PROJECT_ROOT
-        / "test_images"
-    )
-
-
-    if not TEST_IMAGES_DIR.exists():
-
-        print(
-            "test_images folder not found:"
-        )
-
-        print(
-            TEST_IMAGES_DIR
-        )
-
-        raise SystemExit(1)
-
-
-    image_extensions = {
-        ".jpg",
-        ".jpeg",
-        ".png",
-        ".bmp",
-        ".webp",
-    }
-
-
-    image_paths = sorted(
-        [
-            p
-            for p in TEST_IMAGES_DIR.iterdir()
-            if (
-                p.is_file()
-                and
-                p.suffix.lower()
-                in image_extensions
-            )
-        ]
-    )
-
-
-    if not image_paths:
-
-        print(
-            "No images found inside:"
-        )
-
-        print(
-            TEST_IMAGES_DIR
-        )
-
-        raise SystemExit(1)
-
-
-    test_image = image_paths[0]
-
-
-    print()
-    print("=" * 70)
-    print("INDIAN CURRENCY INFERENCE TEST")
-    print("=" * 70)
-
-    print()
-
-    print(
-        f"Image: {test_image.name}"
-    )
-
-    print()
-
-
-    result = detect_currency(
-        test_image
-    )
-
-
-    print(
-        f"Success      : "
-        f"{result['success']}"
-    )
-
-
-    print(
-        f"Denomination : "
-        f"₹{result['denomination']}"
-        if result["denomination"]
-        else
-        "Denomination : Not detected"
-    )
-
-
-    if result["denomination"]:
-
-        print(
-            f"Denom. Conf. : "
-            f"{result['denomination_confidence'] * 100:.2f}%"
-        )
-
-
-    print(
-        f"Authenticity : "
-        f"{result['authenticity']}"
-    )
-
-
-    if result["authenticity"]:
-
-        print(
-            f"Auth. Conf.  : "
-            f"{result['authenticity_confidence'] * 100:.2f}%"
-        )
-
-
-    print()
-
-    print(
-        result["message"]
-    )
-
-    print()
-
-    print("=" * 70)
