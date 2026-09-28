@@ -1,5 +1,6 @@
 import sys
 from pathlib import Path
+from functools import lru_cache
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.append(str(PROJECT_ROOT))
@@ -151,70 +152,82 @@ AUTHENTICITY_TRANSFORM = transforms.Compose(
 
 
 # ============================================================
-# LOAD YOLO11
+# LAZY LOAD MODELS
 # ============================================================
 
-if not YOLO_MODEL_PATH.exists():
+@lru_cache(maxsize=1)
+def load_models():
 
-    raise FileNotFoundError(
-        "YOLO11 model not found:\n"
-        f"{YOLO_MODEL_PATH}"
+    print("Loading YOLO...")
+
+    if not YOLO_MODEL_PATH.exists():
+
+        raise FileNotFoundError(
+            "YOLO11 model not found:\n"
+            f"{YOLO_MODEL_PATH}"
+        )
+
+
+    yolo_model = YOLO(
+        str(YOLO_MODEL_PATH)
+    )
+
+    print("YOLO Loaded")
+
+
+    print("Loading MobileNet...")
+
+    if not AUTHENTICITY_MODEL_PATH.exists():
+
+        raise FileNotFoundError(
+            "New MobileNetV2 authenticity model not found:\n"
+            f"{AUTHENTICITY_MODEL_PATH}"
+        )
+
+
+    checkpoint = torch.load(
+        AUTHENTICITY_MODEL_PATH,
+        map_location=DEVICE,
+        weights_only=False,
     )
 
 
-yolo_model = YOLO(
-    str(YOLO_MODEL_PATH)
-)
+    print(type(checkpoint))
+    print(checkpoint.keys())
 
 
-# ============================================================
-# LOAD NEW MobileNetV2
-# ============================================================
+    # ========================================================
+    # RECREATE MobileNetV2
+    # ========================================================
 
-if not AUTHENTICITY_MODEL_PATH.exists():
-
-    raise FileNotFoundError(
-        "New MobileNetV2 authenticity model not found:\n"
-        f"{AUTHENTICITY_MODEL_PATH}"
+    authenticity_model = models.mobilenet_v2(
+        weights=None
     )
 
 
-checkpoint = torch.load(
-    AUTHENTICITY_MODEL_PATH,
-    map_location=DEVICE,
-    weights_only=False,
-)
-
-print(type(checkpoint))
-print(checkpoint.keys())
+    authenticity_model.classifier[1] = nn.Linear(
+        authenticity_model.classifier[1].in_features,
+        2,
+    )
 
 
-# ============================================================
-# RECREATE MobileNetV2
-# ============================================================
-
-authenticity_model = models.mobilenet_v2(
-    weights=None
-)
+    authenticity_model.load_state_dict(
+        checkpoint["model_state_dict"]
+    )
 
 
-authenticity_model.classifier[1] = nn.Linear(
-    authenticity_model.classifier[1].in_features,
-    2,
-)
+    authenticity_model = authenticity_model.to(
+        DEVICE
+    )
 
 
-authenticity_model.load_state_dict(
-    checkpoint["model_state_dict"]
-)
+    authenticity_model.eval()
 
 
-authenticity_model = authenticity_model.to(
-    DEVICE
-)
+    print("MobileNet Loaded")
 
 
-authenticity_model.eval()
+    return yolo_model, authenticity_model
 
 
 # ============================================================
@@ -280,6 +293,7 @@ def _clamp_box(
 
 def _classify_authenticity(
     crop,
+    authenticity_model,
 ):
 
     input_tensor = (
@@ -361,6 +375,13 @@ def detect_currency(
     yolo_conf=0.40,
     yolo_iou=0.45,
 ):
+
+    # ========================================================
+    # LOAD MODELS
+    # ========================================================
+
+    yolo_model, authenticity_model = load_models()
+
 
     # ========================================================
     # OPEN IMAGE
@@ -615,7 +636,8 @@ def detect_currency(
         fake_probability,
         real_probability,
     ) = _classify_authenticity(
-        crop
+        crop,
+        authenticity_model,
     )
 
 
