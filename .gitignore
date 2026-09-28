@@ -29,6 +29,14 @@ temp_test/
 # Training runs
 runs/
 
+# Allow deployment models
+!runs/currency_yolo11n-3/
+!runs/currency_yolo11n-3/weights/
+!runs/currency_yolo11n-3/weights/best.pt
+
+!runs/authenticity_new/
+!runs/authenticity_new/best_authenticity_mobilenetv2_new.pt
+
 # Logs
 *.log
 
