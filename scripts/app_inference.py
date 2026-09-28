@@ -662,15 +662,7 @@ def detect_currency(
     # OCR SERIAL NUMBER
     # ========================================================
 
-    try:
-
-        serial_number = extract_serial_number(
-            str(image_path)
-        )
-
-    except Exception:
-
-        serial_number = "Not Detected"
+    serial_number = "OCR Disabled"
 
 
     # ========================================================
