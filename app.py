@@ -58,9 +58,16 @@ if "selected_image" not in st.session_state:
 
 if "uploaded_name" not in st.session_state:
     st.session_state.uploaded_name = None
-    
+
 if "blockchain_saved" not in st.session_state:
     st.session_state.blockchain_saved = False
+
+# ============================================================
+# SAFE DEFAULTS FOR MAIN-PAGE VARIABLES
+# ============================================================
+
+language_code = "en-IN"
+speak_clicked = False
 
 # ============================================================
 # BACKGROUND IMAGE
@@ -141,9 +148,9 @@ header {{
     background: transparent !important;
 }}
 
-/* ==========================================================
+/* ============================================================
    TITLE
-   ========================================================== */
+   ============================================================ */
 
 .app-title {{
     text-align: center;
@@ -156,9 +163,9 @@ header {{
     text-shadow: 0 2px 8px rgba(255,255,255,0.9);
 }}
 
-/* ==========================================================
+/* ============================================================
    UPLOAD LABEL
-   ========================================================== */
+   ============================================================ */
 
 .upload-label {{
     color: #172033 !important;
@@ -167,9 +174,9 @@ header {{
     margin-bottom: 5px !important;
 }}
 
-/* ==========================================================
+/* ============================================================
    STREAMLIT SELECTBOX
-   ========================================================== */
+   ============================================================ */
 
 [data-testid="stSelectbox"] label {{
     color: #172033 !important;
@@ -227,7 +234,6 @@ div[role="option"]:hover {{
     color: white !important;
 }}
 
-/* PRESS ENTER TO APPLY */
 [data-testid="stTextInput"] p {{
     color: #172033 !important;
     font-weight: 800 !important;
@@ -240,10 +246,8 @@ div[data-testid="stCheckbox"] label {{
 }}
 
 /* ============================================================
-   DETECT CURRENCY BUTTON
+   BUTTONS
    ============================================================ */
-
-/* BUTTONS */
 
 div.stButton > button {{
     background: linear-gradient(
@@ -268,10 +272,7 @@ div.stButton > button {{
     transition: all 0.2s ease !important;
 }}
 
-/* HOVER */
-
 div.stButton > button:hover {{
-
     background: linear-gradient(
         180deg,
         #2563eb,
@@ -288,18 +289,13 @@ div.stButton > button:hover {{
         0 8px 18px rgba(0,0,0,0.22) !important;
 }}
 
-/* CLICKED */
-
 div.stButton > button:active {{
-
     transform: translateY(2px);
 
     background: #0f172a !important;
 
     color: white !important;
 }}
-
-/* KEEP TEXT WHITE */
 
 div.stButton > button * {{
     color: white !important;
@@ -447,53 +443,57 @@ div.stButton > button * {{
 )
 
 # ============================================================
-# HEADER
+# MAIN / DETECTION PAGE
 # ============================================================
 
 if st.session_state.page == "main":
+
+    # ========================================================
+    # HEADER
+    # ========================================================
 
     st.markdown(
         '<div class="app-title">Indian Currency Detector</div>',
         unsafe_allow_html=True,
     )
 
-    # ============================================================
+    # ========================================================
     # SPEECH LANGUAGE
-    # ============================================================
+    # ========================================================
 
     col1, col2 = st.columns([1, 1])
 
     with col1:
 
         st.markdown(
-    """
-    <p style="
-        color:#172033;
-        font-weight:800;
-        margin-bottom:5px;
-    ">
-        🗣 Speech Language
-    </p>
-    """,
-    unsafe_allow_html=True
-)
+            """
+            <p style="
+                color:#172033;
+                font-weight:800;
+                margin-bottom:5px;
+            ">
+                🗣 Speech Language
+            </p>
+            """,
+            unsafe_allow_html=True
+        )
 
         speech_lang = st.selectbox(
-    "",
-    [
-        "English (en-IN)",
-        "हिन्दी (hi-IN)",
-        "मराठी (mr-IN)",
-        "ગુજરાતી (gu-IN)",
-        "বাংলা (bn-IN)",
-        "తెలుగు (te-IN)",
-        "தமிழ் (ta-IN)",
-        "ಕನ್ನಡ (kn-IN)",
-        "മലയാളം (ml-IN)",
-        "नेपाली (ne-NP)",
-        "اردو (ur-IN)"
-    ],
-    label_visibility="collapsed"
+            "",
+            [
+                "English (en-IN)",
+                "हिन्दी (hi-IN)",
+                "मराठी (mr-IN)",
+                "ગુજરાતી (gu-IN)",
+                "বাংলা (bn-IN)",
+                "తెలుగు (te-IN)",
+                "தமிழ் (ta-IN)",
+                "ಕನ್ನಡ (kn-IN)",
+                "മലയാളം (ml-IN)",
+                "नेपाली (ne-NP)",
+                "اردو (ur-IN)"
+            ],
+            label_visibility="collapsed"
         )
 
     with col2:
@@ -512,67 +512,66 @@ if st.session_state.page == "main":
         "English (en-IN)": "en-IN",
         "हिन्दी (hi-IN)": "hi-IN",
         "मराठी (mr-IN)": "mr-IN",
-        "ગુજરાતી (gu-IN)": "gu-IN", 
-        "বাংলা (bn-IN)": "bn-IN", 
-        "తెలుగు (te-IN)": "te-IN", 
-        "தமிழ் (ta-IN)": "ta-IN", 
-        "ಕನ್ನಡ (kn-IN)": "kn-IN", 
-        "മലയാളം (ml-IN)": "ml-IN", 
-        "नेपाली (ne-NP)": "ne-NP", 
+        "ગુજરાતી (gu-IN)": "gu-IN",
+        "বাংলা (bn-IN)": "bn-IN",
+        "తెలుగు (te-IN)": "te-IN",
+        "தமிழ் (ta-IN)": "ta-IN",
+        "ಕನ್ನಡ (kn-IN)": "kn-IN",
+        "മലയാളം (ml-IN)": "ml-IN",
+        "नेपाली (ne-NP)": "ne-NP",
         "اردو (ur-IN)": "ur-IN",
     }
 
     language_code = language_options[speech_lang]
 
-# ============================================================
-# REAL-TIME CAMERA DETECTION
-# ============================================================
-
-st.markdown(
-    """
-    <p style="
-        color:#172033;
-        font-size:18px;
-        font-weight:800;
-    ">
-        📷 Real-Time Camera Detection
-    </p>
-    """,
-    unsafe_allow_html=True
-)
-
-
-camera_mode = st.checkbox(
-    "Enable Camera",
-    key="camera_mode"
-)
-
-frame_holder = st.empty()
-
-camera_image = None
-
-if camera_mode:
+    # ========================================================
+    # REAL-TIME CAMERA DETECTION
+    # ========================================================
 
     st.markdown(
-        '<p style="color:#172033;">Capture Currency Note</p>',
+        """
+        <p style="
+            color:#172033;
+            font-size:18px;
+            font-weight:800;
+        ">
+            📷 Real-Time Camera Detection
+        </p>
+        """,
         unsafe_allow_html=True
     )
 
-    camera_image = st.camera_input(
-        "",
-        key="camera_input"
+    camera_mode = st.checkbox(
+        "Enable Camera",
+        key="camera_mode"
     )
 
-    # ============================================================
-    # UPLOAD
-    # ============================================================
+    frame_holder = st.empty()
 
-st.markdown(
+    camera_image = None
+
+    if camera_mode:
+
+        st.markdown(
+            '<p style="color:#172033;">Capture Currency Note</p>',
+            unsafe_allow_html=True
+        )
+
+        camera_image = st.camera_input(
+            "",
+            key="camera_input"
+        )
+
+    # ========================================================
+    # UPLOAD
+    # ========================================================
+
+    st.markdown(
         '<div class="upload-label">📷 Upload Currency Note</div>',
         unsafe_allow_html=True,
-)
+    )
 
-uploaded_file = st.file_uploader(
+    uploaded_file = st.file_uploader(
         "Choose an image",
         type=[
             "jpg",
@@ -582,21 +581,27 @@ uploaded_file = st.file_uploader(
             "bmp",
         ],
         label_visibility="collapsed",
-)
+    )
 
-    # ============================================================
+    # ========================================================
     # NEW IMAGE DETECTION
-    # ============================================================
+    # ========================================================
 
-if camera_image is not None:
+    if camera_image is not None:
 
         try:
 
             camera_image_bytes = camera_image.getbuffer()
 
+            temporary_directory = PROJECT_ROOT / "streamlit_temp"
+            temporary_directory.mkdir(
+                parents=True,
+                exist_ok=True,
+            )
+
             with tempfile.NamedTemporaryFile(
                 suffix=".jpg",
-                dir=PROJECT_ROOT / "streamlit_temp",
+                dir=temporary_directory,
                 delete=False,
             ) as temporary_camera_file:
 
@@ -624,7 +629,7 @@ if camera_image is not None:
 
             st.stop()
 
-elif uploaded_file is not None:
+    elif uploaded_file is not None:
 
         if st.session_state.uploaded_name != uploaded_file.name:
 
@@ -643,11 +648,11 @@ elif uploaded_file is not None:
 
                 st.stop()
 
-    # ============================================================
+    # ========================================================
     # IMAGE + DETECT BUTTON
-    # ============================================================
+    # ========================================================
 
-if st.session_state.selected_image is not None:
+    if st.session_state.selected_image is not None:
 
         image = st.session_state.selected_image
 
@@ -724,22 +729,22 @@ if st.session_state.selected_image is not None:
                 except Exception:
                     pass
 
-    # ============================================================
+    # ========================================================
     # RESULT
-    # ============================================================
+    # ========================================================
 
-result = st.session_state.result
+    result = st.session_state.result
 
-    # ============================================================
+    # ========================================================
     # INITIALIZE RESULT VARIABLES
-    # ============================================================
+    # ========================================================
 
-denomination = None
-authenticity = None
-denomination_confidence = 0.0
-authenticity_confidence = 0.0
+    denomination = None
+    authenticity = None
+    denomination_confidence = 0.0
+    authenticity_confidence = 0.0
 
-if result is not None:
+    if result is not None:
 
         if not result.get("success", False):
 
@@ -752,11 +757,12 @@ if result is not None:
 
         else:
 
-            # ----------------------------------------------------
+            # ------------------------------------------------
             # UNSUPPORTED ₹2000 NOTE CHECK
-            # ----------------------------------------------------
+            # ------------------------------------------------
 
             if result.get("denomination") == "2000":
+
                 st.warning("₹2000 notes are not supported.")
                 st.stop()
 
@@ -783,9 +789,9 @@ if result is not None:
                 )
             )
 
-            # ----------------------------------------------------
+            # ------------------------------------------------
             # Confidence conversion
-            # ----------------------------------------------------
+            # ------------------------------------------------
 
             if denomination_confidence <= 1:
                 denomination_confidence *= 100
@@ -793,33 +799,35 @@ if result is not None:
             if authenticity_confidence <= 1:
                 authenticity_confidence *= 100
 
-            # ====================================================
+            # =================================================
             # RESULT HEADING
-            # ====================================================
+            # =================================================
 
             st.markdown(
                 '<div class="result-heading">🎯 Detection Result</div>',
                 unsafe_allow_html=True,
             )
 
-            # ====================================================
+            # =================================================
             # RESULT COLUMNS
-            # ====================================================
+            # =================================================
 
             col1, col2 = st.columns(
                 2,
                 gap="medium",
             )
 
-            # ====================================================
+            # =================================================
             # DENOMINATION
-            # ====================================================
+            # =================================================
 
             with col1:
 
                 if denomination:
 
-                    safe_denomination = html.escape(str(denomination))
+                    safe_denomination = html.escape(
+                        str(denomination)
+                    )
 
                     result_html = (
                         '<div class="result-box">'
@@ -854,9 +862,9 @@ if result is not None:
                     unsafe_allow_html=True,
                 )
 
-            # ====================================================
+            # =================================================
             # AUTHENTICITY
-            # ====================================================
+            # =================================================
 
             with col2:
 
@@ -928,14 +936,17 @@ if result is not None:
                     unsafe_allow_html=True,
                 )
 
-            # ====================================================
+            # =================================================
             # SERIAL NUMBER
-            # ====================================================
+            # =================================================
 
             serial_number = "NOT_FOUND"
 
             if result:
-                serial_number = result.get("serial_number", "NOT_FOUND")
+                serial_number = result.get(
+                    "serial_number",
+                    "NOT_FOUND"
+                )
 
             st.markdown(
                 '<div class="analysis-title">🔢 Serial Number</div>',
@@ -944,33 +955,36 @@ if result is not None:
 
             st.markdown(
                 f"""
-        <div class="analysis-box">
-        <b>{serial_number}</b>
-        </div>
-        """,
+                <div class="analysis-box">
+                <b>{serial_number}</b>
+                </div>
+                """,
                 unsafe_allow_html=True,
             )
 
-            serial_number = result.get("serial_number", "NOT_FOUND")
-            
+            serial_number = result.get(
+                "serial_number",
+                "NOT_FOUND"
+            )
+
             st.markdown(
-        """
-        <div style="
-            background:#fff8e1;
-            border-left:5px solid #f59e0b;
-            padding:12px;
-            border-radius:8px;
-            margin-top:10px;
-            margin-bottom:10px;
-            color:#172033;
-            font-weight:600;
-        ">
-            ⚠️ Please verify the detected serial number.<br>
-            If the OCR result is incorrect, edit it below before saving to the blockchain.
-        </div>
-        """,
-        unsafe_allow_html=True,
-        )
+                """
+                <div style="
+                    background:#fff8e1;
+                    border-left:5px solid #f59e0b;
+                    padding:12px;
+                    border-radius:8px;
+                    margin-top:10px;
+                    margin-bottom:10px;
+                    color:#172033;
+                    font-weight:600;
+                ">
+                    ⚠️ Please verify the detected serial number.<br>
+                    If the OCR result is incorrect, edit it below before saving to the blockchain.
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
 
             if "corrected_serial" not in st.session_state:
                 st.session_state.corrected_serial = serial_number
@@ -982,20 +996,19 @@ if result is not None:
             )
 
             if st.button("💾 Store Scan Record"):
-                
+
                 if st.session_state.blockchain_saved:
-                    
+
                     st.warning(
                         "This result has already been saved to the blockchain."
                     )
-                    
+
                 else:
-                
+
                     corrected_serial = (
                         st.session_state["corrected_serial"]
                         .strip()
                     )
-
 
                     record = {
                         "serial_number": corrected_serial,
@@ -1021,255 +1034,309 @@ if result is not None:
                     }
 
                     add_record(record)
+
                     st.session_state.blockchain_saved = True
-                    
+
                     st.session_state["saved_serial"] = corrected_serial
-                    
+
                     st.success(
                         f"Saved to blockchain with Serial Number: {corrected_serial}"
                     )
 
-        #     st.markdown(
-        # f"""
-        # <div style="
-        #     background:#172033;
-        #     color:white;
-        #     padding:12px;
-        #     border-radius:10px;
-        #     font-weight:700;
-        #     text-align:center;
-        #     margin-top:10px;
-        # ">
-        #     ✅ Blockchain Saved Successfully<br>
-        #     Serial Number: {corrected_serial}
-        # </div>
-        # """,
-        # unsafe_allow_html=True,
-        # )
+            # =================================================
+            # SPEECH
+            # =================================================
 
-        # ====================================================
-        # SPEECH
-        # ====================================================
+            if denomination:
 
-        if denomination:
+                denomination_text = str(denomination)
 
-            denomination_text = str(denomination)
+                if authenticity == "REAL":
 
-            if authenticity == "REAL":
+                    speech_texts = {
+                        "en-IN": (
+                            f"This is a {denomination_text} rupee note. "
+                            "The note appears to be real."
+                        ),
+                        "hi-IN": (
+                            f"यह {denomination_text} रुपये का नोट है। "
+                            "यह नोट असली लगता है।"
+                        ),
+                        "mr-IN": (
+                            f"ही {denomination_text} रुपयांची नोट आहे. "
+                            "ही नोट खरी असल्याचे दिसते."
+                        ),
+                        "ur-IN": (
+                            f"یہ {denomination_text} روپے کا نوٹ ہے۔ "
+                            "یہ نوٹ اصلی معلوم ہوتا ہے."
+                        ),
+                        "ne-NP": (
+                            f"यो {denomination_text} रुपैयाँको नोट हो। "
+                            "यो नोट वास्तविक देखिन्छ."
+                        ),
+                        "gu-IN": (
+                            f"આ {denomination_text} રૂપિયાની નોટ છે. "
+                            "આ નોટ અસલી લાગે છે."
+                        ),
+                        "ta-IN": (
+                            f"இது {denomination_text} ரூபாய் நோட்டு. "
+                            "இந்த நோட்டு உண்மையானதாக தெரிகிறது."
+                        ),
+                        "te-IN": (
+                            f"ఇది {denomination_text} రూపాయల నోటు. "
+                            "ఈ నోటు అసలైనదిగా కనిపిస్తోంది."
+                        ),
+                        "bn-IN": (
+                            f"এটি {denomination_text} টাকার নোট। "
+                            "নোটটি আসল বলে মনে হচ্ছে."
+                        ),
+                        "kn-IN": (
+                            f"ಇದು {denomination_text} ರೂಪಾಯಿ ನೋಟು. "
+                            "ಈ ನೋಟು ನಿಜವಾದಂತೆ ಕಾಣುತ್ತದೆ."
+                        ),
+                        "ml-IN": (
+                            f"ഇത് {denomination_text} രൂപയുടെ നോട്ടാണ്. "
+                            "ഈ നോട്ട് യഥാർത്ഥമാണെന്ന് തോന്നുന്നു."
+                        ),
+                    }
 
-                speech_texts = {
-                    "en-IN": f"This is a {denomination_text} rupee note. "
-                    "The note appears to be real.",
-                    "hi-IN": f"यह {denomination_text} रुपये का नोट है। "
-                    "यह नोट असली लगता है।",
-                    "mr-IN": f"ही {denomination_text} रुपयांची नोट आहे. "
-                    "ही नोट खरी असल्याचे दिसते.",
-                    "ur-IN": f"یہ {denomination_text} روپے کا نوٹ ہے۔ " 
-                    "یہ نوٹ اصلی معلوم ہوتا ہے.",
-                    "ne-NP": f"यो {denomination_text} रुपैयाँको नोट हो। " 
-                    "यो नोट वास्तविक देखिन्छ.", 
-                    "gu-IN": f"આ {denomination_text} રૂપિયાની નોટ છે. " 
-                    "આ નોટ અસલી લાગે છે.", 
-                    "ta-IN": f"இது {denomination_text} ரூபாய் நோட்டு. " 
-                    "இந்த நோட்டு உண்மையானதாக தெரிகிறது.", 
-                    "te-IN": f"ఇది {denomination_text} రూపాయల నోటు. " 
-                    "ఈ నోటు అసలైనదిగా కనిపిస్తోంది.", 
-                    "bn-IN": f"এটি {denomination_text} টাকার নোট। " 
-                    "নোটটি আসল বলে মনে হচ্ছে.", 
-                    "kn-IN": f"ಇದು {denomination_text} ರೂಪಾಯಿ ನೋಟು. " 
-                    "ಈ ನೋಟು ನಿಜವಾದಂತೆ ಕಾಣುತ್ತದೆ.", 
-                    "ml-IN": f"ഇത് {denomination_text} രൂപയുടെ നോട്ടാണ്. " 
-                    "ഈ നോട്ട് യഥാർത്ഥമാണെന്ന് തോന്നുന്നു.",
-                }
+                elif authenticity == "FAKE":
 
-            elif authenticity == "FAKE":
+                    speech_texts = {
+                        "en-IN": (
+                            f"This is a {denomination_text} rupee note. "
+                            "The note appears to be fake."
+                        ),
+                        "hi-IN": (
+                            f"यह {denomination_text} रुपये का नोट है। "
+                            "यह नोट नकली लगता है।"
+                        ),
+                        "ur-IN": (
+                            f"یہ {denomination_text} روپے کا نوٹ ہے۔ "
+                            "یہ نوٹ جعلی معلوم ہوتا ہے."
+                        ),
+                        "ne-NP": (
+                            f"यो {denomination_text} रुपैयाँको नोट हो। "
+                            "यो नोट नक्कली देखिन्छ."
+                        ),
+                        "gu-IN": (
+                            f"આ {denomination_text} રૂપિયાની નોટ છે. "
+                            "આ નોટ નકલી લાગે છે."
+                        ),
+                        "ta-IN": (
+                            f"இது {denomination_text} ரூபாய் நோட்டு. "
+                            "இந்த நோட்டு போலியானதாக தெரிகிறது."
+                        ),
+                        "te-IN": (
+                            f"ఇది {denomination_text} రూపాయల నోటు. "
+                            "ఈ నోటు నకిలీగా కనిపిస్తోంది."
+                        ),
+                        "bn-IN": (
+                            f"এটি {denomination_text} টাকার নোট। "
+                            "নোটটি জাল বলে মনে হচ্ছে."
+                        ),
+                        "mr-IN": (
+                            f"ही {denomination_text} रुपयांची नोट आहे। "
+                            "ही नोट बनावट असल्याचे दिसते."
+                        ),
+                        "kn-IN": (
+                            f"ಇದು {denomination_text} ರೂಪಾಯಿ ನೋಟು. "
+                            "ಈ ನೋಟು ನಕಲಿ ಎಂದು ಕಾಣುತ್ತದೆ."
+                        ),
+                        "ml-IN": (
+                            f"ഇത് {denomination_text} രൂപയുടെ നോട്ടാണ്. "
+                            "ഈ നോട്ട് വ്യാജമാണെന്ന് തോന്നുന്നു."
+                        ),
+                    }
 
-                speech_texts = {
-                    "en-IN": f"This is a {denomination_text} rupee note. "
-                    "The note appears to be fake.",
-                    "hi-IN": f"यह {denomination_text} रुपये का नोट है। "
-                    "यह नोट नकली लगता है।",
-                    "ur-IN": f"یہ {denomination_text} روپے کا نوٹ ہے۔ " 
-                    "یہ نوٹ جعلی معلوم ہوتا ہے.", 
-                    "ne-NP": f"यो {denomination_text} रुपैयाँको नोट हो। " 
-                    "यो नोट नक्कली देखिन्छ.", 
-                    "gu-IN": f"આ {denomination_text} રૂપિયાની નોટ છે. " 
-                    "આ નોટ નકલી લાગે છે.", 
-                    "ta-IN": f"இது {denomination_text} ரூபாய் நோட்டு. " 
-                    "இந்த நோட்டு போலியானதாக தெரிகிறது.", 
-                    "te-IN": f"ఇది {denomination_text} రూపాయల నోటు. " 
-                    "ఈ నోటు నకిలీగా కనిపిస్తోంది.", 
-                    "bn-IN": f"এটি {denomination_text} টাকার নোট। " 
-                    "নোটটি জাল বলে মনে হচ্ছে.", 
-                    "mr-IN": f"ही {denomination_text} रुपयांची नोट आहे। " 
-                    "ही नोट बनावट असल्याचे दिसते.", 
-                    "kn-IN": f"ಇದು {denomination_text} ರೂಪಾಯಿ ನೋಟು. " 
-                    "ಈ ನೋಟು ನಕಲಿ ಎಂದು ಕಾಣುತ್ತದೆ.", 
-                    "ml-IN": f"ഇത് {denomination_text} രൂപയുടെ നോട്ടാണ്. " 
-                    "ഈ നോട്ട് വ്യാജമാണെന്ന് തോന്നുന്നു.",
-                }
+                else:
 
-            else:
+                    speech_texts = {
+                        "en-IN": (
+                            f"This is a {denomination_text} rupee note. "
+                            "Authenticity verification is not available."
+                        ),
+                        "hi-IN": (
+                            f"यह {denomination_text} रुपये का नोट है। "
+                            "इस नोट की प्रामाणिकता की जांच उपलब्ध नहीं है।"
+                        ),
+                        "ne-NP": (
+                            f"यो {denomination_text} रुपैयाँको नोट हो। "
+                            "यस नोटको प्रमाणीकरण उपलब्ध छैन."
+                        ),
+                        "ur-IN": (
+                            f"یہ {denomination_text} روپے کا نوٹ ہے۔ "
+                            "اس نوٹ کی تصدیق دستیاب نہیں ہے."
+                        ),
+                        "gu-IN": (
+                            f"આ {denomination_text} રૂપિયાની નોટ છે. "
+                            "નોટની અસલિયતની ચકાસણી ઉપલબ્ધ નથી."
+                        ),
+                        "ta-IN": (
+                            f"இது {denomination_text} ரூபாய் நோட்டு. "
+                            "இந்த நோட்டின் நம்பகத்தன்மையை சரிபார்க்க முடியவில்லை."
+                        ),
+                        "te-IN": (
+                            f"ఇది {denomination_text} రూపాయల నోటు. "
+                            "ఈ నోటు ప్రామాణికతను ధృవీకరించలేకపోయాము."
+                        ),
+                        "bn-IN": (
+                            f"এটি {denomination_text} টাকার নোট। "
+                            "এই নোটের সত্যতা যাচাই করা যায়নি."
+                        ),
+                        "mr-IN": (
+                            f"ही {denomination_text} रुपयांची नोट आहे। "
+                            "या नोटेची सत्यता तपासता आली नाही."
+                        ),
+                        "kn-IN": (
+                            f"ಇದು {denomination_text} ರೂಪಾಯಿ ನೋಟು. "
+                            "ನೋಟಿನ ಪ್ರಾಮಾಣಿಕತೆ ಪರಿಶೀಲನೆ ಲಭ್ಯವಿಲ್ಲ."
+                        ),
+                        "ml-IN": (
+                            f"ഇത് {denomination_text} രൂപയുടെ നോട്ടാണ്. "
+                            "ഈ നോട്ടിന്റെ ആധികാരികത പരിശോധിക്കാൻ കഴിഞ്ഞില്ല."
+                        ),
+                    }
 
-                speech_texts = {
-                    "en-IN": f"This is a {denomination_text} rupee note. "
-                    "Authenticity verification is not available.",
-                    "hi-IN": f"यह {denomination_text} रुपये का नोट है। "
-                    "इस नोट की प्रामाणिकता की जांच उपलब्ध नहीं है।",
-                    "ne-NP": f"यो {denomination_text} रुपैयाँको नोट हो। " 
-                    "यस नोटको प्रमाणीकरण उपलब्ध छैन.", 
-                    "ur-IN": f"یہ {denomination_text} روپے کا نوٹ ہے۔ " 
-                    "اس نوٹ کی تصدیق دستیاب نہیں ہے.", 
-                    "gu-IN": f"આ {denomination_text} રૂપિયાની નોટ છે. " 
-                    "નોટની અસલિયતની ચકાસણી ઉપલબ્ધ નથી.", 
-                    "ta-IN": f"இது {denomination_text} ரூபாய் நோட்டு. " 
-                    "இந்த நோட்டின் நம்பகத்தன்மையை சரிபார்க்க முடியவில்லை.", 
-                    "te-IN": f"ఇది {denomination_text} రూపాయల నోటు. " 
-                    "ఈ నోటు ప్రామాణికతను ధృవీకరించలేకపోయాము.", 
-                    "bn-IN": f"এটি {denomination_text} টাকার নোট। " 
-                    "এই নোটের সত্যতা যাচাই করা যায়নি.", 
-                    "mr-IN": f"ही {denomination_text} रुपयांची नोट आहे। " 
-                    "या नोटेची सत्यता तपासता आली नाही.", 
-                    "kn-IN": f"ಇದು {denomination_text} ರೂಪಾಯಿ ನೋಟು. " 
-                    "ನೋಟಿನ ಪ್ರಾಮಾಣಿಕತೆ ಪರಿಶೀಲನೆ ಲಭ್ಯವಿಲ್ಲ.", 
-                    "ml-IN": f"ഇത് {denomination_text} രൂപയുടെ നോട്ടാണ്. " 
-                    "ഈ നോട്ടിന്റെ ആധികാരികത പരിശോധിക്കാൻ കഴിഞ്ഞില്ല.",
-                }
-
-            speech_text = speech_texts.get(
-                language_code,
-                speech_texts["en-IN"],
-            )
-
-            speech_text_json = json.dumps(
-                speech_text,
-                ensure_ascii=False,
-            )
-
-            language_json = json.dumps(language_code)
-
-            if speak_clicked:
-
-                speech_html = f"""
-                <script>
-
-                function speakCurrency() {{
-
-                    if (!("speechSynthesis" in window)) {{
-
-                        alert(
-                            "Speech synthesis is not supported by this browser."
-                        );
-
-                        return;
-                    }}
-
-                    window.speechSynthesis.cancel();
-
-                    const text = {speech_text_json};
-
-                    const language = {language_json};
-
-                    const utterance =
-                        new SpeechSynthesisUtterance(text);
-
-                    utterance.lang = language;
-
-                    utterance.rate = 0.85;
-
-                    utterance.pitch = 1.0;
-
-                    window.speechSynthesis.speak(
-                        utterance
-                    );
-                }}
-
-                speakCurrency();
-
-                </script>
-                """
-
-                st.components.v1.html(
-                    speech_html,
-                    height=0,
+                speech_text = speech_texts.get(
+                    language_code,
+                    speech_texts["en-IN"],
                 )
 
-# ============================================================
-# HISTORY / VERIFY / VIEW BUTTONS
-# ============================================================
+                speech_text_json = json.dumps(
+                    speech_text,
+                    ensure_ascii=False,
+                )
 
-if st.session_state.page == "main":
+                language_json = json.dumps(language_code)
 
-    st.markdown("""
-    <style>
+                if speak_clicked:
 
-    .history-card{
-        background:white;
-        color:#172033;
-        padding:12px;
-        width:98%;
-        margin:auto;
-        margin-bottom:12px;
-        border-radius:12px;
-        border:1px solid #dfe3e8;
-        box-shadow:0 4px 12px rgba(0,0,0,0.08);
-    }
+                    speech_html = f"""
+                    <script>
 
-    .history-summary{
-        background:white;
-        color:#172033;
-        padding:14px;
-        width:66%;
-        margin:auto;
-        margin-bottom:15px;
-        border-radius:12px;
-        border:1px solid #dfe3e8;
-        box-shadow:0 4px 12px rgba(0,0,0,0.08);
-    }
+                    function speakCurrency() {{
 
-    </style>
-    """, unsafe_allow_html=True)
+                        if (!("speechSynthesis" in window)) {{
+
+                            alert(
+                                "Speech synthesis is not supported by this browser."
+                            );
+
+                            return;
+                        }}
+
+                        window.speechSynthesis.cancel();
+
+                        const text = {speech_text_json};
+
+                        const language = {language_json};
+
+                        const utterance =
+                            new SpeechSynthesisUtterance(text);
+
+                        utterance.lang = language;
+
+                        utterance.rate = 0.85;
+
+                        utterance.pitch = 1.0;
+
+                        window.speechSynthesis.speak(
+                            utterance
+                        );
+                    }}
+
+                    speakCurrency();
+
+                    </script>
+                    """
+
+                    st.components.v1.html(
+                        speech_html,
+                        height=0,
+                    )
+
+    # ========================================================
+    # HISTORY / VERIFY / VIEW BUTTONS
+    # ========================================================
+
+    st.markdown(
+        """
+        <style>
+
+        .history-card{
+            background:white;
+            color:#172033;
+            padding:12px;
+            width:98%;
+            margin:auto;
+            margin-bottom:12px;
+            border-radius:12px;
+            border:1px solid #dfe3e8;
+            box-shadow:0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .history-summary{
+            background:white;
+            color:#172033;
+            padding:14px;
+            width:66%;
+            margin:auto;
+            margin-bottom:15px;
+            border-radius:12px;
+            border:1px solid #dfe3e8;
+            box-shadow:0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
 
     if (
         st.session_state.result is not None
         and st.session_state.result.get("success", False)
     ):
 
-        left_space, middle, right_space = st.columns([1, 3, 1])
+        left_space, middle, right_space = st.columns(
+            [1, 3, 1]
+        )
 
         with middle:
 
             col1, col2, col3 = st.columns(3)
 
             with col1:
-              if st.button("📜 Note History"):
 
-                st.session_state["history_serial"] = (
-                    st.session_state.get(
-                        "saved_serial",
+                if st.button("📜 Note History"):
+
+                    st.session_state["history_serial"] = (
                         st.session_state.get(
-                            "corrected_serial",
-                            ""
-                        )
-                    ).strip()
-                )
+                            "saved_serial",
+                            st.session_state.get(
+                                "corrected_serial",
+                                ""
+                            )
+                        ).strip()
+                    )
 
-                st.session_state.page = "history"
-                st.rerun()
-                
-            with col2: 
+                    st.session_state.page = "history"
+                    st.rerun()
 
-              if st.button("🔐 Verify Blockchain"):
+            with col2:
 
-                st.session_state.page = "verify"
-                st.rerun()
-                
-            with col3:         
+                if st.button("🔐 Verify Blockchain"):
 
-              if st.button("🧱 View Blockchain"):
+                    st.session_state.page = "verify"
+                    st.rerun()
 
-                st.session_state.page = "view"
-                st.rerun()
+            with col3:
+
+                if st.button("🧱 View Blockchain"):
+
+                    st.session_state.page = "view"
+                    st.rerun()
+
 
 # ============================================================
 # VERIFY PAGE
@@ -1281,7 +1348,8 @@ if st.session_state.page == "verify":
         st.session_state.page = "main"
         st.rerun()
 
-    st.markdown("""
+    st.markdown(
+        """
         <div style="
         color: #172033;
         font-size:28px;
@@ -1291,157 +1359,194 @@ if st.session_state.page == "verify":
         ">
         🔗 Blockchain Verification
         </div>
-        """, unsafe_allow_html=True)
+        """,
+        unsafe_allow_html=True
+    )
 
     verification_result = verify_chain()
 
-    # ============================================================
+    # ========================================================
     # HASH INTEGRITY CHECK
-    # ============================================================
+    # ========================================================
 
     if verification_result["hash_check"] is True:
 
-        st.markdown("""
-        <div style="
-        background:#dcfce7;
-        color:#166534;
-        padding:12px;
-        border-radius:10px;
-        font-size:17px;
-        font-weight:700;
-        margin-bottom:10px;
-        ">
-        ✅ Hash Integrity Check
-        </div>
-        """, unsafe_allow_html=True)
+        st.markdown(
+            """
+            <div style="
+            background:#dcfce7;
+            color:#166534;
+            padding:12px;
+            border-radius:10px;
+            font-size:17px;
+            font-weight:700;
+            margin-bottom:10px;
+            ">
+            ✅ Hash Integrity Check
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
 
     else:
 
-        st.markdown("""
-        <div style="
-        background:#fee2e2;
-        color:#991b1b;
-        padding:12px;
-        border-radius:10px;
-        font-size:17px;
-        font-weight:700;
-        margin-bottom:10px;
-        ">
-        ❌ Hash Integrity Check
-        </div>
-        """, unsafe_allow_html=True)
+        st.markdown(
+            """
+            <div style="
+            background:#fee2e2;
+            color:#991b1b;
+            padding:12px;
+            border-radius:10px;
+            font-size:17px;
+            font-weight:700;
+            margin-bottom:10px;
+            ">
+            ❌ Hash Integrity Check
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
 
-    # ============================================================
+    # ========================================================
     # PREVIOUS HASH LINK CHECK
-    # ============================================================
+    # ========================================================
 
     if verification_result["link_check"] is True:
 
-        st.markdown("""
-        <div style="
-        background:#dcfce7;
-        color:#166534;
-        padding:12px;
-        border-radius:10px;
-        font-size:17px;
-        font-weight:700;
-        margin-bottom:10px;
-        ">
-        ✅ Previous Hash Link Check
-        </div>
-        """, unsafe_allow_html=True)
+        st.markdown(
+            """
+            <div style="
+            background:#dcfce7;
+            color:#166534;
+            padding:12px;
+            border-radius:10px;
+            font-size:17px;
+            font-weight:700;
+            margin-bottom:10px;
+            ">
+            ✅ Previous Hash Link Check
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
 
     elif verification_result["link_check"] is False:
 
-        st.markdown("""
-        <div style="
-        background:#fee2e2;
-        color:#991b1b;
-        padding:12px;
-        border-radius:10px;
-        font-size:17px;
-        font-weight:700;
-        margin-bottom:10px;
-        ">
-        ❌ Previous Hash Link Check
-        </div>
-        """, unsafe_allow_html=True)
+        st.markdown(
+            """
+            <div style="
+            background:#fee2e2;
+            color:#991b1b;
+            padding:12px;
+            border-radius:10px;
+            font-size:17px;
+            font-weight:700;
+            margin-bottom:10px;
+            ">
+            ❌ Previous Hash Link Check
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
 
     else:
 
-        st.markdown("""
-        <div style="
-        background:#f3f4f6;
-        color:#667085;
-        padding:12px;
-        border-radius:10px;
-        font-size:17px;
-        font-weight:700;
-        margin-bottom:10px;
-        ">
-        ⏸ Previous Hash Link Check
-        </div>
-        """, unsafe_allow_html=True)
+        st.markdown(
+            """
+            <div style="
+            background:#f3f4f6;
+            color:#667085;
+            padding:12px;
+            border-radius:10px;
+            font-size:17px;
+            font-weight:700;
+            margin-bottom:10px;
+            ">
+            ⏸ Previous Hash Link Check
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
 
-    # ============================================================
+    # ========================================================
     # RSA SIGNATURE CHECK
-    # ============================================================
+    # ========================================================
 
     if verification_result["rsa_check"] is True:
 
-        st.markdown("""
-        <div style="
-        background:#dcfce7;
-        color:#166534;
-        padding:12px;
-        border-radius:10px;
-        font-size:17px;
-        font-weight:700;
-        margin-bottom:10px;
-        ">
-        ✅ RSA Signature Verification
-        </div>
-        """, unsafe_allow_html=True)
+        st.markdown(
+            """
+            <div style="
+            background:#dcfce7;
+            color:#166534;
+            padding:12px;
+            border-radius:10px;
+            font-size:17px;
+            font-weight:700;
+            margin-bottom:10px;
+            ">
+            ✅ RSA Signature Verification
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
 
     elif verification_result["rsa_check"] is False:
 
-        st.markdown("""
-        <div style="
-        background:#fee2e2;
-        color:#991b1b;
-        padding:12px;
-        border-radius:10px;
-        font-size:17px;
-        font-weight:700;
-        margin-bottom:10px;
-        ">
-        ❌ RSA Signature Verification
-        </div>
-        """, unsafe_allow_html=True)
+        st.markdown(
+            """
+            <div style="
+            background:#fee2e2;
+            color:#991b1b;
+            padding:12px;
+            border-radius:10px;
+            font-size:17px;
+            font-weight:700;
+            margin-bottom:10px;
+            ">
+            ❌ RSA Signature Verification
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
 
     else:
 
-        st.markdown("""
-        <div style="
-        background:#f3f4f6;
-        color:#667085;
-        padding:12px;
-        border-radius:10px;
-        font-size:17px;
-        font-weight:700;
-        margin-bottom:10px;
-        ">
-        ⏸ RSA Signature Verification
-        </div>
-        """, unsafe_allow_html=True)
+        st.markdown(
+            """
+            <div style="
+            background:#f3f4f6;
+            color:#667085;
+            padding:12px;
+            border-radius:10px;
+            font-size:17px;
+            font-weight:700;
+            margin-bottom:10px;
+            ">
+            ⏸ RSA Signature Verification
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
 
-    # ============================================================
+    # ========================================================
     # DETECTED ISSUES
-    # ============================================================
+    # ========================================================
 
-    hash_issues = verification_result.get("hash_issues", [])
-    link_issues = verification_result.get("link_issues", [])
-    rsa_issues = verification_result.get("rsa_issues", [])
+    hash_issues = verification_result.get(
+        "hash_issues",
+        []
+    )
+
+    link_issues = verification_result.get(
+        "link_issues",
+        []
+    )
+
+    rsa_issues = verification_result.get(
+        "rsa_issues",
+        []
+    )
 
     if (
         len(hash_issues) > 0
@@ -1449,36 +1554,42 @@ if st.session_state.page == "verify":
         or len(rsa_issues) > 0
     ):
 
-        st.markdown("""
-        <div style="
-        background:#fff8e1;
-        color:#172033;
-        padding:14px;
-        border-left:5px solid #f59e0b;
-        border-radius:8px;
-        font-size:18px;
-        font-weight:800;
-        margin-top:15px;
-        margin-bottom:12px;
-        ">
-        ⚠️ Detected Issues
-        </div>
-        """, unsafe_allow_html=True)
+        st.markdown(
+            """
+            <div style="
+            background:#fff8e1;
+            color:#172033;
+            padding:14px;
+            border-left:5px solid #f59e0b;
+            border-radius:8px;
+            font-size:18px;
+            font-weight:800;
+            margin-top:15px;
+            margin-bottom:12px;
+            ">
+            ⚠️ Detected Issues
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
 
         if len(hash_issues) > 0:
 
-            st.markdown("""
-            <div style="
-            background:#fee2e2;
-            color:#991b1b;
-            padding:12px;
-            border-radius:10px;
-            margin-bottom:10px;
-            font-size:15px;
-            ">
-            <b>Hash Integrity Issues:</b>
-            </div>
-            """, unsafe_allow_html=True)
+            st.markdown(
+                """
+                <div style="
+                background:#fee2e2;
+                color:#991b1b;
+                padding:12px;
+                border-radius:10px;
+                margin-bottom:10px;
+                font-size:15px;
+                ">
+                <b>Hash Integrity Issues:</b>
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
 
             for block_number in hash_issues:
 
@@ -1500,19 +1611,22 @@ if st.session_state.page == "verify":
 
         if len(link_issues) > 0:
 
-            st.markdown("""
-            <div style="
-            background:#fee2e2;
-            color:#991b1b;
-            padding:12px;
-            border-radius:10px;
-            margin-top:12px;
-            margin-bottom:10px;
-            font-size:15px;
-            ">
-            <b>Previous Hash Link Issues:</b>
-            </div>
-            """, unsafe_allow_html=True)
+            st.markdown(
+                """
+                <div style="
+                background:#fee2e2;
+                color:#991b1b;
+                padding:12px;
+                border-radius:10px;
+                margin-top:12px;
+                margin-bottom:10px;
+                font-size:15px;
+                ">
+                <b>Previous Hash Link Issues:</b>
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
 
             for block_number in link_issues:
 
@@ -1534,19 +1648,22 @@ if st.session_state.page == "verify":
 
         if len(rsa_issues) > 0:
 
-            st.markdown("""
-            <div style="
-            background:#fee2e2;
-            color:#991b1b;
-            padding:12px;
-            border-radius:10px;
-            margin-top:12px;
-            margin-bottom:10px;
-            font-size:15px;
-            ">
-            <b>RSA Signature Issues:</b>
-            </div>
-            """, unsafe_allow_html=True)
+            st.markdown(
+                """
+                <div style="
+                background:#fee2e2;
+                color:#991b1b;
+                padding:12px;
+                border-radius:10px;
+                margin-top:12px;
+                margin-bottom:10px;
+                font-size:15px;
+                ">
+                <b>RSA Signature Issues:</b>
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
 
             for block_number in rsa_issues:
 
@@ -1566,47 +1683,53 @@ if st.session_state.page == "verify":
                     unsafe_allow_html=True,
                 )
 
-    # ============================================================
+    # ========================================================
     # OVERALL STATUS
-    # ============================================================
+    # ========================================================
 
     if verification_result["valid"]:
 
-        st.markdown("""
-        <div style="
-        background:#172033;
-        color:white;
-        padding:16px;
-        border-radius:12px;
-        font-size:22px;
-        font-weight:800;
-        text-align:center;
-        margin-top:15px;
-        margin-bottom:15px;
-        box-shadow:0 4px 12px rgba(0,0,0,0.15);
-        ">
-        ✅ Overall Status: Blockchain Valid
-        </div>
-        """, unsafe_allow_html=True)
+        st.markdown(
+            """
+            <div style="
+            background:#172033;
+            color:white;
+            padding:16px;
+            border-radius:12px;
+            font-size:22px;
+            font-weight:800;
+            text-align:center;
+            margin-top:15px;
+            margin-bottom:15px;
+            box-shadow:0 4px 12px rgba(0,0,0,0.15);
+            ">
+            ✅ Overall Status: Blockchain Valid
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
 
     else:
 
-        st.markdown("""
-        <div style="
-        background:#b91c1c;
-        color:white;
-        padding:16px;
-        border-radius:12px;
-        font-size:22px;
-        font-weight:800;
-        text-align:center;
-        margin-top:15px;
-        margin-bottom:15px;
-        box-shadow:0 4px 12px rgba(0,0,0,0.15);
-        ">
-        ❌ Overall Status: Tampering Detected
-        </div>
-        """, unsafe_allow_html=True)
+        st.markdown(
+            """
+            <div style="
+            background:#b91c1c;
+            color:white;
+            padding:16px;
+            border-radius:12px;
+            font-size:22px;
+            font-weight:800;
+            text-align:center;
+            margin-top:15px;
+            margin-bottom:15px;
+            box-shadow:0 4px 12px rgba(0,0,0,0.15);
+            ">
+            ❌ Overall Status: Tampering Detected
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
 
         st.markdown(
             f"""
@@ -1627,6 +1750,7 @@ if st.session_state.page == "verify":
             unsafe_allow_html=True,
         )
 
+
 # ============================================================
 # VIEW BLOCKCHAIN PAGE
 # ============================================================
@@ -1643,17 +1767,17 @@ if st.session_state.page == "view":
         chain = json.load(f)
 
     st.markdown(
-    f"""
-    <div style="
-        color:#172033;
-        font-size:22px;
-        font-weight:800;
-        margin-bottom:15px;
-    ">
-        Total Blocks: {len(chain)}
-    </div>
-    """,
-    unsafe_allow_html=True,
+        f"""
+        <div style="
+            color:#172033;
+            font-size:22px;
+            font-weight:800;
+            margin-bottom:15px;
+        ">
+            Total Blocks: {len(chain)}
+        </div>
+        """,
+        unsafe_allow_html=True,
     )
 
     for i, block in enumerate(chain):
@@ -1720,12 +1844,13 @@ if st.session_state.page == "view":
             unsafe_allow_html=True,
         )
 
+
 # ============================================================
 # HISTORY PAGE
 # ============================================================
 
 if st.session_state.page == "history":
-    
+
     st.components.v1.html(
         """
         <script>
@@ -1734,7 +1859,6 @@ if st.session_state.page == "history":
         """,
         height=0,
     )
-
 
     if st.button("← Back", key="history_back"):
         st.session_state.page = "main"
@@ -1750,7 +1874,7 @@ if st.session_state.page == "history":
     try:
 
         with open(
-            "blockchain_log.json", 
+            "blockchain_log.json",
             "r"
         ) as f:
 
@@ -1902,6 +2026,7 @@ if st.session_state.page == "history":
         st.error(
             f"History Error: {e}"
         )
+
 
 # ============================================================
 # FOOTER
