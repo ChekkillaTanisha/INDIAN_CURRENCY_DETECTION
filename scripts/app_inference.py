@@ -379,6 +379,8 @@ def detect_currency(
     # ========================================================
     # LOAD MODELS
     # ========================================================
+    
+    print("START DETECTION")
 
     yolo_model, authenticity_model = load_models()
 
@@ -390,6 +392,8 @@ def detect_currency(
     image = Image.open(
         image_path
     ).convert("RGB")
+    
+    print("IMAGE OPENED")
 
 
     image_width, image_height = (
@@ -411,6 +415,8 @@ def detect_currency(
         device="cpu",
         verbose=False,
     )
+    
+    print("YOLO DONE")
     
     print("2. Starting YOLO")
 
@@ -614,7 +620,8 @@ def detect_currency(
     # ========================================================
     # STEP 2 — CROP NOTE FROM YOLO BOX
     # ========================================================
-
+    
+     
     crop = image.crop(
         (
             x1,
@@ -623,6 +630,8 @@ def detect_currency(
             y2,
         )
     )
+    print("CROP DONE")
+
 
 
     # ========================================================
@@ -645,6 +654,9 @@ def detect_currency(
         crop,
         authenticity_model,
     )
+    
+
+    print("MOBILENET DONE")
     
     print("4. Starting MobileNet")
     print("5. MobileNet finished")
