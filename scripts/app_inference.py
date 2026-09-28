@@ -400,6 +400,8 @@ def detect_currency(
     # ========================================================
     # STEP 1 — YOLO11 DENOMINATION DETECTION
     # ========================================================
+    
+    print("1. detect_currency started")
 
     yolo_results = yolo_model.predict(
         source=str(image_path),
@@ -409,6 +411,8 @@ def detect_currency(
         device="cpu",
         verbose=False,
     )
+    
+    print("2. Starting YOLO")
 
 
     result = yolo_results[0]
@@ -629,6 +633,8 @@ def detect_currency(
     # MobileNetV2 now receives the YOLO-detected note crop
     # and determines REAL vs FAKE.
     # ========================================================
+    
+    print("3. YOLO finished")
 
     (
         authenticity,
@@ -639,6 +645,10 @@ def detect_currency(
         crop,
         authenticity_model,
     )
+    
+    print("4. Starting MobileNet")
+    print("5. MobileNet finished")
+    print("6. Returning result")
 
 
     # ========================================================
