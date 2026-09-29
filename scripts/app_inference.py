@@ -1,13 +1,13 @@
 import sys
 from pathlib import Path
 from functools import lru_cache
+import streamlit as st
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.append(str(PROJECT_ROOT))
 
 from blockchain import add_record
 from ocr_serial import extract_serial_number
-
 
 import torch
 import torch.nn as nn
@@ -45,7 +45,6 @@ from ultralytics import YOLO
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
-
 YOLO_MODEL_PATH = (
     PROJECT_ROOT
     / "runs"
@@ -53,7 +52,6 @@ YOLO_MODEL_PATH = (
     / "weights"
     / "best.pt"
 )
-
 
 AUTHENTICITY_MODEL_PATH = (
     PROJECT_ROOT
@@ -128,19 +126,14 @@ AUTHENTICITY_THRESHOLD = 0.50
 
 AUTHENTICITY_TRANSFORM = transforms.Compose(
     [
-        transforms.Resize(
-            (224, 224)
-        ),
-
+        transforms.Resize((224, 224)),
         transforms.ToTensor(),
-
         transforms.Normalize(
             mean=[
                 0.485,
                 0.456,
                 0.406,
             ],
-
             std=[
                 0.229,
                 0.224,
@@ -155,18 +148,18 @@ AUTHENTICITY_TRANSFORM = transforms.Compose(
 # LAZY LOAD MODELS
 # ============================================================
 
-@lru_cache(maxsize=1)
+# @lru_cache(maxsize=1)
+
+@st.cache_resource
 def load_models():
 
     print("Loading YOLO...")
 
     if not YOLO_MODEL_PATH.exists():
-
         raise FileNotFoundError(
             "YOLO11 model not found:\n"
             f"{YOLO_MODEL_PATH}"
         )
-
 
     yolo_model = YOLO(
         str(YOLO_MODEL_PATH)
@@ -174,16 +167,13 @@ def load_models():
 
     print("YOLO Loaded")
 
-
     print("Loading MobileNet...")
 
     if not AUTHENTICITY_MODEL_PATH.exists():
-
         raise FileNotFoundError(
             "New MobileNetV2 authenticity model not found:\n"
             f"{AUTHENTICITY_MODEL_PATH}"
         )
-
 
     checkpoint = torch.load(
         AUTHENTICITY_MODEL_PATH,
@@ -191,10 +181,8 @@ def load_models():
         weights_only=False,
     )
 
-
     print(type(checkpoint))
     print(checkpoint.keys())
-
 
     # ========================================================
     # RECREATE MobileNetV2
@@ -204,28 +192,22 @@ def load_models():
         weights=None
     )
 
-
     authenticity_model.classifier[1] = nn.Linear(
         authenticity_model.classifier[1].in_features,
         2,
     )
 
-
     authenticity_model.load_state_dict(
         checkpoint["model_state_dict"]
     )
-
 
     authenticity_model = authenticity_model.to(
         DEVICE
     )
 
-
     authenticity_model.eval()
 
-
     print("MobileNet Loaded")
-
 
     return yolo_model, authenticity_model
 
@@ -242,7 +224,6 @@ def _clamp_box(
 
     x1, y1, x2, y2 = box
 
-
     x1 = max(
         0,
         min(
@@ -250,7 +231,6 @@ def _clamp_box(
             width - 1,
         ),
     )
-
 
     y1 = max(
         0,
@@ -260,7 +240,6 @@ def _clamp_box(
         ),
     )
 
-
     x2 = max(
         1,
         min(
@@ -269,7 +248,6 @@ def _clamp_box(
         ),
     )
 
-
     y2 = max(
         1,
         min(
@@ -277,7 +255,6 @@ def _clamp_box(
             height,
         ),
     )
-
 
     return (
         x1,
@@ -304,19 +281,16 @@ def _classify_authenticity(
         .to(DEVICE)
     )
 
-
     with torch.no_grad():
 
         outputs = authenticity_model(
             input_tensor
         )
 
-
         probabilities = torch.softmax(
             outputs,
             dim=1,
         )
-
 
     fake_probability = float(
         probabilities[
@@ -325,14 +299,12 @@ def _classify_authenticity(
         ].item()
     )
 
-
     real_probability = float(
         probabilities[
             0,
             1,
         ].item()
     )
-
 
     # --------------------------------------------------------
     # FINAL AUTHENTICITY DECISION
@@ -357,7 +329,6 @@ def _classify_authenticity(
             real_probability
         )
 
-
     return (
         authenticity,
         authenticity_confidence,
@@ -376,14 +347,13 @@ def detect_currency(
     yolo_iou=0.45,
 ):
 
+    print("START DETECT")
+
     # ========================================================
     # LOAD MODELS
     # ========================================================
-    
-    print("START DETECTION")
 
     yolo_model, authenticity_model = load_models()
-
 
     # ========================================================
     # OPEN IMAGE
@@ -392,37 +362,33 @@ def detect_currency(
     image = Image.open(
         image_path
     ).convert("RGB")
-    
-    print("IMAGE OPENED")
 
+    image_width, image_height = image.size
 
-    image_width, image_height = (
-        image.size
+    # ========================================================
+    # RESIZE LARGE IMAGES BEFORE YOLO
+    # ========================================================
+
+    image.thumbnail(
+        (1280, 1280)
     )
-
 
     # ========================================================
     # STEP 1 — YOLO11 DENOMINATION DETECTION
     # ========================================================
-    
-    print("1. detect_currency started")
 
     yolo_results = yolo_model.predict(
-        source=str(image_path),
+        source=image,
         conf=yolo_conf,
         iou=yolo_iou,
         imgsz=640,
         device="cpu",
         verbose=False,
     )
-    
-    print("YOLO DONE")
-    
-    print("2. Starting YOLO")
 
+    print("YOLO DONE")
 
     result = yolo_results[0]
-
 
     # ========================================================
     # NO NOTE DETECTED
@@ -460,17 +426,15 @@ def detect_currency(
             "crop": None,
         }
 
-
     # ========================================================
     # SELECT BEST YOLO DETECTION
     # ========================================================
 
     best_index = int(
-    torch.argmax(
-        result.boxes.conf
-    ).item()
-)
-
+        torch.argmax(
+            result.boxes.conf
+        ).item()
+    )
 
     yolo_class_id = int(
         result.boxes.cls[
@@ -478,13 +442,11 @@ def detect_currency(
         ].item()
     )
 
-
     yolo_confidence = float(
         result.boxes.conf[
             best_index
         ].item()
     )
-
 
     # ========================================================
     # YOLO CLASS SAFETY CHECK
@@ -493,69 +455,63 @@ def detect_currency(
     # Reject ₹2000 notes completely
     if yolo_class_id == 6:
 
-      return {
-        "success": False,
+        return {
+            "success": False,
 
-        "message": "₹2000 notes are not supported.",
-        
-        "denomination": "2000",
+            "message": "₹2000 notes are not supported.",
 
-        "denomination_confidence": yolo_confidence,
+            "denomination": "2000",
 
-        "authenticity": None,
+            "denomination_confidence": yolo_confidence,
 
-        "authenticity_confidence": 0.0,
+            "authenticity": None,
 
-        "fake_probability": 0.0,
+            "authenticity_confidence": 0.0,
 
-        "real_probability": 0.0,
+            "fake_probability": 0.0,
 
-        "combined_confidence": 0.0,
+            "real_probability": 0.0,
 
-        "box": None,
+            "combined_confidence": 0.0,
 
-        "crop": None,
-    }
+            "box": None,
 
+            "crop": None,
+        }
 
     if (
-    yolo_class_id < 0
-    or
-    yolo_class_id >= len(result.names)
-):
+        yolo_class_id < 0
+        or yolo_class_id >= len(result.names)
+    ):
 
-      return {
-        "success": False,
+        return {
+            "success": False,
 
-        "message": (
-            "YOLO11 detected an unknown "
-            "currency class."
-        ),
+            "message": (
+                "YOLO11 detected an unknown "
+                "currency class."
+            ),
 
-        "denomination": None,
+            "denomination": None,
 
-        "denomination_confidence": 0.0,
+            "denomination_confidence": 0.0,
 
-        "authenticity": None,
+            "authenticity": None,
 
-        "authenticity_confidence": 0.0,
+            "authenticity_confidence": 0.0,
 
-        "fake_probability": 0.0,
+            "fake_probability": 0.0,
 
-        "real_probability": 0.0,
+            "real_probability": 0.0,
 
-        "combined_confidence": 0.0,
+            "combined_confidence": 0.0,
 
-        "box": None,
+            "box": None,
 
-        "crop": None,
-    }
-
+            "crop": None,
+        }
 
     denomination = result.names[yolo_class_id]
-    
-    
-
 
     # ========================================================
     # GET YOLO BOUNDING BOX
@@ -569,13 +525,11 @@ def detect_currency(
         .numpy()
     )
 
-
     x1, y1, x2, y2 = _clamp_box(
         raw_box,
         image_width,
         image_height,
     )
-
 
     # ========================================================
     # INVALID BOX
@@ -583,8 +537,7 @@ def detect_currency(
 
     if (
         x2 <= x1
-        or
-        y2 <= y1
+        or y2 <= y1
     ):
 
         return {
@@ -616,12 +569,10 @@ def detect_currency(
             "crop": None,
         }
 
-
     # ========================================================
     # STEP 2 — CROP NOTE FROM YOLO BOX
     # ========================================================
-    
-     
+
     crop = image.crop(
         (
             x1,
@@ -630,9 +581,6 @@ def detect_currency(
             y2,
         )
     )
-    print("CROP DONE")
-
-
 
     # ========================================================
     # STEP 3 — MobileNetV2 AUTHENTICITY
@@ -642,8 +590,8 @@ def detect_currency(
     # MobileNetV2 now receives the YOLO-detected note crop
     # and determines REAL vs FAKE.
     # ========================================================
-    
-    print("3. YOLO finished")
+
+    print("MOBILENET START")
 
     (
         authenticity,
@@ -654,14 +602,8 @@ def detect_currency(
         crop,
         authenticity_model,
     )
-    
 
     print("MOBILENET DONE")
-    
-    print("4. Starting MobileNet")
-    print("5. MobileNet finished")
-    print("6. Returning result")
-
 
     # ========================================================
     # STEP 4 — COMBINE YOLO11 + MobileNetV2
@@ -679,13 +621,24 @@ def detect_currency(
         yolo_confidence,
         authenticity_confidence,
     )
-    
+
     # ========================================================
     # OCR SERIAL NUMBER
     # ========================================================
 
-    serial_number = "OCR Disabled"
+    print("OCR START")
 
+    try:
+
+        serial_number = extract_serial_number(
+            str(image_path)
+        )
+
+    except Exception:
+
+        serial_number = "Not Detected"
+
+    print("OCR DONE")
 
     # ========================================================
     # FINAL SYSTEM MESSAGE
@@ -705,7 +658,6 @@ def detect_currency(
             f"and classified as FAKE by MobileNetV2."
         )
 
-
     # ========================================================
     # FINAL COMBINED RESULT
     # ========================================================
@@ -715,14 +667,13 @@ def detect_currency(
         "success": True,
 
         "message": final_message,
-    
 
         # ----------------------------------------------------
         # YOLO11 RESULT
         # ----------------------------------------------------
 
         "denomination": denomination,
-        
+
         "serial_number": serial_number,
 
         "denomination_confidence": (

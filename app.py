@@ -27,7 +27,14 @@ SCRIPTS_DIR = PROJECT_ROOT / "scripts"
 if str(SCRIPTS_DIR) not in sys.path:
     sys.path.insert(0, str(SCRIPTS_DIR))
 
-from app_inference import detect_currency
+from app_inference import detect_currency, load_models
+
+# ============================================================
+# PRELOAD MODELS ON APP STARTUP
+# ============================================================
+
+with st.spinner("Loading AI models..."):
+    load_models()
 
 # ============================================================
 # PAGE CONFIG
@@ -479,7 +486,7 @@ if st.session_state.page == "main":
         )
 
         speech_lang = st.selectbox(
-            "",
+            "Speech Language",
             [
                 "English (en-IN)",
                 "हिन्दी (hi-IN)",
@@ -990,7 +997,7 @@ if st.session_state.page == "main":
                 st.session_state.corrected_serial = serial_number
 
             corrected_serial = st.text_input(
-                "",
+                "Serial Number",
                 key="corrected_serial",
                 label_visibility="collapsed"
             )
